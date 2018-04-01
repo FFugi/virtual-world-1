@@ -5,29 +5,34 @@
 #define VIRTUAL_WORLD_1_WORLD_HPP
 
 #include <vector>
-#include "Organism.hpp"
+#include "structures.hpp"
 
 class Organism;
+class Sheep;
 
 class World {
 private:
-    std::vector<Organism> organisms;
+    std::vector<Organism *> organisms;
     int width;
-    int lenght;
+    int height;
     int numberOfTurn;
-
 public:
     World();
 
-    World(int width, int length);
+    World(int width, int height);
 
     ~World();
 
-    bool NextTurn();
-
+    void AddOrganism(Organism *toAdd);
     void Render();
+    bool NextTurn();
+    std::vector<Position> GetPossibleFields(Position pos);
+
 
 };
+
+#include "Organism.hpp"
+#include "Sheep.hpp"
 
 
 #endif //VIRTUAL_WORLD_1_WORLD_HPP

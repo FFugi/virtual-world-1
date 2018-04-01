@@ -5,14 +5,19 @@
 #ifndef VIRTUAL_WORLD_1_SHEEP_HPP
 #define VIRTUAL_WORLD_1_SHEEP_HPP
 
-#include "Organism.hpp"
+#include "Animal.hpp"
 
-class Sheep : public Organism {
+class Sheep : public Animal{
 public:
-    Sheep(int x, int y, World &world)
-    : Organism(x, y, world, 4, 4) {}
 
 public:
+
+    Sheep(Position position, World &world);
+
+    void Collision() override;
+
+    void Action() override;
+
 
 
 };

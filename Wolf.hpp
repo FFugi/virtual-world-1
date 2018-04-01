@@ -10,8 +10,8 @@
 
 class Wolf : public Organism {
 public:
-    Wolf(int x, int y, World &world)
-            : Organism(x, y, world, 5, 9) {}
+    Wolf(Position position, World &world)
+            : Organism(position, world, 5, 9, 'W') {}
 
 public:
 

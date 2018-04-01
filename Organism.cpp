@@ -4,8 +4,10 @@
 
 #include "Organism.hpp"
 
-Organism::Organism(int x, int y, World &world, int initiative, int strength) :
-        x(x), y(y), World(World), initiative(initiative), strength(strength) {
+
+void Organism::Display(){
+    move(position.y, position.x);
+    addch(symbol);
 }
 
 bool Organism::CompareInitiative(Organism &first, Organism &second) {
