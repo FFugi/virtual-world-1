@@ -5,6 +5,7 @@
 #define VIRTUAL_WORLD_1_WORLD_HPP
 
 #include <vector>
+#include <algorithm>
 #include <cstddef>
 #include <string>
 #include "structures.hpp"
@@ -27,11 +28,14 @@ public:
 
     ~World();
 
+    Organism * GetAtField(Position pos);
+
     void AddOrganism(Organism *toAdd);
     void Render();
     bool NextTurn();
     void Log(std::string log);
     std::vector<Position> GetPossibleFields(Position pos);
+    std::vector<Position> GetPossibleEmptyFields(Position pos);
 private:
     void RenderFrame();
 

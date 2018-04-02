@@ -14,8 +14,6 @@ public:
 
     Sheep(Position position, World &world);
 
-    void Collision() override;
-
     void Action() override;
 
 

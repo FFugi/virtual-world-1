@@ -13,9 +13,9 @@ protected:
     short propabilityOfProcrastination;
 public:
     Plant(Position position, World &world, int strength,
-          char symbol);
+          char symbol, std::string name);
 
-    void Collision() override;
+    void Collision(Organism * other) override;
 
     void Action() override;
 

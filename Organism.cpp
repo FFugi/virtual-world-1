@@ -11,5 +11,11 @@ void Organism::Display(int begX, int begY){
 }
 
 bool Organism::CompareInitiative(Organism &first, Organism &second) {
-    return first.initiative < second.initiative;
+    return first.initiative == second.initiative ? first.age < second.age :
+           first.initiative < second.initiative;
 }
+
+Position Organism::GetPosition() {
+    return position;
+}
+

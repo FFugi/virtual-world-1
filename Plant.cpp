@@ -5,25 +5,36 @@
 #include "Plant.hpp"
 #include "Grass.hpp"
 
-Plant::Plant(Position position, World &world, int strength, char symbol)
+Plant::Plant(Position position, World &world, int strength, char symbol,
+             std::string name)
         : Organism(position, world, 0, strength,
-                   symbol), propabilityOfProcrastination(10) {}
+                   symbol, name), propabilityOfProcrastination(3) {}
 
-void Plant::Collision() {
+void Plant::Collision(Organism * other) {
 
 }
 
 void Plant::Action() {
     // TODO propability
-    bool willProcastrinate =(
+    bool willProcastrinate = (
             rand() % 100 < propabilityOfProcrastination);
     if (!willProcastrinate) {
         return;
     }
-  //  std::vector<Position> possibleFields = world.GetPossibleFields(position);
-  //  Position newPosition = possibleFields.at(rand() % possibleFields.size());
+    std::vector<Position> possibleFields = world.GetPossibleEmptyFields(position);
+    if(possibleFields.size() == 0){
+        return;
+    }
+    Position newPosition = possibleFields.at(rand() % possibleFields.size());
+    if(world.GetAtField(newPosition) != nullptr){
+        return;
+    }
     if (dynamic_cast<Grass *>(this)) {
-        world.Log("New grass");
-        //world.AddOrganism(new Grass(newPosition, world));
+        world.Log(
+                "Grass at " + std::to_string(position.x) + ", " + std::to_string
+                        (position.y) + " generates new grass at: " +
+                std::to_string(newPosition.x) + ", " +
+                std::to_string(newPosition.y));
+        world.AddOrganism(new Grass(newPosition, world));
     }
 }

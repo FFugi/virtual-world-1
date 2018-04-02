@@ -7,6 +7,9 @@
 struct Position{
     int x;
     int y;
+    inline bool operator == (Position other){
+        return x == other.x && y == other.y;
+    }
 };
 
 #endif //VIRTUAL_WORLD_1_STRUCTURES_HPP

@@ -9,6 +9,7 @@ Logger::Logger(Position position) : position(position), currentLine(0) {}
 
 void Logger::Log(std::string log) {
     move(position.y + currentLine, position.x);
+    log = "> "+log;
     addstr(log.c_str());
     currentLine++;
 }

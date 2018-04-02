@@ -13,7 +13,6 @@ class Grass : public Plant{
 public:
     Grass(Position position, World &world);
 
-    void Collision() override;
 
     void Action() override;
 };

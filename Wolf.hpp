@@ -11,7 +11,7 @@
 class Wolf : public Organism {
 public:
     Wolf(Position position, World &world)
-            : Organism(position, world, 5, 9, 'W') {}
+            : Organism(position, world, 5, 9, 'W', "Wolf") {}
 
 public:
 
