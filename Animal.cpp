@@ -34,6 +34,7 @@ void Animal::Collision(Organism *other) {
 
 void Animal::Action() {
     // TODO random move
+    age++;
     Position newPosition;
     try{
         newPosition = world.GetRandomNeighbourField(position);
@@ -43,7 +44,6 @@ void Animal::Action() {
         return;
     }
     Organism *neighbour = world.GetAtField(newPosition);
-    age++;
     if (neighbour != nullptr) {
         neighbour->Collision(this);
         return;

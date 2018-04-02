@@ -44,6 +44,9 @@ Organism *World::GetAtField(Position pos) {
 }
 
 World::~World() {
+    for(auto org:organisms){
+        delete org;
+    }
     endwin();
 }
 
@@ -72,11 +75,12 @@ void World::CleanDeadOrganisms() {
             toDelete.push_back(organisms.at(i));
         }
     }
+    // TODO dealloc kuffa!
     organisms.erase(std::remove_if(organisms.begin(), organisms.end(),
                                    [](const Organism *org) {
                                        return !org->IsAlive();
                                    }), organisms.end());
-    for (auto org:organisms) {
+    for(auto org : toDelete){
         delete org;
     }
 }
@@ -88,7 +92,16 @@ void World::RenderFrame() {
         move(y, position.x + width + 1);
         addch('|');
     }
-    for (int x = position.x + 1; x <= position.x + width; x++) {
+    for (int x = position.x + 1, real = 0;
+         x <= position.x + width; real++, x++) {
+        if(real%2==0) {
+            move(position.y - 1, x);
+            addch(std::to_string(real % 10).at(0));
+        }
+        if(real%10==0) {
+            move(position.y - 2, x);
+            addch(std::to_string(real % 100).at(0));
+        }
         move(position.y, x);
         addch('-');
         move(position.y + height + 1, x);

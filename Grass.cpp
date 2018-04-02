@@ -5,7 +5,7 @@
 #include "Grass.hpp"
 
 Grass::Grass(Position position, World &world) : Plant (position, world,
-                                                          strength, 'g',
+                                                          0, 'g',
                                                        "Grass") {}
 
 

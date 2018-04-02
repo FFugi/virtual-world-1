@@ -10,17 +10,21 @@ Plant::Plant(Position position, World &world, int strength, char symbol,
         : Organism(position, world, 0, strength,
                    symbol, name), propabilityOfProcrastination(3) {}
 
-void Plant::Collision(Organism * other) {
-    world.Log("collision of " + name + " and " + other->name + " at " + " " +
+void Plant::Collision(Organism *other) {
+    world.Log("collision! of " + name + " and " + other->name + " at " + " " +
               std::to_string(position.x) + " " + std::to_string(position.y));
     // TODO next
-    if(!isAlive){
+    if (!isAlive) {
         // TODO ok?
+        world.Log("wtf?? :o");
         return;
     }
-    if(other->GetStrength() > strength) {
+    if (other->GetStrength() > strength) {
+        world.Log(other->name + " killed " + name);
         Kill();
         other->SetPosition(position);
+    } else {
+        world.Log("Plant is great wtf?? :o");
     }
 }
 
@@ -32,8 +36,8 @@ void Plant::Action() {
         return;
     }
 
-    Organism * newOrganism = Procrastinate();
-    if(newOrganism == nullptr){
+    Organism *newOrganism = Procrastinate();
+    if (newOrganism == nullptr) {
         // TODO log
         return;
     }
