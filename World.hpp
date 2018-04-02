@@ -5,7 +5,10 @@
 #define VIRTUAL_WORLD_1_WORLD_HPP
 
 #include <vector>
+#include <cstddef>
+#include <string>
 #include "structures.hpp"
+#include "Logger.hpp"
 
 class Organism;
 class Sheep;
@@ -16,6 +19,7 @@ private:
     int width;
     int height;
     int numberOfTurn;
+    Logger logger;
 public:
     World();
 
@@ -26,8 +30,10 @@ public:
     void AddOrganism(Organism *toAdd);
     void Render();
     bool NextTurn();
+    void Log(std::string log);
     std::vector<Position> GetPossibleFields(Position pos);
-
+private:
+    void RenderFrame();
 
 };
 

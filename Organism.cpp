@@ -5,8 +5,8 @@
 #include "Organism.hpp"
 
 
-void Organism::Display(){
-    move(position.y, position.x);
+void Organism::Display(int begX, int begY){
+    move(begY + position.y, begX + position.x);
     addch(symbol);
 }
 

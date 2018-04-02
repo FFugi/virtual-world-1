@@ -16,16 +16,17 @@ protected:
     int initiative;
     int strength;
     char symbol;
+    int age;
 
 public:
     Organism(Position position, World &world, int initiative, int strength, char
     symbol) :
             position(position), world(world), initiative(initiative),
-            strength(strength), symbol(symbol) {}
+            strength(strength), symbol(symbol), age(0) {}
 
     virtual void Collision() = 0;
 
-    virtual void Display();
+    virtual void Display(int begX, int bexY);
 
     virtual void Action() = 0;
 

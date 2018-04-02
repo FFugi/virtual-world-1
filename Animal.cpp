@@ -17,4 +17,5 @@ void Animal::Action() {
     // TODO random move
     std::vector<Position> possibleFields= world.GetPossibleFields(position);
     position = possibleFields.at( rand() % possibleFields.size() );
+    age++;
 }
