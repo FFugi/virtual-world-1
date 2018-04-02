@@ -55,7 +55,7 @@ bool World::NextTurn() {
     logger.Reset();
     logger.Log("Turn number: " + std::to_string(numberOfTurn));
     for (std::size_t i = 0; i < organisms.size(); i++) {
-        if(organisms.at(i)->IsAlive()) {
+        if (organisms.at(i)->IsAlive()) {
             organisms.at(i)->Action();
         }
     }
@@ -66,10 +66,19 @@ bool World::NextTurn() {
 }
 
 void World::CleanDeadOrganisms() {
+    std::vector<Organism *> toDelete;
+    for (std::size_t i = 0; i < organisms.size(); i++) {
+        if (!organisms.at(i)->IsAlive()) {
+            toDelete.push_back(organisms.at(i));
+        }
+    }
     organisms.erase(std::remove_if(organisms.begin(), organisms.end(),
-    [](const Organism * org){
-        return !org->IsAlive();
-    }), organisms.end());
+                                   [](const Organism *org) {
+                                       return !org->IsAlive();
+                                   }), organisms.end());
+    for (auto org:organisms) {
+        delete org;
+    }
 }
 
 void World::RenderFrame() {

@@ -31,6 +31,8 @@ public:
                     (name)
             {}
 
+    virtual ~Organism(){}
+
     virtual void Collision(Organism * other) = 0;
 
     virtual void Display(Position beg) const ;
