@@ -4,13 +4,13 @@
 #include <ncurses.h>
 #include "World.hpp"
 
-World::World() : width(20), height(20), numberOfTurn(0), logger({30, 2}) {
+World::World() : width(20), height(20), numberOfTurn(0), logger({40, 2}) {
 
 }
 
 World::World(int width, int height) : width(width), height(height),
                                       numberOfTurn(0),
-                                      logger({30, 2}) {
+                                      logger({40, 2}) {
     initscr();
     noecho();
     cbreak();
@@ -52,7 +52,7 @@ void World::Log(std::string log) {
 
 bool World::NextTurn() {
     logger.Reset();
-    logger.Log("Turn number: "+std::to_string(numberOfTurn));
+    logger.Log("Turn number: " + std::to_string(numberOfTurn));
     for (std::size_t i = 0; i < organisms.size(); i++) {
         organisms.at(i)->Action();
     }
@@ -78,16 +78,29 @@ void World::RenderFrame() {
     }
 }
 
-std::vector<Position> World::GetPossibleEmptyFields(Position pos) {
-    std::vector<Position> possibleMoves = GetPossibleFields(pos);
+Position World::GetRandomNeighbourFreeField(Position pos) {
+    std::vector<Position> possibleMoves = GetNeighbourFields(pos);
     possibleMoves.erase(std::remove_if(possibleMoves.begin(), possibleMoves.end
             (), [&](const Position &pos) {
         return GetAtField(pos) != nullptr;
     }), possibleMoves.end());
-    return possibleMoves;
+    if (possibleMoves.size() == 0) {
+        throw NoPossibleFieldException();
+    }
+    Position randomPos = possibleMoves.at(rand() % possibleMoves.size());
+    return randomPos;
 }
 
-std::vector<Position> World::GetPossibleFields(Position pos) {
+Position World::GetRandomNeighbourField(Position pos) {
+    std::vector<Position> possibleMoves = GetNeighbourFields(pos);
+    if (possibleMoves.size() == 0) {
+        throw NoPossibleFieldException();
+    }
+    Position randomPos = possibleMoves.at(rand() % possibleMoves.size());
+    return randomPos;
+}
+
+std::vector<Position> World::GetNeighbourFields(Position pos) {
     std::vector<Position> possibleMoves;
     if (pos.x != 0) {
         possibleMoves.push_back({pos.x - 1, pos.y});

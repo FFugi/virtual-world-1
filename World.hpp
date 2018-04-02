@@ -7,6 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstddef>
+#include <exception>
 #include <string>
 #include "structures.hpp"
 #include "Logger.hpp"
@@ -22,6 +23,12 @@ private:
     int numberOfTurn;
     Logger logger;
 public:
+    class NoPossibleFieldException : public std::exception{
+    public:
+        char const * what() const throw(){ return "There is no possible "
+                                                   "field"; }
+        ~NoPossibleFieldException() throw(){}
+    };
     World();
 
     World(int width, int height);
@@ -34,9 +41,10 @@ public:
     void Render();
     bool NextTurn();
     void Log(std::string log);
-    std::vector<Position> GetPossibleFields(Position pos);
-    std::vector<Position> GetPossibleEmptyFields(Position pos);
+    Position GetRandomNeighbourField(Position pos);
+    Position GetRandomNeighbourFreeField(Position pos);
 private:
+    std::vector<Position> GetNeighbourFields(Position pos);
     void RenderFrame();
 
 };

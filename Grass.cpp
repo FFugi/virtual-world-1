@@ -15,12 +15,13 @@ void Grass::Action() {
 
 
 Organism *Grass::Procrastinate() {
-    std::vector<Position> possibleFields= world.GetPossibleEmptyFields
-            (position);
-    if(possibleFields.size() == 0){
+    Position newPosition;
+    try{
+        newPosition = world.GetRandomNeighbourFreeField(position);
+    }
+    catch(World::NoPossibleFieldException &e){
         return nullptr;
     }
-    Position newPosition = possibleFields.at(rand() % possibleFields.size());
     world.Log(
             "Grass at " + std::to_string(position.x) + ", " + std::to_string
                     (position.y) + " generates new grass at: " +

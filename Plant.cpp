@@ -21,15 +21,11 @@ void Plant::Action() {
     if (!willProcastrinate) {
         return;
     }
-    std::vector<Position> possibleFields = world.GetPossibleEmptyFields(position);
-    if(possibleFields.size() == 0){
+
+    Organism * newOrganism = Procrastinate();
+    if(newOrganism == nullptr){
+        // TODO log
         return;
     }
-    Position newPosition = possibleFields.at(rand() % possibleFields.size());
-    if(world.GetAtField(newPosition) != nullptr){
-        return;
-    }
-    if (dynamic_cast<Grass *>(this)) {
-        world.AddOrganism(new Grass(newPosition, world));
-    }
+    world.AddOrganism(newOrganism);
 }

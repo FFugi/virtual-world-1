@@ -12,14 +12,15 @@ Animal::Animal(Position position, World &world, int initiative, int strength,
 
 
 void Animal::Collision(Organism *other) {
-    // TODO procrastination
     world.Log("collision of " + name + " and " + other->name + " at " + " " +
               std::to_string(position.x) + " " + std::to_string(position.y));
+    // TODO check plant?
     if (typeid(*this).name() == typeid(*other).name()) {
         // same animals, procrastination!
         world.Log("same!");
         Organism * newOrganism = Procrastinate();
         if(newOrganism == nullptr){
+            // TODO log
             return;
         }
         world.AddOrganism(newOrganism);
@@ -30,8 +31,14 @@ void Animal::Collision(Organism *other) {
 
 void Animal::Action() {
     // TODO random move
-    std::vector<Position> possibleFields = world.GetPossibleFields(position);
-    Position newPosition = possibleFields.at(rand() % possibleFields.size());
+    Position newPosition;
+    try{
+        newPosition = world.GetRandomNeighbourField(position);
+    }
+    catch(World::NoPossibleFieldException &e){
+        // TODO log?
+        return;
+    }
     Organism *neighbour = world.GetAtField(newPosition);
     age++;
     if (neighbour != nullptr) {

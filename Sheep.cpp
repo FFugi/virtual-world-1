@@ -15,11 +15,12 @@ void Sheep::Action() {
 
 
 Organism *Sheep::Procrastinate() {
-    std::vector<Position> possibleFields= world.GetPossibleEmptyFields
-            (position);
-    if(possibleFields.size() == 0){
+    Position newPosition;
+    try{
+        newPosition = world.GetRandomNeighbourFreeField(position);
+    }
+    catch (World::NoPossibleFieldException &e){
         return nullptr;
     }
-    Position newPosition = possibleFields.at(rand() % possibleFields.size());
     return new Sheep(newPosition, world);
 }
