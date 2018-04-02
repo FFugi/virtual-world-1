@@ -11,7 +11,17 @@ Plant::Plant(Position position, World &world, int strength, char symbol,
                    symbol, name), propabilityOfProcrastination(3) {}
 
 void Plant::Collision(Organism * other) {
-
+    world.Log("collision of " + name + " and " + other->name + " at " + " " +
+              std::to_string(position.x) + " " + std::to_string(position.y));
+    // TODO next
+    if(!isAlive){
+        // TODO ok?
+        return;
+    }
+    if(other->GetStrength() > strength) {
+        Kill();
+        other->SetPosition(position);
+    }
 }
 
 void Plant::Action() {

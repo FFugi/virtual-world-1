@@ -4,13 +4,13 @@
 #include <ncurses.h>
 #include "World.hpp"
 
-World::World() : width(20), height(20), numberOfTurn(0), logger({40, 2}) {
+World::World() : position({3, 3}), width(20), height(20), numberOfTurn(0),
+                 logger({40, 2}) {
 
 }
 
-World::World(int width, int height) : width(width), height(height),
-                                      numberOfTurn(0),
-                                      logger({40, 2}) {
+World::World(int width, int height) : position({3, 3}), width(width), height
+        (height), numberOfTurn(0), logger({40, 2}) {
     initscr();
     noecho();
     cbreak();
@@ -26,8 +26,9 @@ void World::AddOrganism(Organism *toAdd) {
 void World::Render() {
     clear();
     RenderFrame();
+    logger.RenderFrame();
     for (auto org: organisms) {
-        org->Display(3, 3);
+        org->Display({position.x + 1, position.y + 1});
     }
     refresh();
 }
@@ -54,28 +55,44 @@ bool World::NextTurn() {
     logger.Reset();
     logger.Log("Turn number: " + std::to_string(numberOfTurn));
     for (std::size_t i = 0; i < organisms.size(); i++) {
-        organisms.at(i)->Action();
+        if(organisms.at(i)->IsAlive()) {
+            organisms.at(i)->Action();
+        }
     }
+    CleanDeadOrganisms();
     int sign = getch();
     numberOfTurn++;
     return sign != 'q';
 }
 
+void World::CleanDeadOrganisms() {
+    organisms.erase(std::remove_if(organisms.begin(), organisms.end(),
+    [](const Organism * org){
+        return !org->IsAlive();
+    }), organisms.end());
+}
+
 void World::RenderFrame() {
-    int begY = 2;
-    int begX = 2;
-    for (int y = begY + 1; y <= begY + height; y++) {
-        move(y, begX);
+    for (int y = position.y + 1; y <= position.y + height; y++) {
+        move(y, position.x);
         addch('|');
-        move(y, begX + width + 1);
+        move(y, position.x + width + 1);
         addch('|');
     }
-    for (int x = begX + 1; x <= begX + width; x++) {
-        move(begY, x);
+    for (int x = position.x + 1; x <= position.x + width; x++) {
+        move(position.y, x);
         addch('-');
-        move(begY + height + 1, x);
+        move(position.y + height + 1, x);
         addch('-');
     }
+    move(position.y, position.x);
+    addch('#');
+    move(position.y, position.x + width + 1);
+    addch('#');
+    move(position.y + height + 1, position.x + width + 1);
+    addch('#');
+    move(position.y + height + 1, position.x);
+    addch('#');
 }
 
 Position World::GetRandomNeighbourFreeField(Position pos) {
@@ -113,6 +130,22 @@ std::vector<Position> World::GetNeighbourFields(Position pos) {
     }
     if (pos.y != height - 1) {
         possibleMoves.push_back({pos.x, pos.y + 1});
+    }
+    // up-left
+    if (pos.y != 0 && pos.x != 0) {
+        possibleMoves.push_back({pos.x - 1, pos.y - 1});
+    }
+    // up-right
+    if (pos.y != 0 && pos.x != width - 1) {
+        possibleMoves.push_back({pos.x + 1, pos.y - 1});
+    }
+    // down-right
+    if (pos.y != height - 1 && pos.x != width - 1) {
+        possibleMoves.push_back({pos.x + 1, pos.y + 1});
+    }
+    // down-left
+    if (pos.y != height - 1 && pos.x != 0) {
+        possibleMoves.push_back({pos.x - 1, pos.y + 1});
     }
     return possibleMoves;
 }

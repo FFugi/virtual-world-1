@@ -3,6 +3,7 @@
 //
 
 #include "Animal.hpp"
+#include "Plant.hpp"
 
 Animal::Animal(Position position, World &world, int initiative, int strength,
                char symbol, std::string name) : Organism(position, world,
@@ -15,12 +16,14 @@ void Animal::Collision(Organism *other) {
     world.Log("collision of " + name + " and " + other->name + " at " + " " +
               std::to_string(position.x) + " " + std::to_string(position.y));
     // TODO check plant?
+    if (dynamic_cast<Plant*>(other)){
+        other->Collision(this);
+    }
     if (typeid(*this).name() == typeid(*other).name()) {
         // same animals, procrastination!
-        world.Log("same!");
         Organism * newOrganism = Procrastinate();
         if(newOrganism == nullptr){
-            // TODO log
+            world.Log("Cannot procrastinate - no space!");
             return;
         }
         world.AddOrganism(newOrganism);

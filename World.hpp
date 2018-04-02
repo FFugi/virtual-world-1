@@ -11,12 +11,14 @@
 #include <string>
 #include "structures.hpp"
 #include "Logger.hpp"
+#include "Organism.hpp"
 
 class Organism;
 class Sheep;
 
 class World {
 private:
+    Position position;
     std::vector<Organism *> organisms;
     int width;
     int height;
@@ -37,7 +39,7 @@ public:
 
     Organism * GetAtField(Position pos);
 
-    void AddOrganism(Organism *toAdd);
+    void AddOrganism(Organism * toAdd);
     void Render();
     bool NextTurn();
     void Log(std::string log);
@@ -46,6 +48,7 @@ public:
 private:
     std::vector<Position> GetNeighbourFields(Position pos);
     void RenderFrame();
+    void CleanDeadOrganisms();
 
 };
 
