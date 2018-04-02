@@ -30,11 +30,6 @@ void Plant::Action() {
         return;
     }
     if (dynamic_cast<Grass *>(this)) {
-        world.Log(
-                "Grass at " + std::to_string(position.x) + ", " + std::to_string
-                        (position.y) + " generates new grass at: " +
-                std::to_string(newPosition.x) + ", " +
-                std::to_string(newPosition.y));
         world.AddOrganism(new Grass(newPosition, world));
     }
 }

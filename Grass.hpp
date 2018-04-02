@@ -15,6 +15,8 @@ public:
 
 
     void Action() override;
+
+    Organism * Procrastinate() override;
 };
 
 

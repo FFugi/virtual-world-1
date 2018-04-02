@@ -36,7 +36,9 @@ public:
 
     static bool CompareInitiative(Organism &first, Organism &second);
 
-    Position GetPosition();
+    virtual Position GetPosition();
+
+    virtual Organism *Procrastinate() = 0;
 };
 
 

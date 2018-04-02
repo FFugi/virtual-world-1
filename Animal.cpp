@@ -18,6 +18,11 @@ void Animal::Collision(Organism *other) {
     if (typeid(*this).name() == typeid(*other).name()) {
         // same animals, procrastination!
         world.Log("same!");
+        Organism * newOrganism = Procrastinate();
+        if(newOrganism == nullptr){
+            return;
+        }
+        world.AddOrganism(newOrganism);
         return;
     }
     world.Log("not same!");

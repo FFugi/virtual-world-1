@@ -13,3 +13,13 @@ void Sheep::Action() {
     Animal::Action();
 }
 
+
+Organism *Sheep::Procrastinate() {
+    std::vector<Position> possibleFields= world.GetPossibleEmptyFields
+            (position);
+    if(possibleFields.size() == 0){
+        return nullptr;
+    }
+    Position newPosition = possibleFields.at(rand() % possibleFields.size());
+    return new Sheep(newPosition, world);
+}
