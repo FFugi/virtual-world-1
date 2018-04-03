@@ -17,8 +17,9 @@ int main() {
     simulation.AddOrganism(new Grass({13,0},simulation));
     simulation.Render();
     while(continueSimulation){
-        continueSimulation = simulation.NextTurn();
+        simulation.NextTurn();
         simulation.Render();
+        continueSimulation = getch() != 'q';
     }
     return 0;
 }

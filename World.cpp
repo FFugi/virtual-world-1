@@ -24,7 +24,6 @@ void World::AddOrganism(Organism *toAdd) {
 }
 
 void World::Render() {
-    clear();
     RenderFrame();
     logger.RenderFrame();
     for (auto org: organisms) {
@@ -54,7 +53,8 @@ void World::Log(std::string log) {
     logger.Log(log);
 }
 
-bool World::NextTurn() {
+void World::NextTurn() {
+    clear();
     logger.Reset();
     logger.Log("Turn number: " + std::to_string(numberOfTurn));
     for (std::size_t i = 0; i < organisms.size(); i++) {
@@ -63,9 +63,7 @@ bool World::NextTurn() {
         }
     }
     CleanDeadOrganisms();
-    int sign = getch();
     numberOfTurn++;
-    return sign != 'q';
 }
 
 void World::CleanDeadOrganisms() {

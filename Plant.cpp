@@ -20,11 +20,12 @@ void Plant::Collision(Organism *other) {
         return;
     }
     if (other->GetStrength() > strength) {
-        world.Log(other->name + " killed " + name);
+        world.Log(other->name + " kills " + name);
         Kill();
         other->SetPosition(position);
     } else {
-        world.Log("Plant is great wtf?? :o");
+        world.Log(name + " kills " + other->name);
+        other->Kill();
     }
 }
 
@@ -39,7 +40,12 @@ void Plant::Action() {
     Organism *newOrganism = Procrastinate();
     if (newOrganism == nullptr) {
         // TODO log
+        world.Log("Plant is great wtf?? :o");
         return;
     }
+    Position newPosition = newOrganism->GetPosition();
+    world.Log(name + " at " + std::to_string(position.x) + ", " + std::to_string
+            (position.y) + " generates new " + name + " at: " + std::to_string
+                      (newPosition.x) + ", " + std::to_string(newPosition.y));
     world.AddOrganism(newOrganism);
 }

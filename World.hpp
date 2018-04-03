@@ -41,7 +41,7 @@ public:
 
     void AddOrganism(Organism * toAdd);
     void Render();
-    bool NextTurn();
+    void NextTurn();
     void Log(std::string log);
     Position GetRandomNeighbourField(Position pos);
     Position GetRandomNeighbourFreeField(Position pos);

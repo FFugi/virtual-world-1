@@ -19,11 +19,11 @@ void Animal::Collision(Organism *other) {
     if (dynamic_cast<Plant*>(other)){
         other->Collision(this);
     }
-    if (typeid(*this).name() == typeid(*other).name()) {
+    else if (typeid(*this).name() == typeid(*other).name()) {
         // same animals, procrastination!
         Organism * newOrganism = Procrastinate();
         if(newOrganism == nullptr){
-            world.Log("Cannot procrastinate - no space!");
+            world.Log(name + " cannot procrastinate - no space!");
             return;
         }
         world.AddOrganism(newOrganism);
