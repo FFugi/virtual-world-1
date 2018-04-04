@@ -14,7 +14,7 @@ void Sheep::Action() {
 }
 
 
-Organism *Sheep::Procrastinate() {
+Organism *Sheep::Procreate() {
     Position newPosition;
     try{
         newPosition = world.GetRandomNeighbourFreeField(position);

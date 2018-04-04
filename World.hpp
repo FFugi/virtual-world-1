@@ -24,6 +24,7 @@ private:
     int height;
     int numberOfTurn;
     Logger logger;
+    bool wasOrganismAdded;
 public:
     class NoPossibleFieldException : public std::exception{
     public:
@@ -31,9 +32,8 @@ public:
                                                    "field"; }
         ~NoPossibleFieldException() throw(){}
     };
-    World();
-
-    World(int width, int height);
+    World(int width, int height) : position({3, 3}), width(width), height
+        (height), numberOfTurn(0), logger({40, 2}), wasOrganismAdded(false) {};
 
     ~World();
 
@@ -43,6 +43,7 @@ public:
     void Render();
     void NextTurn();
     void Log(std::string log);
+    void Log(std::string log, int colorPair);
     Position GetRandomNeighbourField(Position pos);
     Position GetRandomNeighbourFreeField(Position pos);
 private:

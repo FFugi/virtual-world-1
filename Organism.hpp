@@ -20,7 +20,6 @@ protected:
     char symbol;
     int age;
     bool isAlive;
-public:
     const std::string name;
 
 public:
@@ -39,11 +38,11 @@ public:
 
     virtual void Action() = 0;
 
-    static bool CompareInitiative(Organism &first, Organism &second);
+    static bool CompareInitiative(Organism *first, Organism *second);
 
     virtual Position GetPosition() const;
 
-    virtual Organism *Procrastinate() = 0;
+    virtual Organism *Procreate() = 0;
 
     virtual void Kill();
 
@@ -51,7 +50,9 @@ public:
 
     virtual int GetStrength() const;
 
-    virtual void SetPosition(Position position);
+    virtual void SetPosition(Position positoion);
+
+    virtual std::string FullName() const;
 };
 
 

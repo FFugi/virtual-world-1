@@ -11,7 +11,7 @@ Plant::Plant(Position position, World &world, int strength, char symbol,
                    symbol, name), propabilityOfProcrastination(3) {}
 
 void Plant::Collision(Organism *other) {
-    world.Log("collision! of " + name + " and " + other->name + " at " + " " +
+    world.Log("collision! of " + FullName()+ " and " + other->FullName()+ " at " + " " +
               std::to_string(position.x) + " " + std::to_string(position.y));
     // TODO next
     if (!isAlive) {
@@ -20,11 +20,11 @@ void Plant::Collision(Organism *other) {
         return;
     }
     if (other->GetStrength() > strength) {
-        world.Log(other->name + " kills " + name);
+        world.Log(other->FullName()+ " kills " + FullName(), 2);
         Kill();
         other->SetPosition(position);
     } else {
-        world.Log(name + " kills " + other->name);
+        world.Log(FullName()+ " kills " + other->FullName(), 2);
         other->Kill();
     }
 }
@@ -37,15 +37,16 @@ void Plant::Action() {
         return;
     }
 
-    Organism *newOrganism = Procrastinate();
+    Organism *newOrganism = Procreate();
     if (newOrganism == nullptr) {
         // TODO log
         world.Log("No place for new" + name);
         return;
     }
     Position newPosition = newOrganism->GetPosition();
-    world.Log(name + " at " + std::to_string(position.x) + ", " + std::to_string
+    world.Log(FullName()+ " at " + std::to_string(position.x) + ", " + std::to_string
             (position.y) + " generates new " + name + " at: " + std::to_string
-                      (newPosition.x) + ", " + std::to_string(newPosition.y));
+                      (newPosition.x) + ", " + std::to_string(newPosition.y),
+              1);
     world.AddOrganism(newOrganism);
 }

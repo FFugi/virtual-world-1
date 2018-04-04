@@ -5,7 +5,7 @@
 #include "Wolf.hpp"
 
 
-Organism *Wolf::Procrastinate() {
+Organism *Wolf::Procreate() {
     Position newPosition;
     try{
         newPosition = world.GetRandomNeighbourFreeField(position);

@@ -15,7 +15,7 @@ public:
 
 public:
 
-    Organism * Procrastinate() override ;
+    Organism * Procreate() override ;
 
 };
 

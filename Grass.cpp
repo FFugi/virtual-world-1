@@ -14,7 +14,7 @@ void Grass::Action() {
 }
 
 
-Organism *Grass::Procrastinate() {
+Organism *Grass::Procreate() {
     Position newPosition;
     try{
         newPosition = world.GetRandomNeighbourFreeField(position);
@@ -23,4 +23,10 @@ Organism *Grass::Procrastinate() {
         return nullptr;
     }
     return new Grass(newPosition, world);
+}
+
+void Grass::Display(Position beg) const {
+    attron(COLOR_PAIR(1));
+    Organism::Display(beg);
+    attroff(COLOR_PAIR(1));
 }

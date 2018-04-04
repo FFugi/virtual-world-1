@@ -4,22 +4,10 @@
 #include <ncurses.h>
 #include "World.hpp"
 
-World::World() : position({3, 3}), width(20), height(20), numberOfTurn(0),
-                 logger({40, 2}) {
-
-}
-
-World::World(int width, int height) : position({3, 3}), width(width), height
-        (height), numberOfTurn(0), logger({40, 2}) {
-    initscr();
-    noecho();
-    cbreak();
-    curs_set(0);
-    refresh();
-}
 
 void World::AddOrganism(Organism *toAdd) {
     organisms.push_back(toAdd);
+    wasOrganismAdded = true;
     // TODO sorting vector
 }
 
@@ -43,24 +31,34 @@ Organism *World::GetAtField(Position pos) {
 }
 
 World::~World() {
-    for(auto org:organisms){
+    for (auto org:organisms) {
         delete org;
     }
     endwin();
 }
 
 void World::Log(std::string log) {
-    logger.Log(log);
+    logger.Log(std::move(log));
+}
+
+void World::Log(std::string log, int colorPair) {
+    logger.Log(std::move(log), colorPair);
 }
 
 void World::NextTurn() {
     clear();
     logger.Reset();
     logger.Log("Turn number: " + std::to_string(numberOfTurn));
-    for (std::size_t i = 0; i < organisms.size(); i++) {
+    std::size_t iterations = organisms.size();
+    for (std::size_t i = 0; i < iterations; i++) {
         if (organisms.at(i)->IsAlive()) {
             organisms.at(i)->Action();
         }
+    }
+    if(wasOrganismAdded) {
+        std::sort(organisms.begin(), organisms.end(),
+                  Organism::CompareInitiative);
+        wasOrganismAdded = false;
     }
     CleanDeadOrganisms();
     numberOfTurn++;
@@ -73,12 +71,11 @@ void World::CleanDeadOrganisms() {
             toDelete.push_back(organisms.at(i));
         }
     }
-    // TODO dealloc kuffa!
     organisms.erase(std::remove_if(organisms.begin(), organisms.end(),
                                    [](const Organism *org) {
                                        return !org->IsAlive();
                                    }), organisms.end());
-    for(auto org : toDelete){
+    for (auto org : toDelete) {
         delete org;
     }
 }
@@ -92,11 +89,11 @@ void World::RenderFrame() {
     }
     for (int x = position.x + 1, real = 0;
          x <= position.x + width; real++, x++) {
-        if(real%2==0) {
+        if (real % 2 == 0) {
             move(position.y - 1, x);
             addch(std::to_string(real % 10).at(0));
         }
-        if(real%10==0) {
+        if (real % 10 == 0) {
             move(position.y - 2, x);
             addch(std::to_string(real % 100).at(0));
         }
@@ -106,13 +103,13 @@ void World::RenderFrame() {
         addch('-');
     }
     move(position.y, position.x);
-    addch('#');
+    addch('o');
     move(position.y, position.x + width + 1);
-    addch('#');
+    addch('o');
     move(position.y + height + 1, position.x + width + 1);
-    addch('#');
+    addch('o');
     move(position.y + height + 1, position.x);
-    addch('#');
+    addch('o');
 }
 
 Position World::GetRandomNeighbourFreeField(Position pos) {

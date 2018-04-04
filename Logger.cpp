@@ -8,9 +8,15 @@
 Logger::Logger(Position position) : position(position), currentLine(0) {}
 
 void Logger::Log(std::string log) {
+    Log(log, 0);
+}
+
+void Logger::Log(std::string log, int colorPair) {
     move(position.y + currentLine + 2, position.x + 1);
     log = "> "+log;
+    attron(COLOR_PAIR(colorPair) | A_BOLD);
     addstr(log.c_str());
+    attroff(COLOR_PAIR(colorPair)|A_BOLD);
     currentLine++;
 }
 

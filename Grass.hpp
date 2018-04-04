@@ -16,7 +16,9 @@ public:
 
     void Action() override;
 
-    Organism * Procrastinate() override;
+    Organism * Procreate() override;
+
+    void Display(Position beg) const override;
 };
 
 

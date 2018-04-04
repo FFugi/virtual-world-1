@@ -16,6 +16,7 @@ private:
 public:
     Logger(Position position);
     void Log(std::string log);
+    void Log(std::string log, int colorPair);
     void RenderFrame();
     void Reset();
     void ChangePosition(Position position);

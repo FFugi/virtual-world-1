@@ -10,9 +10,15 @@ void Organism::Display(Position beg) const {
     addch(symbol);
 }
 
-bool Organism::CompareInitiative(Organism &first, Organism &second) {
-    return first.initiative == second.initiative ? first.age < second.age :
-           first.initiative < second.initiative;
+bool Organism::CompareInitiative(Organism *first, Organism *second) {
+    return first->initiative == second->initiative ? first->age > second->age :
+           first->initiative > second->initiative;
+}
+
+std::string Organism::FullName() const {
+    return name + " i:" + std::to_string(initiative) + " s:" +
+           std::to_string(strength) + " (" + std::to_string(position.x) + "," +
+           std::to_string(position.y) + ")";
 }
 
 int Organism::GetStrength() const {
