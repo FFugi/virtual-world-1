@@ -5,3 +5,14 @@
 #include "Wolf.hpp"
 
 
+Organism *Wolf::Procrastinate() {
+    Position newPosition;
+    try{
+        newPosition = world.GetRandomNeighbourFreeField(position);
+    }
+    catch (World::NoPossibleFieldException &e){
+        return nullptr;
+    }
+    return new Wolf(newPosition, world);
+}
+

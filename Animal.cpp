@@ -18,6 +18,7 @@ void Animal::Collision(Organism *other) {
     // TODO check plant?
     if (dynamic_cast<Plant*>(other)){
         other->Collision(this);
+        return;
     }
     else if (typeid(*this).name() == typeid(*other).name()) {
         // same animals, procrastination!
@@ -28,6 +29,15 @@ void Animal::Collision(Organism *other) {
         }
         world.AddOrganism(newOrganism);
         return;
+    }
+    // fight
+    if (other->GetStrength() > strength) {
+        world.Log(other->name + " kills " + name);
+        Kill();
+        other->SetPosition(position);
+    } else {
+        world.Log(name + " kills " + other->name);
+        other->Kill();
     }
     world.Log("not same!");
 }

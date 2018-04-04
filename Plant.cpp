@@ -40,7 +40,7 @@ void Plant::Action() {
     Organism *newOrganism = Procrastinate();
     if (newOrganism == nullptr) {
         // TODO log
-        world.Log("Plant is great wtf?? :o");
+        world.Log("No place for new" + name);
         return;
     }
     Position newPosition = newOrganism->GetPosition();

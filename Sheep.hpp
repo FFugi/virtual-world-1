@@ -18,7 +18,6 @@ public:
 
     Organism * Procrastinate() override ;
 
-
 };
 
 

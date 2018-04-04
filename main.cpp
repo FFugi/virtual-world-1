@@ -2,6 +2,7 @@
 #include <ncurses.h>
 #include "World.hpp"
 #include "Grass.hpp"
+#include "Wolf.hpp"
 #include <ctime>
 
 int main() {
@@ -9,11 +10,8 @@ int main() {
 
     World simulation(30, 15);
     bool continueSimulation = true;
-    Sheep ofca({0,0}, simulation);
-    //Sheep ofca2({13,0}, simulation);
-    Grass traffka({3,3}, simulation);
     simulation.AddOrganism(new Sheep({0,0},simulation));
-    //simulation.AddOrganism(&ofca2);
+    simulation.AddOrganism(new Wolf({4,4},simulation));
     simulation.AddOrganism(new Grass({13,0},simulation));
     simulation.Render();
     while(continueSimulation){

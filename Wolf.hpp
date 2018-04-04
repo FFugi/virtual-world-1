@@ -6,14 +6,16 @@
 #define VIRTUAL_WORLD_1_WOLF_HPP
 
 
-#include "Organism.hpp"
+#include "Animal.hpp"
 
-class Wolf : public Organism {
+class Wolf : public Animal{
 public:
     Wolf(Position position, World &world)
-            : Organism(position, world, 5, 9, 'W', "Wolf") {}
+            : Animal(position, world, 5, 9, 'W', "Wolf") {}
 
 public:
+
+    Organism * Procrastinate() override ;
 
 };
 
