@@ -32,7 +32,7 @@ public:
 
     virtual ~Organism(){}
 
-    virtual void Collision(Organism * other) = 0;
+    virtual void Collision(Organism *other, bool isAttacked) = 0;
 
     virtual void Display(Position beg) const ;
 
@@ -53,6 +53,8 @@ public:
     virtual void SetPosition(Position positoion);
 
     virtual std::string FullName() const;
+
+    virtual void IncrementAge();
 };
 
 

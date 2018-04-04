@@ -49,16 +49,19 @@ void World::NextTurn() {
     clear();
     logger.Reset();
     logger.Log("Turn number: " + std::to_string(numberOfTurn));
+    if(wasOrganismAdded) {
+        std::sort(organisms.begin(), organisms.end(),
+                  Organism::CompareInitiative);
+        wasOrganismAdded = false;
+    }
     std::size_t iterations = organisms.size();
     for (std::size_t i = 0; i < iterations; i++) {
         if (organisms.at(i)->IsAlive()) {
             organisms.at(i)->Action();
         }
     }
-    if(wasOrganismAdded) {
-        std::sort(organisms.begin(), organisms.end(),
-                  Organism::CompareInitiative);
-        wasOrganismAdded = false;
+    for(auto org : organisms){
+        org->IncrementAge();
     }
     CleanDeadOrganisms();
     numberOfTurn++;

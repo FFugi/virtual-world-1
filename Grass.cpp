@@ -4,10 +4,6 @@
 
 #include "Grass.hpp"
 
-Grass::Grass(Position position, World &world) : Plant (position, world,
-                                                          0, 'g',
-                                                       "Grass") {}
-
 
 void Grass::Action() {
     Plant::Action();

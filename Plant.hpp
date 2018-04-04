@@ -15,7 +15,7 @@ public:
     Plant(Position position, World &world, int strength,
           char symbol, std::string name);
 
-    void Collision(Organism * other) override;
+    void Collision(Organism *other, bool isAttacked) override;
 
     void Action() override;
 

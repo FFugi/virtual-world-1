@@ -16,9 +16,14 @@ bool Organism::CompareInitiative(Organism *first, Organism *second) {
 }
 
 std::string Organism::FullName() const {
-    return name + " i:" + std::to_string(initiative) + " s:" +
-           std::to_string(strength) + " (" + std::to_string(position.x) + "," +
+    return name + " a:" + std::to_string(age) + " i:" +
+           std::to_string(initiative) + " s:" + std::to_string(strength) +
+           " (" + std::to_string(position.x) + "," +
            std::to_string(position.y) + ")";
+}
+
+void Organism::IncrementAge() {
+    age++;
 }
 
 int Organism::GetStrength() const {

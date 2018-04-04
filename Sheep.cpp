@@ -4,11 +4,6 @@
 
 #include "Sheep.hpp"
 
-Sheep::Sheep(Position position, World &world) : Animal(position, world, 4,
-                                                  4, 'S', "Sheep") {}
-
-
-
 void Sheep::Action() {
     Animal::Action();
 }

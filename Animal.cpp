@@ -12,25 +12,26 @@ Animal::Animal(Position position, World &world, int initiative, int strength,
                                                          symbol, name) {}
 
 
-void Animal::Collision(Organism *other) {
-    world.Log("collision of " + FullName() + " and " + other->FullName() +
-              " at " +
-              " " + std::to_string(position.x) + " " + std::to_string
-                      (position.y));
+void Animal::Collision(Organism *other, bool isAttacked) {
     // TODO check plant?
     if (dynamic_cast<Plant *>(other)) {
-        other->Collision(this);
+        other->Collision(this, false);
         return;
     } else if (typeid(*this).name() == typeid(*other).name()) {
-        // same animals, procrastination!
+        // same animals, procreation!
         Organism *newOrganism = Procreate();
         if (newOrganism == nullptr) {
           //  world.Log(name + " cannot procreate - no space!");
             return;
         }
+        world.Log(FullName() +" and "+other->FullName() + " make:", 1);
         world.Log("New " + newOrganism->FullName(), 1);
         world.AddOrganism(newOrganism);
         return;
+    }
+
+    if(isAttacked){
+        world.Log( other->FullName() + " attacks " + FullName());
     }
     // fight
     if (other->GetStrength() > strength) {
@@ -45,7 +46,6 @@ void Animal::Collision(Organism *other) {
 
 void Animal::Action() {
     // TODO random move
-    age++;
     Position newPosition;
     try {
         newPosition = world.GetRandomNeighbourField(position);
@@ -54,11 +54,11 @@ void Animal::Action() {
         // TODO log?
         return;
     }
-    world.Log(FullName() + " moves to (" + std::to_string(newPosition.x) + ","
-              + std::to_string(newPosition.y) + ")");
+//    world.Log(FullName() + " moves to (" + std::to_string(newPosition.x) + ","
+//              + std::to_string(newPosition.y) + ")");
     Organism *neighbour = world.GetAtField(newPosition);
     if (neighbour != nullptr) {
-        neighbour->Collision(this);
+        neighbour->Collision(this, true);
         return;
     }
     position = newPosition;

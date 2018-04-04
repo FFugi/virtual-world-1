@@ -12,7 +12,8 @@ public:
 
 public:
 
-    Sheep(Position position, World &world);
+    Sheep(Position position, World &world) : Animal(position, world, 4,
+                                                  4, 'S', "Sheep") {}
 
     void Action() override;
 

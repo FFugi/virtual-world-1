@@ -13,8 +13,6 @@ public:
     Wolf(Position position, World &world)
             : Animal(position, world, 5, 9, 'W', "Wolf") {}
 
-public:
-
     Organism * Procreate() override ;
 
 };

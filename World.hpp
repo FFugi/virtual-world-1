@@ -33,7 +33,8 @@ public:
         ~NoPossibleFieldException() throw(){}
     };
     World(int width, int height) : position({3, 3}), width(width), height
-        (height), numberOfTurn(0), logger({40, 2}), wasOrganismAdded(false) {};
+        (height), numberOfTurn(0), logger({2, position.y + height+ 2}),
+                                   wasOrganismAdded(false) {};
 
     ~World();
 
@@ -46,8 +47,8 @@ public:
     void Log(std::string log, int colorPair);
     Position GetRandomNeighbourField(Position pos);
     Position GetRandomNeighbourFreeField(Position pos);
-private:
     std::vector<Position> GetNeighbourFields(Position pos);
+private:
     void RenderFrame();
     void CleanDeadOrganisms();
 

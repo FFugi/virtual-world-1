@@ -10,9 +10,10 @@ Plant::Plant(Position position, World &world, int strength, char symbol,
         : Organism(position, world, 0, strength,
                    symbol, name), propabilityOfProcrastination(3) {}
 
-void Plant::Collision(Organism *other) {
-    world.Log("collision! of " + FullName()+ " and " + other->FullName()+ " at " + " " +
-              std::to_string(position.x) + " " + std::to_string(position.y));
+void Plant::Collision(Organism *other, bool isAttacked) {
+    if(isAttacked){
+        world.Log( other->FullName() + " attacks " + FullName());
+    }
     // TODO next
     if (!isAlive) {
         // TODO ok?
@@ -20,19 +21,18 @@ void Plant::Collision(Organism *other) {
         return;
     }
     if (other->GetStrength() > strength) {
-        world.Log(other->FullName()+ " kills " + FullName(), 2);
+        world.Log(other->FullName() + " kills " + FullName(), 2);
         Kill();
         other->SetPosition(position);
     } else {
-        world.Log(FullName()+ " kills " + other->FullName(), 2);
+        world.Log(FullName() + " kills " + other->FullName(), 2);
         other->Kill();
     }
 }
 
 void Plant::Action() {
     // TODO propability
-    bool willProcastrinate = (
-            rand() % 100 < propabilityOfProcrastination);
+    bool willProcastrinate = (rand() % 100 < propabilityOfProcrastination);
     if (!willProcastrinate) {
         return;
     }
@@ -40,12 +40,12 @@ void Plant::Action() {
     Organism *newOrganism = Procreate();
     if (newOrganism == nullptr) {
         // TODO log
-        world.Log("No place for new" + name);
+        //world.Log("No place for new" + name);
         return;
     }
     Position newPosition = newOrganism->GetPosition();
-    world.Log(FullName()+ " at " + std::to_string(position.x) + ", " + std::to_string
-            (position.y) + " generates new " + name + " at: " + std::to_string
+    world.Log(FullName() +" generates new " + name + " at: " +
+              std::to_string
                       (newPosition.x) + ", " + std::to_string(newPosition.y),
               1);
     world.AddOrganism(newOrganism);

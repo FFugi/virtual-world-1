@@ -6,17 +6,16 @@
 #define VIRTUAL_WORLD_1_GRASS_HPP
 
 
-#include "Organism.hpp"
 #include "Plant.hpp"
 
-class Grass : public Plant{
+class Grass : public Plant {
 public:
-    Grass(Position position, World &world);
-
+    Grass(Position position, World &world) :
+            Plant(position, world, 0, 'g', "Grass") {};
 
     void Action() override;
 
-    Organism * Procreate() override;
+    Organism *Procreate() override;
 
     void Display(Position beg) const override;
 };
