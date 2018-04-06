@@ -7,6 +7,7 @@
 
 
 #include "plants/Plant.hpp"
+#include "animals/Animal.hpp"
 
 class Hogweed : public Plant {
 public:

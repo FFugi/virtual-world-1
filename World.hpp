@@ -14,7 +14,6 @@
 #include "Organism.hpp"
 
 class Organism;
-class Sheep;
 
 class World {
 private:
@@ -55,7 +54,6 @@ private:
 };
 
 #include "Organism.hpp"
-#include "animals/Sheep.hpp"
 
 
 #endif //VIRTUAL_WORLD_1_WORLD_HPP

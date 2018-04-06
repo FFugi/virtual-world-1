@@ -8,6 +8,8 @@
 #include "animals/Turtle.hpp"
 #include "plants/Guarana.hpp"
 #include "WolfBerry.hpp"
+#include "Hogweed.hpp"
+#include "animals/Sheep.hpp"
 #include <ctime>
 
 int main() {
@@ -42,6 +44,7 @@ int main() {
     simulation.AddOrganism(new Sonchus({59,0},simulation));
     simulation.AddOrganism(new Guarana({30,7},simulation));
     simulation.AddOrganism(new WolfBerry({29,7},simulation));
+    simulation.AddOrganism(new Hogweed({15,7},simulation));
     simulation.Render();
     while(continueSimulation){
         continueSimulation = getch() != 'q';

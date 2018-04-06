@@ -44,7 +44,7 @@ public:
 
     virtual Organism *Procreate() = 0;
 
-    virtual void Kill();
+    virtual void Kill(Organism * attacker);
 
     virtual bool IsAlive() const;
 
@@ -59,5 +59,6 @@ public:
     virtual void ModifyStrength(int value);
 };
 
+#include "World.hpp"
 
 #endif //VIRTUAL_WORLD_1_ORGANISM_HPP

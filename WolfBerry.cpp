@@ -8,7 +8,7 @@ void WolfBerry::Collision(Organism *other, bool isAttacked) {
     // TODO is strength important?
     world.Log(other->FullName() + " attacks " + FullName() + " and gets killed"
                                                              ,2);
-    other->Kill();
+    other->Kill(this);
 }
 
 Organism *WolfBerry::Procreate() {

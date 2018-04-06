@@ -9,8 +9,32 @@ void Hogweed::Action() {
     std::vector<Organism*> neighbours;
     for(auto pos : positions){
         Organism * neighbour = world.GetAtField(pos);
-        if(neighbour != nullptr){
-            neighbour->Kill();
+        if(neighbour != nullptr && dynamic_cast<Animal*>(neighbour)){
+            // TODO change kill method - it should log
+            neighbour->Kill(this);
         }
     }
+    Plant::Action();
+}
+
+void Hogweed::Collision(Organism *other, bool isAttacked) {
+    // TODO
+    Plant::Collision(other, isAttacked);
+}
+
+Organism *Hogweed::Procreate() {
+    Position newPosition;
+    try {
+        newPosition = world.GetRandomNeighbourFreeField(position);
+    }
+    catch (World::NoPossibleFieldException &e) {
+        return nullptr;
+    }
+    return new Hogweed(newPosition, world);
+}
+
+void Hogweed::Display(Position beg) const {
+    attron(COLOR_PAIR(1));
+    Organism::Display(beg);
+    attroff(COLOR_PAIR(1));
 }

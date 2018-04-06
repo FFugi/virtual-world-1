@@ -34,7 +34,9 @@ Position Organism::GetPosition() const {
     return position;
 }
 
-void Organism::Kill() {
+void Organism::Kill(Organism *attacker) {
+    world.Log(
+            attacker->FullName() + " kills " + FullName(), 2);
     isAlive = false;
 }
 
