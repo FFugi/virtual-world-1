@@ -7,7 +7,7 @@
 
 void Organism::Display(Position beg) const {
     move(beg.y + position.y, beg.x + position.x);
-    addch(symbol);
+    addch(symbol | A_BOLD);
 }
 
 bool Organism::CompareInitiative(Organism *first, Organism *second) {
@@ -44,4 +44,8 @@ bool Organism::IsAlive() const {
 
 void Organism::SetPosition(Position position) {
     this->position = position;
+}
+
+void Organism::ModifyStrength(int value) {
+    strength += value;
 }

@@ -55,6 +55,8 @@ public:
     virtual std::string FullName() const;
 
     virtual void IncrementAge();
+
+    virtual void ModifyStrength(int value);
 };
 
 

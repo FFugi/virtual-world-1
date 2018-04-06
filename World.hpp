@@ -55,7 +55,7 @@ private:
 };
 
 #include "Organism.hpp"
-#include "Sheep.hpp"
+#include "animals/Sheep.hpp"
 
 
 #endif //VIRTUAL_WORLD_1_WORLD_HPP

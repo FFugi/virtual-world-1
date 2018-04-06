@@ -84,7 +84,14 @@ void World::CleanDeadOrganisms() {
 }
 
 void World::RenderFrame() {
-    for (int y = position.y + 1; y <= position.y + height; y++) {
+    for (int y = position.y + 1, real = 0; y <= position.y + height; real++,
+            y++) {
+        move(y, position.x - 1);
+        addch(std::to_string(real % 10).at(0));
+        if (real % 10 == 0) {
+            move(y, position.x -2);
+            addch(std::to_string(real % 100).at(0));
+        }
         move(y, position.x);
         addch('|');
         move(y, position.x + width + 1);
