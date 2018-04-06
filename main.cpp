@@ -7,9 +7,10 @@
 #include "animals/Fox.hpp"
 #include "animals/Turtle.hpp"
 #include "plants/Guarana.hpp"
-#include "WolfBerry.hpp"
-#include "Hogweed.hpp"
+#include "plants/WolfBerry.hpp"
+#include "plants/Hogweed.hpp"
 #include "animals/Sheep.hpp"
+#include "animals/Antelope.hpp"
 #include <ctime>
 
 int main() {
@@ -29,14 +30,15 @@ int main() {
     World simulation(60, 15);
     bool continueSimulation = true;
     simulation.AddOrganism(new Fox({1,10},simulation));
+    simulation.AddOrganism(new Fox({40,13},simulation));
 
-    simulation.AddOrganism(new Wolf({4,1},simulation));
 
     simulation.AddOrganism(new Sheep({10,10},simulation));
-    simulation.AddOrganism(new Sheep({20,10},simulation));
+    simulation.AddOrganism(new Sheep({40,10},simulation));
 
-    simulation.AddOrganism(new Fox({0,13},simulation));
     simulation.AddOrganism(new Turtle({0,14},simulation));
+    simulation.AddOrganism(new Antelope({50,10},simulation));
+    simulation.AddOrganism(new Wolf({51,10},simulation));
 
     simulation.AddOrganism(new Grass({0,0},simulation));
     simulation.AddOrganism(new Grass({59,14},simulation));
