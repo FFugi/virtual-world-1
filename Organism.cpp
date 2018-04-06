@@ -40,6 +40,12 @@ void Organism::Kill(Organism *attacker) {
     isAlive = false;
 }
 
+void Organism::Kill(Organism *attacker, std::string comment) {
+    world.Log(
+            attacker->FullName() + " kills " + FullName() + " " + comment, 2);
+    isAlive = false;
+}
+
 bool Organism::IsAlive() const {
     return isAlive;
 }

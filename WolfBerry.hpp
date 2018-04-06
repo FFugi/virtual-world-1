@@ -12,7 +12,7 @@ class WolfBerry : public Plant {
 
 public:
     WolfBerry(Position position, World &world) :
-    Plant(position, world, 0, 'b', "Wolf Berry") {};
+    Plant(position, world, 99, 'b', "Wolf Berry") {};
 
     void Collision(Organism *other, bool isAttacked) override ;
 

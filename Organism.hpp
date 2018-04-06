@@ -46,6 +46,8 @@ public:
 
     virtual void Kill(Organism * attacker);
 
+    virtual void Kill(Organism * attacker, std::string comment);
+
     virtual bool IsAlive() const;
 
     virtual int GetStrength() const;
