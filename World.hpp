@@ -12,6 +12,7 @@
 #include "structures.hpp"
 #include "Logger.hpp"
 #include "Organism.hpp"
+#include "serialization/Serializator.hpp"
 
 class Organism;
 
@@ -25,6 +26,12 @@ private:
     Logger logger;
     bool wasOrganismAdded;
 public:
+    enum Command{
+        NEXT_TURN,
+        EXIT,
+        SAVE,
+        ERROR
+    };
     class NoPossibleFieldException : public std::exception{
     public:
         char const * what() const throw(){ return "There is no possible "

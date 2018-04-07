@@ -8,7 +8,7 @@
 #include <cstddef>
 #include <string>
 #include "structures.hpp"
-#include "Serialization/Serializable.hpp"
+#include "serialization/Serializable.hpp"
 
 class World;
 

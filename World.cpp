@@ -3,7 +3,6 @@
 //
 #include <ncurses.h>
 #include "World.hpp"
-#include "Serialization/Serializator.hpp"
 
 
 void World::AddOrganism(Organism *toAdd) {
