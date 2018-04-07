@@ -15,7 +15,7 @@
 
 class Organism;
 
-class World {
+class World : public Serializable{
 private:
     Position position;
     std::vector<Organism *> organisms;
@@ -47,11 +47,13 @@ public:
     Position GetRandomNeighbourField(Position pos);
     Position GetRandomNeighbourFreeField(Position pos);
     std::vector<Position> GetNeighbourFields(Position pos);
+    std::string Serialize() override;
 private:
     void RenderSignature();
     void RenderFrame();
     void RenderLegend();
     void CleanDeadOrganisms();
+    void SaveToFile();
 
 };
 

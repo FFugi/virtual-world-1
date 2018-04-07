@@ -3,6 +3,7 @@
 //
 #include <ncurses.h>
 #include "World.hpp"
+#include "Serialization/Serializator.hpp"
 
 
 void World::AddOrganism(Organism *toAdd) {
@@ -67,6 +68,8 @@ void World::NextTurn() {
     }
     CleanDeadOrganisms();
     numberOfTurn++;
+    // TODO tests
+    SaveToFile();
 }
 
 void World::CleanDeadOrganisms() {
@@ -216,4 +219,20 @@ std::vector<Position> World::GetNeighbourFields(Position pos) {
         possibleMoves.push_back({pos.x - 1, pos.y + 1});
     }
     return possibleMoves;
+}
+
+std::string World::Serialize() {
+    std::string name("World");
+    return name + ',' + std::to_string(width) + ',' + std::to_string(height)
+           + ',' + std::to_string(numberOfTurn);
+}
+
+void World::SaveToFile() {
+    Serializator ser;
+    ser.OpenToSave("save.txt");
+    ser.SaveToFile(*this);
+    for(auto org : organisms){
+        ser.SaveToFile(*org);
+    }
+    ser.Close();
 }

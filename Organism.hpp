@@ -8,10 +8,11 @@
 #include <cstddef>
 #include <string>
 #include "structures.hpp"
+#include "Serialization/Serializable.hpp"
 
 class World;
 
-class Organism {
+class Organism : public Serializable {
 protected:
     Position position;
     World &world;
@@ -29,8 +30,8 @@ public:
             strength(strength), symbol(symbol), age(0),isAlive(true), name
                     (name)
             {}
-
-    virtual ~Organism(){}
+    // TODO check = default
+    virtual ~Organism() = default;
 
     virtual void Collision(Organism *other, bool isAttacked) = 0;
 
@@ -59,6 +60,8 @@ public:
     virtual void IncrementAge();
 
     virtual void ModifyStrength(int value);
+
+    std::string Serialize()override;
 };
 
 #include "World.hpp"

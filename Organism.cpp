@@ -3,6 +3,8 @@
 //
 
 #include "Organism.hpp"
+#include "plants/Plant.hpp"
+#include "animals/Animal.hpp"
 
 
 void Organism::Display(Position beg) const {
@@ -56,4 +58,13 @@ void Organism::SetPosition(Position position) {
 
 void Organism::ModifyStrength(int value) {
     strength += value;
+}
+
+std::string Organism::Serialize() {
+    std::string type = dynamic_cast<Plant*>(this) ? "plant" :
+                       dynamic_cast<Animal*>(this) ? "animal":
+                       "unknown";
+    return type +',' + name + ',' + std::to_string(age) + ',' +
+           std::to_string(initiative) + ',' + std::to_string(strength) + ',' +
+           std::to_string(position.x) + ',' + std::to_string(position.y);
 }

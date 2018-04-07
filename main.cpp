@@ -11,6 +11,7 @@
 #include "plants/Hogweed.hpp"
 #include "animals/Sheep.hpp"
 #include "animals/Antelope.hpp"
+#include "Serialization/Serializator.hpp"
 #include <ctime>
 
 int main() {
@@ -20,6 +21,7 @@ int main() {
     curs_set(0);
     start_color();
     refresh();
+
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
     init_pair(2, COLOR_RED, COLOR_BLACK);
     init_pair(3, COLOR_YELLOW, COLOR_BLACK);
