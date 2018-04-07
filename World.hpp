@@ -48,7 +48,9 @@ public:
     Position GetRandomNeighbourFreeField(Position pos);
     std::vector<Position> GetNeighbourFields(Position pos);
 private:
+    void RenderSignature();
     void RenderFrame();
+    void RenderLegend();
     void CleanDeadOrganisms();
 
 };

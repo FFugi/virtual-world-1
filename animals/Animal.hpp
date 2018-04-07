@@ -15,9 +15,9 @@ public:
     Animal(Position position, World &world, int initiative, int strength,
            char symbol, std::string name);
 
-    virtual void Collision(Organism *other, bool isAttacked) override;
+    void Collision(Organism *other, bool isAttacked) override;
 
-    virtual void Action() override;
+    void Action() override;
 
 protected:
     virtual void Fight(Organism *attacker);

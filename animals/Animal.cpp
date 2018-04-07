@@ -29,6 +29,7 @@ void Animal::Collision(Organism *other, bool isAttacked) {
         world.AddOrganism(newOrganism);
         return;
     }
+    world.Log(other->FullName() + " attacks " + FullName());
     Fight(other);
 }
 
@@ -46,7 +47,6 @@ void Animal::Action() {
 //              + std::to_string(newPosition.y) + ")");
     Organism *neighbour = world.GetAtField(newPosition);
     if (neighbour != nullptr) {
-        world.Log(FullName() + " attacks " + neighbour->FullName());
         neighbour->Collision(this, true);
         return;
     }

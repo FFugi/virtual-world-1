@@ -17,6 +17,8 @@ void World::Render() {
     for (auto org: organisms) {
         org->Display({position.x + 1, position.y + 1});
     }
+    RenderLegend();
+    RenderSignature();
     refresh();
 }
 
@@ -120,6 +122,45 @@ void World::RenderFrame() {
     addch('o');
     move(position.y + height + 1, position.x);
     addch('o');
+}
+
+void World::RenderSignature() {
+    int xSignature = position.x + width + 4;
+    int ySignature = position.y - 2;
+    move(ySignature, xSignature);
+    addstr("Filip Fudala 171560");
+}
+
+void World::RenderLegend() {
+    int xLegend = position.x + width + 4;
+    int yLegend = position.y;
+    move(yLegend++, xLegend);
+    addstr("\t<=-Animals-=>");
+    move(yLegend++, xLegend);
+    addstr("S - Sheep\t (Owca)");
+    move(yLegend++, xLegend);
+    addstr("W - Wolf\t (Wilk)");
+    move(yLegend++, xLegend);
+    addstr("A - Antelope\t (Antylopa)");
+    move(yLegend++, xLegend);
+    addstr("F - Fox\t (Lis)");
+    move(yLegend++, xLegend);
+    addstr("T - Turtle\t (Zolw)");
+    move(yLegend++, xLegend);
+    addstr("S - Sheep\t (Owca)");
+    move(yLegend++, xLegend);
+    move(yLegend++, xLegend);
+    addstr("\t<=-Plants-=>");
+    move(yLegend++, xLegend);
+    addstr("h - Hogweed\t (Barszcz Sosnowskiego)");
+    move(yLegend++, xLegend);
+    addstr("g - Grass\t (Trawa)");
+    move(yLegend++, xLegend);
+    addstr("s - Sonchus\t (Mlecz)");
+    move(yLegend++, xLegend);
+    addstr("G - Guarana\t (Guarana)");
+    move(yLegend, xLegend);
+    addstr("b - Wolf Berries\t (Wilcze Jagody)");
 }
 
 Position World::GetRandomNeighbourFreeField(Position pos) {

@@ -6,7 +6,7 @@
 
 void Antelope::Action() {
     // TODO double move
-    df;
+    Animal::Action();
     Animal::Action();
 }
 
