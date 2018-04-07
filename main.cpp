@@ -30,7 +30,7 @@ int main() {
     srand(time(nullptr));
 
     World simulation(60, 30);
-    bool continueSimulation = true;
+
     simulation.AddOrganism(new Fox({1,10},simulation));
     simulation.AddOrganism(new Fox({40,13},simulation));
 
@@ -50,11 +50,12 @@ int main() {
     simulation.AddOrganism(new WolfBerry({29,7},simulation));
     simulation.AddOrganism(new Hogweed({5,7},simulation));
     simulation.Render();
-    while(continueSimulation){
-        continueSimulation = getch() != 'q';
-        simulation.NextTurn();
+
+    World::Command command;
+    do{
+        command = simulation.NextTurn();
         simulation.Render();
-    }
+    }while(command != World::EXIT);
     return 0;
 }
 

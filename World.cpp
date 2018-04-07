@@ -47,7 +47,27 @@ void World::Log(std::string log, int colorPair) {
     logger.Log(std::move(log), colorPair);
 }
 
-void World::NextTurn() {
+World::Command World::GetInput() {
+    int input = getch();
+    return input == ' ' ? NEXT_TURN :
+           input == 'q' ? EXIT :
+           input == 's' ? SAVE :
+           ERROR;
+}
+
+World::Command World::NextTurn() {
+    Command cmd = GetInput();
+    while(cmd != NEXT_TURN && cmd != EXIT){
+        if(cmd == SAVE){
+            SaveToFile();
+            // TODO save with given name
+            Log("Saving to file", 3);
+        }
+        else if(cmd == ERROR){
+            Log("Unknown command, please try again!", 3);
+        }
+        cmd = GetInput();
+    }
     clear();
     logger.Reset();
     logger.Log("Turn number: " + std::to_string(numberOfTurn));
@@ -68,7 +88,7 @@ void World::NextTurn() {
     CleanDeadOrganisms();
     numberOfTurn++;
     // TODO tests
-    SaveToFile();
+    return cmd;
 }
 
 void World::CleanDeadOrganisms() {

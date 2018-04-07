@@ -48,7 +48,7 @@ public:
 
     void AddOrganism(Organism * toAdd);
     void Render();
-    void NextTurn();
+    Command NextTurn();
     void Log(std::string log);
     void Log(std::string log, int colorPair);
     Position GetRandomNeighbourField(Position pos);
@@ -61,6 +61,7 @@ private:
     void RenderLegend();
     void CleanDeadOrganisms();
     void SaveToFile();
+    Command GetInput();
 
 };
 
