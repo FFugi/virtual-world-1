@@ -30,6 +30,7 @@ public:
         NEXT_TURN,
         EXIT,
         SAVE,
+        LOAD,
         ERROR
     };
     class NoPossibleFieldException : public std::exception{

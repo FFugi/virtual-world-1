@@ -20,6 +20,7 @@ public:
     void RenderFrame();
     void Reset();
     void ChangePosition(Position position);
+    std::string GetText();
 };
 
 

@@ -44,3 +44,15 @@ void Logger::Reset() {
 void Logger::ChangePosition(Position position) {
     this->position = position;
 }
+
+std::string Logger::GetText() {
+    move(position.y + currentLine + 2, position.x + 1);
+    echo();
+    curs_set(1);
+    char buffer[50];
+    getnstr(buffer, 10);
+    noecho();
+    curs_set(0);
+    currentLine++;
+    return std::string(buffer);
+}

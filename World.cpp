@@ -60,8 +60,6 @@ World::Command World::NextTurn() {
     while(cmd != NEXT_TURN && cmd != EXIT){
         if(cmd == SAVE){
             SaveToFile();
-            // TODO save with given name
-            Log("Saving to file", 3);
         }
         else if(cmd == ERROR){
             Log("Unknown command, please try again!", 3);
@@ -87,7 +85,6 @@ World::Command World::NextTurn() {
     }
     CleanDeadOrganisms();
     numberOfTurn++;
-    // TODO tests
     return cmd;
 }
 
@@ -181,8 +178,17 @@ void World::RenderLegend() {
     addstr("s - Sonchus\t (Mlecz)");
     move(yLegend++, xLegend);
     addstr("G - Guarana\t (Guarana)");
-    move(yLegend, xLegend);
+    move(yLegend++, xLegend);
     addstr("b - Wolf Berries\t (Wilcze Jagody)");
+    move(yLegend++, xLegend);
+    move(yLegend++, xLegend);
+    addstr("\t<=-Steering-=>");
+    move(yLegend++, xLegend);
+    addstr("SPACE - Next turn");
+    move(yLegend++, xLegend);
+    addstr("s - Save current state");
+    move(yLegend, xLegend);
+    addstr("q - Quit");
 }
 
 Position World::GetRandomNeighbourFreeField(Position pos) {
@@ -247,11 +253,25 @@ std::string World::Serialize() {
 }
 
 void World::SaveToFile() {
+    // TODO what if opening file fails
+    Log("Type filename to save:");
+    std::string filename = logger.GetText();
+    Log("Are you sure to save current state as "+filename+"? [Y/N]");
+    int input = getch();
+    while(input != 'y' && input != 'Y'){
+        if(input == 'n' || input == 'N'){
+            Log("Save aborted!", 2);
+            return;
+        }
+        input = getch();
+    }
+    Log("Saving...", 3);
     Serializator ser;
-    ser.OpenToSave("save.txt");
+    ser.OpenToSave(filename);
     ser.SaveToFile(*this);
     for(auto org : organisms){
         ser.SaveToFile(*org);
     }
     ser.Close();
+    Log("Saved!", 1);
 }

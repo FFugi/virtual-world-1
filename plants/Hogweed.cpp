@@ -10,7 +10,6 @@ void Hogweed::Action() {
     for(auto pos : positions){
         Organism * neighbour = world.GetAtField(pos);
         if(neighbour != nullptr && dynamic_cast<Animal*>(neighbour)){
-            // TODO change kill method - it should log
             neighbour->Kill(this);
         }
     }
