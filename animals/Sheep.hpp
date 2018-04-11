@@ -7,17 +7,19 @@
 
 #include "Animal.hpp"
 
-class Sheep : public Animal{
+class Sheep : public Animal {
 public:
 
 public:
 
     Sheep(Position position, World &world) : Animal(position, world, 4,
-                                                  4, 'S', "Sheep") {}
+                                                    4, 'S', "Sheep") {}
+
+    Sheep(World &world) : Animal({0, 0}, world, 4, 4, 'S', "Sheep") {}
 
     void Action() override;
 
-    Organism * Procreate() override ;
+    Organism *Procreate() override;
 
 };
 

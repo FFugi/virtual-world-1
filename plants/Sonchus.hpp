@@ -8,14 +8,16 @@
 
 #include "Plant.hpp"
 
-class Sonchus :public Plant{
+class Sonchus : public Plant {
 public:
-    Sonchus(Position position, World &world):
+    Sonchus(Position position, World &world) :
             Plant(position, world, 0, 's', "Sonchus") {};
+
+    Sonchus(World &world) : Plant({0,0}, world, 0, 's', "Sonchus") {};
 
     void Action() override;
 
-    Organism * Procreate() override;
+    Organism *Procreate() override;
 
     void Display(Position beg) const override;
 

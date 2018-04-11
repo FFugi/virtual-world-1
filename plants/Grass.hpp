@@ -13,6 +13,8 @@ public:
     Grass(Position position, World &world) :
             Plant(position, world, 0, 'g', "Grass") {};
 
+    Grass(World &world) : Plant({0,0}, world, 0, 'g', "Grass") {};
+
     void Action() override;
 
     Organism *Procreate() override;

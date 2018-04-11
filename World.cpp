@@ -5,6 +5,14 @@
 #include "World.hpp"
 #include "animals/Fox.hpp"
 #include "animals/Wolf.hpp"
+#include "animals/Turtle.hpp"
+#include "animals/Antelope.hpp"
+#include "animals/Sheep.hpp"
+#include "plants/Grass.hpp"
+#include "plants/Guarana.hpp"
+#include "plants/Hogweed.hpp"
+#include "plants/WolfBerry.hpp"
+#include "plants/Sonchus.hpp"
 
 
 void World::AddOrganism(Organism *toAdd) {
@@ -65,8 +73,8 @@ World::Command World::GetInput() {
 
 World::Command World::NextTurn() {
     Command cmd = GetInput();
-    while(cmd != NEXT_TURN && cmd != EXIT){
-        switch(cmd){
+    while (cmd != NEXT_TURN && cmd != EXIT) {
+        switch (cmd) {
             case SAVE:
                 SaveToFile();
                 break;
@@ -84,7 +92,7 @@ World::Command World::NextTurn() {
     clear();
     logger.Reset();
     logger.Log("Turn number: " + std::to_string(numberOfTurn));
-    if(wasOrganismAdded) {
+    if (wasOrganismAdded) {
         std::sort(organisms.begin(), organisms.end(),
                   Organism::CompareInitiative);
         wasOrganismAdded = false;
@@ -95,7 +103,7 @@ World::Command World::NextTurn() {
             organisms.at(i)->Action();
         }
     }
-    for(auto org : organisms){
+    for (auto org : organisms) {
         org->IncrementAge();
     }
     CleanDeadOrganisms();
@@ -125,7 +133,7 @@ void World::RenderFrame() {
         move(y, position.x - 1);
         addch(std::to_string(real % 10).at(0));
         if (real % 10 == 0) {
-            move(y, position.x -2);
+            move(y, position.x - 2);
             addch(std::to_string(real % 100).at(0));
         }
         move(y, position.x);
@@ -275,10 +283,10 @@ void World::SaveToFile() {
     // TODO what if opening file fails
     Log("Type filename to save:");
     std::string filename = logger.GetText();
-    Log("Are you sure to save current state as "+filename+"? [Y/N]");
+    Log("Are you sure to save current state as " + filename + "? [Y/N]");
     int input = getch();
-    while(input != 'y' && input != 'Y'){
-        if(input == 'n' || input == 'N'){
+    while (input != 'y' && input != 'Y') {
+        if (input == 'n' || input == 'N') {
             Log("Save aborted!", 2);
             return;
         }
@@ -288,7 +296,7 @@ void World::SaveToFile() {
     Serializator ser;
     ser.OpenToSave(filename);
     ser.WriteToFile(*this);
-    for(auto org : organisms){
+    for (auto org : organisms) {
         ser.WriteToFile(*org);
     }
     ser.Close();
@@ -306,39 +314,55 @@ void World::LoadFromFile() {
     file.open(filename, std::fstream::in);
 
     std::string output;
-    Organism * loaded;
-    while(getline(file, output)) {
+    Organism *loaded;
+    while (getline(file, output)) {
         std::size_t commaPosition = output.find(',');
-        std::string type = output.substr(0,commaPosition);
-        if(type.compare("World") == 0){
+        std::string type = output.substr(0, commaPosition);
+        if (type.compare("World") == 0) {
             Log("Loading World state", 3);
-        }
-        else {
+        } else {
             bool isRecognized = false;
             if (type.compare("Fox") == 0) {
                 loaded = new Fox(*this);
                 isRecognized = true;
-            }
-            else if(type.compare("Wolf") == 0) {
+            } else if (type.compare("Wolf") == 0) {
                 loaded = new Wolf(*this);
                 isRecognized = true;
+            } else if (type.compare("Sheep") == 0) {
+                loaded = new Sheep(*this);
+                isRecognized = true;
+            } else if (type.compare("Antelope") == 0) {
+                loaded = new Antelope(*this);
+                isRecognized = true;
+            } else if (type.compare("Turtle") == 0) {
+                loaded = new Turtle(*this);
+                isRecognized = true;
+            } else if (type.compare("Grass") == 0) {
+                loaded = new Grass(*this);
+                isRecognized = true;
+            } else if (type.compare("Sonchus") == 0) {
+                loaded = new Sonchus(*this);
+                isRecognized = true;
+            } else if (type.compare("Wolf Berry") == 0) {
+                loaded = new WolfBerry(*this);
+                isRecognized = true;
+            } else if (type.compare("Guarana") == 0) {
+                loaded = new Guarana(*this);
+                isRecognized = true;
+            } else if (type.compare("Hogweed") == 0) {
+                loaded = new Hogweed(*this);
+                isRecognized = true;
             }
-
-
-
-
             if (isRecognized) {
                 loaded->Deserialize(output);
                 AddOrganism(loaded);
             }
-
         }
-//        Log(output);
-//        Log(type);
-
     }
     file.close();
+    // TODO refreshing view
 }
+
 // TODO is it needed?
 void World::ResetWorld() {
     RemoveAllOrganisms();

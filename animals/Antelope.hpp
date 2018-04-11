@@ -13,6 +13,7 @@ public:
     Antelope(Position position, World &world) : Animal(position, world, 4,
                                                        4, 'A', "Antelope") {}
 
+    Antelope(World &world) : Animal({0,0}, world, 4, 4, 'A', "Antelope") {}
 
     void Collision(Organism *other, bool isAttacked) override;
 

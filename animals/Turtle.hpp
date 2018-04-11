@@ -13,6 +13,8 @@ public:
     Turtle(Position position, World &world)
             : Animal(position, world, 2, 1, 'T', "Turtle") {}
 
+    Turtle(World &world) : Animal({0,0}, world, 2, 1, 'T', "Turtle") {}
+
     void Collision(Organism *other, bool isAttacked) override;
 
     void Action() override;

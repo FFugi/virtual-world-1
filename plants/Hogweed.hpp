@@ -12,7 +12,10 @@
 class Hogweed : public Plant {
 public:
     Hogweed(Position position, World &world) :
-    Plant(position, world, 0, 'h', "Hogweed") {};
+            Plant(position, world, 0, 'h', "Hogweed") {};
+
+    Hogweed(World &world) :
+            Plant({0,0}, world, 0, 'h', "Hogweed") {};
 
     void Action() override;
 

@@ -13,6 +13,8 @@ public:
     Guarana(Position position, World &world) :
             Plant(position, world, 0, 'G', "Guarana") {};
 
+    Guarana(World &world) : Plant({0,0}, world, 0, 'G', "Guarana") {};
+
     void Action() override;
 
     void Collision(Organism *other, bool isAttacked) override ;
