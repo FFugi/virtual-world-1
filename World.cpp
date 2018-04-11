@@ -3,6 +3,8 @@
 //
 #include <ncurses.h>
 #include "World.hpp"
+#include "animals/Fox.hpp"
+#include "animals/Wolf.hpp"
 
 
 void World::AddOrganism(Organism *toAdd) {
@@ -33,10 +35,15 @@ Organism *World::GetAtField(Position pos) {
 }
 
 World::~World() {
+    RemoveAllOrganisms();
+    endwin();
+}
+
+void World::RemoveAllOrganisms() {
     for (auto org:organisms) {
         delete org;
     }
-    endwin();
+    organisms.clear();
 }
 
 void World::Log(std::string log) {
@@ -52,17 +59,25 @@ World::Command World::GetInput() {
     return input == ' ' ? NEXT_TURN :
            input == 'q' ? EXIT :
            input == 's' ? SAVE :
+           input == 'l' ? LOAD :
            ERROR;
 }
 
 World::Command World::NextTurn() {
     Command cmd = GetInput();
     while(cmd != NEXT_TURN && cmd != EXIT){
-        if(cmd == SAVE){
-            SaveToFile();
-        }
-        else if(cmd == ERROR){
-            Log("Unknown command, please try again!", 3);
+        switch(cmd){
+            case SAVE:
+                SaveToFile();
+                break;
+
+            case LOAD:
+                LoadFromFile();
+                break;
+
+            default:
+                Log("Unknown command, please try again!", 3);
+                break;
         }
         cmd = GetInput();
     }
@@ -252,6 +267,10 @@ std::string World::Serialize() {
            + ',' + std::to_string(numberOfTurn);
 }
 
+void World::Deserialize(std::string data) {
+
+}
+
 void World::SaveToFile() {
     // TODO what if opening file fails
     Log("Type filename to save:");
@@ -268,10 +287,61 @@ void World::SaveToFile() {
     Log("Saving...", 3);
     Serializator ser;
     ser.OpenToSave(filename);
-    ser.SaveToFile(*this);
+    ser.WriteToFile(*this);
     for(auto org : organisms){
-        ser.SaveToFile(*org);
+        ser.WriteToFile(*org);
     }
     ser.Close();
     Log("Saved!", 1);
+}
+
+void World::LoadFromFile() {
+    Log("Type filename to load:");
+    std::string filename = logger.GetText();
+    std::fstream file;
+    // TODO universal
+
+    ResetWorld();
+
+    file.open(filename, std::fstream::in);
+
+    std::string output;
+    Organism * loaded;
+    while(getline(file, output)) {
+        std::size_t commaPosition = output.find(',');
+        std::string type = output.substr(0,commaPosition);
+        if(type.compare("World") == 0){
+            Log("Loading World state", 3);
+        }
+        else {
+            bool isRecognized = false;
+            if (type.compare("Fox") == 0) {
+                loaded = new Fox(*this);
+                isRecognized = true;
+            }
+            else if(type.compare("Wolf") == 0) {
+                loaded = new Wolf(*this);
+                isRecognized = true;
+            }
+
+
+
+
+            if (isRecognized) {
+                loaded->Deserialize(output);
+                AddOrganism(loaded);
+            }
+
+        }
+//        Log(output);
+//        Log(type);
+
+    }
+    file.close();
+}
+// TODO is it needed?
+void World::ResetWorld() {
+    RemoveAllOrganisms();
+    numberOfTurn = 0;
+    wasOrganismAdded = false;
 }

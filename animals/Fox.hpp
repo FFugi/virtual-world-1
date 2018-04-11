@@ -13,6 +13,8 @@ public:
     Fox(Position position, World &world)
             : Animal(position, world, 7, 3, 'F', "Fox") {}
 
+    Fox(World &world): Animal({0,0}, world, 7, 3, 'F', "Fox") {}
+
     void Action() override;
 
     Organism *Procreate() override;

@@ -16,7 +16,7 @@
 
 class Organism;
 
-class World : public Serializable{
+class World : public Serializable {
 private:
     Position position;
     std::vector<Organism *> organisms;
@@ -26,42 +26,69 @@ private:
     Logger logger;
     bool wasOrganismAdded;
 public:
-    enum Command{
+    enum Command {
         NEXT_TURN,
         EXIT,
         SAVE,
         LOAD,
         ERROR
     };
-    class NoPossibleFieldException : public std::exception{
+
+    class NoPossibleFieldException : public std::exception {
     public:
-        char const * what() const throw(){ return "There is no possible "
-                                                   "field"; }
-        ~NoPossibleFieldException() throw(){}
+        char const *what() const throw() {
+            return "There is no possible "
+                   "field";
+        }
+
+        ~NoPossibleFieldException() throw() {}
     };
+
     World(int width, int height) : position({3, 3}), width(width), height
-        (height), numberOfTurn(0), logger({2, position.y + height+ 2}),
+            (height), numberOfTurn(0), logger({2, position.y + height + 2}),
                                    wasOrganismAdded(false) {};
 
     ~World();
 
-    Organism * GetAtField(Position pos);
+    Organism *GetAtField(Position pos);
 
-    void AddOrganism(Organism * toAdd);
+    void AddOrganism(Organism *toAdd);
+
     void Render();
+
     Command NextTurn();
+
     void Log(std::string log);
+
     void Log(std::string log, int colorPair);
+
     Position GetRandomNeighbourField(Position pos);
+
     Position GetRandomNeighbourFreeField(Position pos);
+
     std::vector<Position> GetNeighbourFields(Position pos);
+
     std::string Serialize() override;
+
+    void Deserialize(std::string data) override;
+
 private:
     void RenderSignature();
+
     void RenderFrame();
+
     void RenderLegend();
+
     void CleanDeadOrganisms();
+
+    void RemoveAllOrganisms();
+
     void SaveToFile();
+
+    void LoadFromFile();
+
+    void ResetWorld();
+
     Command GetInput();
 
 };

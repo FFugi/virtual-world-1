@@ -8,12 +8,14 @@
 
 #include "Animal.hpp"
 
-class Wolf : public Animal{
+class Wolf : public Animal {
 public:
     Wolf(Position position, World &world)
             : Animal(position, world, 5, 9, 'W', "Wolf") {}
 
-    Organism * Procreate() override ;
+    Wolf(World &world) : Animal({0, 0}, world, 5, 9, 'W', "Wolf") {}
+
+    Organism *Procreate() override;
 
 };
 

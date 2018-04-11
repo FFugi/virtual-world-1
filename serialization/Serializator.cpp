@@ -3,7 +3,7 @@
 //
 #include "Serializator.hpp"
 
-void Serializator::SaveToFile(Serializable & item) {
+void Serializator::WriteToFile(Serializable &item) {
     file << item.Serialize() << std::endl;
 }
 

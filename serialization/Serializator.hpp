@@ -19,7 +19,7 @@ public:
     ~Serializator(){
         file.close();
     }
-    void SaveToFile(Serializable & item);
+    void WriteToFile(Serializable &item);
     void OpenToSave(std::string fileName);
     void Close();
 };

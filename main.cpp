@@ -29,7 +29,7 @@ int main() {
     init_pair(5, COLOR_CYAN, COLOR_BLACK);
     srand(time(nullptr));
 
-    World simulation(60, 30);
+    World simulation(60, 20);
 
     simulation.AddOrganism(new Fox({1,10},simulation));
     simulation.AddOrganism(new Fox({40,13},simulation));

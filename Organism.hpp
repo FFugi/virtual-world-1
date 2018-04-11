@@ -20,6 +20,7 @@ protected:
     int strength;
     char symbol;
     int age;
+protected:
     bool isAlive;
     const std::string name;
 
@@ -27,15 +28,15 @@ public:
     Organism(Position position, World &world, int initiative, int strength, char
     symbol, std::string name) :
             position(position), world(world), initiative(initiative),
-            strength(strength), symbol(symbol), age(0),isAlive(true), name
-                    (name)
-            {}
+            strength(strength), symbol(symbol), age(0), isAlive(true), name
+                    (name) {}
+
     // TODO check = default
     virtual ~Organism() = default;
 
     virtual void Collision(Organism *other, bool isAttacked) = 0;
 
-    virtual void Display(Position beg) const ;
+    virtual void Display(Position beg) const;
 
     virtual void Action() = 0;
 
@@ -45,9 +46,9 @@ public:
 
     virtual Organism *Procreate() = 0;
 
-    virtual void Kill(Organism * attacker);
+    virtual void Kill(Organism *attacker);
 
-    virtual void Kill(Organism * attacker, std::string comment);
+    virtual void Kill(Organism *attacker, std::string comment);
 
     virtual bool IsAlive() const;
 
@@ -61,7 +62,9 @@ public:
 
     virtual void ModifyStrength(int value);
 
-    std::string Serialize()override;
+    std::string Serialize() override;
+
+    void Deserialize(std::string data) override;
 };
 
 #include "World.hpp"

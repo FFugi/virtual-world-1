@@ -61,10 +61,34 @@ void Organism::ModifyStrength(int value) {
 }
 
 std::string Organism::Serialize() {
-    std::string type = dynamic_cast<Plant*>(this) ? "plant" :
-                       dynamic_cast<Animal*>(this) ? "animal":
-                       "unknown";
-    return type +',' + name + ',' + std::to_string(age) + ',' +
+    return name + ',' + std::to_string(age) + ',' +
            std::to_string(initiative) + ',' + std::to_string(strength) + ',' +
            std::to_string(position.x) + ',' + std::to_string(position.y);
+}
+
+void Organism::Deserialize(std::string data) {
+    /*
+     * Format
+     * age,initiative, strength, x, y
+     */
+    // TODO not found in string
+    //world.Log(data);
+    std::size_t comma = data.find(',');
+    std::string rest = data.substr(comma+1);
+    comma = rest.find(',');
+    age = std::stoi(rest.substr(0, comma));
+    rest = rest.substr((comma+1));
+    comma = rest.find(',');
+    initiative = std::stoi(rest.substr(0, comma));
+    rest = rest.substr((comma+1));
+    comma = rest.find(',');
+    strength = std::stoi(rest.substr(0, comma));
+    rest = rest.substr((comma+1));
+    comma = rest.find(',');
+    position.x = std::stoi(rest.substr(0, comma));
+    rest = rest.substr((comma+1));
+    comma = rest.find(',');
+    position.y = std::stoi(rest.substr(0, comma));
+
+    world.Log("Loaded "+FullName());
 }
