@@ -25,22 +25,22 @@ void Logger::ScrollUp() {
 }
 
 void Logger::ScrollDown() {
-    if(logs.size() > height) {
+    if(scrollPosition > 0) {
         scrollPosition--;
     }
 }
 
 void Logger::Render() {
     RenderFrame();
-    int line = 0;
-    int begLine = 0;
     std::string output;
+    long line = 0;
+    long begLine = 0;
     if (logs.size() > height) {
-        begLine = (int)height - (int)logs.size();
+        begLine = static_cast<long>(height) - static_cast<long>(logs.size());
     }
     for (std::size_t i = 0; i < logs.size(); i++) {
         line = begLine + i + scrollPosition;
-        if (line >= 0 && line < (int)height) {
+        if (line >= 0 && line < static_cast<int>(height)) {
             output = logs.at(i).value;
             move(position.y + line + 2, position.x + 1);
             output = "> " + output;
@@ -81,7 +81,7 @@ std::string Logger::GetText() {
     echo();
     curs_set(1);
     char buffer[50];
-    getnstr(buffer, 10);
+    getnstr(buffer, 20);
     noecho();
     curs_set(0);
     currentLine++;

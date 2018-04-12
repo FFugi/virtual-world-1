@@ -18,8 +18,8 @@ private:
     };
     std::vector<Log> logs;
     Position position;
-    int currentLine;
-    int scrollPosition;
+    long currentLine;
+    long scrollPosition;
     unsigned int height;
 public:
     enum Color {
