@@ -18,8 +18,8 @@ private:
     };
     std::vector<Log> logs;
     Position position;
-    int height;
     int currentLine;
+    unsigned int height;
 public:
     enum Color {
         WHITE,
@@ -29,7 +29,7 @@ public:
         MAGENTA,
         CYAN
     };
-    Logger(Position position);
+    Logger(Position position, unsigned int height);
     void Log(std::string log);
     void Log(std::string log, Color colorPair);
     void Reset();

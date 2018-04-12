@@ -21,7 +21,7 @@ int main() {
     curs_set(0);
     start_color();
     refresh();
-
+    // TODO colors with organisms
     init_pair(Logger::GREEN, COLOR_GREEN, COLOR_BLACK);
     init_pair(Logger::RED, COLOR_RED, COLOR_BLACK);
     init_pair(Logger::YELLOW, COLOR_YELLOW, COLOR_BLACK);

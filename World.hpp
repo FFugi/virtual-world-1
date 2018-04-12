@@ -45,7 +45,7 @@ public:
     };
 
     World(int width, int height) : position({3, 3}), width(width), height
-            (height), numberOfTurn(0), logger({2, position.y + height + 2}),
+            (height), numberOfTurn(0), logger({2, position.y + height + 2}, 21),
                                    wasOrganismAdded(false) {};
 
     ~World();

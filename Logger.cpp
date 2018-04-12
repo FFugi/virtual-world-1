@@ -5,7 +5,8 @@
 #include <ncurses.h>
 #include "Logger.hpp"
 
-Logger::Logger(Position position) : position(position), currentLine(0) {}
+Logger::Logger(Position position, unsigned int height)
+        : position(position), currentLine(0), height(height) {}
 
 void Logger::Log(std::string log) {
     Log(log, Logger::WHITE);
@@ -18,15 +19,21 @@ void Logger::Log(std::string log, Color colorPair) {
 void Logger::Render() {
     RenderFrame();
     int line = 0;
+    int begLine = 0;
     std::string output;
-    for (auto log : logs) {
-        output = log.value;
-        move(position.y + line+ 2, position.x + 1);
-        output = "> " + output;
-        attron(COLOR_PAIR(log.color) | A_BOLD);
-        addstr(output.c_str());
-        attroff(COLOR_PAIR(log.color) | A_BOLD);
-        line++;
+    if(logs.size() > height){
+        begLine = height - logs.size();
+    }
+    for (std::size_t i = 0; i < logs.size(); i++) {
+        line = begLine + i;
+        if(line >= 0) {
+            output = logs.at(i).value;
+            move(position.y + line + 2, position.x + 1);
+            output = "> " + output;
+            attron(COLOR_PAIR(logs.at(i).color) | A_BOLD);
+            addstr(output.c_str());
+            attroff(COLOR_PAIR(logs.at(i).color) | A_BOLD);
+        }
     }
 
 }
@@ -35,17 +42,17 @@ void Logger::RenderFrame() {
     move(position.y, position.x + 5);
     addstr("<=-Logger-=>");
     move(position.y + 1, position.x);
-    addch('#');
+    addch('O');
     for (std::size_t i = 1; i < 50; i++) {
         addch('-');
     }
     addch('>');
-    for (std::size_t i = 1; i < 20; i++) {
+    for (std::size_t i = 1; i < height + 2; i++) {
         move(position.y + 1 + i, position.x);
         addch('|');
     }
-    move(position.y + 21, position.x);
-    addch('V');
+    move(position.y + height + 2, position.x);
+    addch('O');
 }
 
 void Logger::Reset() {
