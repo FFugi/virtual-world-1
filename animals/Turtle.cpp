@@ -26,7 +26,8 @@ void Turtle::Collision(Organism *other, bool isAttacked) {
         other->GetStrength() >= 5) {
         Animal::Collision(other, isAttacked);
     }
-    world.Log(FullName() + " resisted attack of " + other->FullName(), 3);
+    world.Log(FullName() + " resisted attack of " + other->FullName(),
+              Logger::YELLOW);
 }
 
 void Turtle::Display(Position beg) const {

@@ -9,6 +9,7 @@
 #include <string>
 #include "structures.hpp"
 #include "serialization/Serializable.hpp"
+#include "Logger.hpp"
 
 class World;
 

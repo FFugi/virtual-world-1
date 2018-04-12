@@ -42,6 +42,6 @@ void Plant::Action() {
     Position newPosition = newOrganism->GetPosition();
     world.Log(FullName() +" generates new " + name + " (" +
               std::to_string(newPosition.x) + "," +
-              std::to_string(newPosition.y) + ")", 1);
+              std::to_string(newPosition.y) + ")", Logger::GREEN);
     world.AddOrganism(newOrganism);
 }

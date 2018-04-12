@@ -15,7 +15,7 @@ void Fox::Action() {
         return org->GetStrength() > strength;
     }), positions.end());
     if (positions.size() == 0) {
-        world.Log(FullName()+ " has no possible moves ", 3);
+        world.Log(FullName()+ " has no possible moves ", Logger::YELLOW);
         return;
     }
     Position newPosition = positions.at(rand() % positions.size());

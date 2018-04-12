@@ -8,16 +8,27 @@
 Logger::Logger(Position position) : position(position), currentLine(0) {}
 
 void Logger::Log(std::string log) {
-    Log(log, 0);
+    Log(log, Logger::WHITE);
 }
 
-void Logger::Log(std::string log, int colorPair) {
-    move(position.y + currentLine + 2, position.x + 1);
-    log = "> "+log;
-    attron(COLOR_PAIR(colorPair) | A_BOLD);
-    addstr(log.c_str());
-    attroff(COLOR_PAIR(colorPair)|A_BOLD);
-    currentLine++;
+void Logger::Log(std::string log, Color colorPair) {
+    logs.push_back({log, colorPair});
+}
+
+void Logger::Render() {
+    RenderFrame();
+    int line = 0;
+    std::string output;
+    for (auto log : logs) {
+        output = log.value;
+        move(position.y + line+ 2, position.x + 1);
+        output = "> " + output;
+        attron(COLOR_PAIR(log.color) | A_BOLD);
+        addstr(output.c_str());
+        attroff(COLOR_PAIR(log.color) | A_BOLD);
+        line++;
+    }
+
 }
 
 void Logger::RenderFrame() {
@@ -25,15 +36,15 @@ void Logger::RenderFrame() {
     addstr("<=-Logger-=>");
     move(position.y + 1, position.x);
     addch('#');
-    for(std::size_t i = 1; i < 50; i++){
+    for (std::size_t i = 1; i < 50; i++) {
         addch('-');
     }
     addch('>');
-    for(std::size_t i = 1; i < 20; i++){
+    for (std::size_t i = 1; i < 20; i++) {
         move(position.y + 1 + i, position.x);
         addch('|');
     }
-    move(position.y + 21 , position.x);
+    move(position.y + 21, position.x);
     addch('V');
 }
 

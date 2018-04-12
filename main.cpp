@@ -22,11 +22,11 @@ int main() {
     start_color();
     refresh();
 
-    init_pair(1, COLOR_GREEN, COLOR_BLACK);
-    init_pair(2, COLOR_RED, COLOR_BLACK);
-    init_pair(3, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(4, COLOR_MAGENTA, COLOR_BLACK);
-    init_pair(5, COLOR_CYAN, COLOR_BLACK);
+    init_pair(Logger::GREEN, COLOR_GREEN, COLOR_BLACK);
+    init_pair(Logger::RED, COLOR_RED, COLOR_BLACK);
+    init_pair(Logger::YELLOW, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(Logger::MAGENTA, COLOR_MAGENTA, COLOR_BLACK);
+    init_pair(Logger::CYAN, COLOR_CYAN, COLOR_BLACK);
     srand(time(nullptr));
 
     World simulation(60, 20);

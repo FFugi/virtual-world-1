@@ -23,7 +23,7 @@ void World::AddOrganism(Organism *toAdd) {
 
 void World::Render() {
     RenderFrame();
-    logger.RenderFrame();
+    logger.Render();
     for (auto org: organisms) {
         org->Display({position.x + 1, position.y + 1});
     }
@@ -58,8 +58,8 @@ void World::Log(std::string log) {
     logger.Log(std::move(log));
 }
 
-void World::Log(std::string log, int colorPair) {
-    logger.Log(std::move(log), colorPair);
+void World::Log(std::string log, Logger::Color color) {
+    logger.Log(std::move(log), color);
 }
 
 World::Command World::GetInput() {
@@ -84,7 +84,7 @@ World::Command World::NextTurn() {
                 break;
 
             default:
-                Log("Unknown command, please try again!", 3);
+                Log("Unknown command, please try again!", Logger::YELLOW);
                 break;
         }
         cmd = GetInput();
@@ -287,12 +287,12 @@ void World::SaveToFile() {
     int input = getch();
     while (input != 'y' && input != 'Y') {
         if (input == 'n' || input == 'N') {
-            Log("Save aborted!", 2);
+            Log("Save aborted!", Logger::RED);
             return;
         }
         input = getch();
     }
-    Log("Saving...", 3);
+    Log("Saving...", Logger::YELLOW);
     Serializator ser;
     ser.OpenToSave(filename);
     ser.WriteToFile(*this);
@@ -300,7 +300,7 @@ void World::SaveToFile() {
         ser.WriteToFile(*org);
     }
     ser.Close();
-    Log("Saved!", 1);
+    Log("Saved!", Logger::GREEN);
 }
 
 void World::LoadFromFile() {
@@ -319,7 +319,7 @@ void World::LoadFromFile() {
         std::size_t commaPosition = output.find(',');
         std::string type = output.substr(0, commaPosition);
         if (type.compare("World") == 0) {
-            Log("Loading World state", 3);
+            Log("Loading World state", Logger::YELLOW);
         } else {
             bool isRecognized = false;
             if (type.compare("Fox") == 0) {
@@ -350,6 +350,7 @@ void World::LoadFromFile() {
                 loaded = new Guarana(*this);
                 isRecognized = true;
             } else if (type.compare("Hogweed") == 0) {
+
                 loaded = new Hogweed(*this);
                 isRecognized = true;
             }

@@ -3,8 +3,6 @@
 //
 
 #include "Organism.hpp"
-#include "plants/Plant.hpp"
-#include "animals/Animal.hpp"
 
 
 void Organism::Display(Position beg) const {
@@ -38,13 +36,14 @@ Position Organism::GetPosition() const {
 
 void Organism::Kill(Organism *attacker) {
     world.Log(
-            attacker->FullName() + " kills " + FullName(), 2);
+            attacker->FullName() + " kills " + FullName(), Logger::RED);
     isAlive = false;
 }
-
+// TODO is it used?
 void Organism::Kill(Organism *attacker, std::string comment) {
     world.Log(
-            attacker->FullName() + " kills " + FullName() + " " + comment, 2);
+            attacker->FullName() + " kills " + FullName() + " " + comment,
+            Logger::RED );
     isAlive = false;
 }
 

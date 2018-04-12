@@ -24,8 +24,9 @@ void Animal::Collision(Organism *other, bool isAttacked) {
             //  world.Log(name + " cannot procreate - no space!");
             return;
         }
-        world.Log(FullName() + " and " + other->FullName() + " make:", 1);
-        world.Log("New " + newOrganism->FullName(), 1);
+        world.Log(FullName() + " and " + other->FullName() + " make:",
+                  Logger::GREEN);
+        world.Log("New " + newOrganism->FullName(), Logger::GREEN);
         world.AddOrganism(newOrganism);
         return;
     }

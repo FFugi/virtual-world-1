@@ -31,11 +31,13 @@ void Antelope::Collision(Organism *other, bool isAttacked) {
     Position newPosition;
     try{
         newPosition = world.GetRandomNeighbourFreeField(position);
-        world.Log(FullName() + " runs away from " + other->FullName(), 3);
+        world.Log(FullName() + " runs away from " + other->FullName(),
+                  Logger::YELLOW);
         position = newPosition;
     }
     catch (World::NoPossibleFieldException &e){
-        world.Log(FullName() + " couldn't away from " + other->FullName(), 3);
+        world.Log(FullName() + " couldn't away from " + other->FullName(),
+                  Logger::YELLOW);
         Animal::Collision(other, isAttacked);
     }
 }

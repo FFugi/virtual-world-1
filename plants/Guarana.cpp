@@ -23,7 +23,7 @@ Organism *Guarana::Procreate() {
 void Guarana::Collision(Organism *other, bool isAttacked) {
     Plant::Collision(other, isAttacked);
     world.Log(FullName() + " increments strength of " + other->FullName() +
-              " to "+ std::to_string(other->GetStrength() + 3), 3);
+              " to "+ std::to_string(other->GetStrength() + 3), Logger::YELLOW);
     other->ModifyStrength(3);
 }
 
