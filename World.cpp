@@ -22,6 +22,7 @@ void World::AddOrganism(Organism *toAdd) {
 }
 
 void World::Render() {
+    clear();
     RenderFrame();
     logger.Render();
     for (auto org: organisms) {
@@ -68,6 +69,8 @@ World::Command World::GetInput() {
            input == 'q' ? EXIT :
            input == 's' ? SAVE :
            input == 'l' ? LOAD :
+           input == 'k' ? SCROLL_UP :
+           input == 'j' ? SCROLL_DOWN :
            ERROR;
 }
 
@@ -83,13 +86,21 @@ World::Command World::NextTurn() {
                 LoadFromFile();
                 break;
 
+            case SCROLL_UP:
+                logger.ScrollUp();
+                break;
+
+            case SCROLL_DOWN:
+                logger.ScrollDown();
+                break;
+
             default:
                 Log("Unknown command, please try again!", Logger::YELLOW);
                 break;
         }
+        Render();
         cmd = GetInput();
     }
-    clear();
     logger.Reset();
     logger.Log("Turn number: " + std::to_string(numberOfTurn));
     if (wasOrganismAdded) {
@@ -210,6 +221,10 @@ void World::RenderLegend() {
     addstr("SPACE - Next turn");
     move(yLegend++, xLegend);
     addstr("s - Save current state");
+    move(yLegend++, xLegend);
+    addstr("j - Scroll down");
+    move(yLegend++, xLegend);
+    addstr("k - Scroll up");
     move(yLegend, xLegend);
     addstr("q - Quit");
 }

@@ -6,7 +6,8 @@
 #include "Logger.hpp"
 
 Logger::Logger(Position position, unsigned int height)
-        : position(position), currentLine(0), height(height) {}
+        : position(position), currentLine(0), scrollPosition(0), height
+        (height) {}
 
 void Logger::Log(std::string log) {
     Log(log, Logger::WHITE);
@@ -14,6 +15,19 @@ void Logger::Log(std::string log) {
 
 void Logger::Log(std::string log, Color colorPair) {
     logs.push_back({log, colorPair});
+    scrollPosition = 0;
+}
+
+void Logger::ScrollUp() {
+    if(scrollPosition < static_cast<int>(logs.size() - height)) {
+        scrollPosition++;
+    }
+}
+
+void Logger::ScrollDown() {
+    if(logs.size() > height) {
+        scrollPosition--;
+    }
 }
 
 void Logger::Render() {
@@ -21,12 +35,12 @@ void Logger::Render() {
     int line = 0;
     int begLine = 0;
     std::string output;
-    if(logs.size() > height){
-        begLine = height - logs.size();
+    if (logs.size() > height) {
+        begLine = (int)height - (int)logs.size();
     }
     for (std::size_t i = 0; i < logs.size(); i++) {
-        line = begLine + i;
-        if(line >= 0) {
+        line = begLine + i + scrollPosition;
+        if (line >= 0 && line < (int)height) {
             output = logs.at(i).value;
             move(position.y + line + 2, position.x + 1);
             output = "> " + output;
@@ -35,7 +49,6 @@ void Logger::Render() {
             attroff(COLOR_PAIR(logs.at(i).color) | A_BOLD);
         }
     }
-
 }
 
 void Logger::RenderFrame() {

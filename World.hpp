@@ -31,6 +31,8 @@ public:
         EXIT,
         SAVE,
         LOAD,
+        SCROLL_UP,
+        SCROLL_DOWN,
         ERROR
     };
 

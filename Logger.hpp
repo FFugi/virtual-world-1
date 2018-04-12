@@ -19,6 +19,7 @@ private:
     std::vector<Log> logs;
     Position position;
     int currentLine;
+    int scrollPosition;
     unsigned int height;
 public:
     enum Color {
@@ -36,7 +37,8 @@ public:
     void ChangePosition(Position position);
     std::string GetText();
     void Render();
-
+    void ScrollUp();
+    void ScrollDown();
 private:
     void RenderFrame();
     void RenderLogs();
