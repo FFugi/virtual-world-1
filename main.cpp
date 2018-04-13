@@ -36,7 +36,7 @@ int main() {
 
 
     simulation.AddOrganism(new Sheep({10,10},simulation));
-    simulation.AddOrganism(new Sheep({40,10},simulation));
+    simulation.AddOrganism(new Sheep({11,10},simulation));
 
     simulation.AddOrganism(new Turtle({0,14},simulation));
     simulation.AddOrganism(new Antelope({50,10},simulation));

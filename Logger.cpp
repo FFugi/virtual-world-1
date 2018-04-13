@@ -19,13 +19,16 @@ void Logger::Log(std::string log, Color colorPair) {
 }
 
 void Logger::ScrollUp() {
-    if(scrollPosition < static_cast<int>(logs.size() - height)) {
+    // j
+    if (logs.size() > height && scrollPosition < 0) {
         scrollPosition++;
     }
 }
 
 void Logger::ScrollDown() {
-    if(scrollPosition > 0) {
+    // k
+    if (logs.size() > height
+        && scrollPosition > -static_cast<long>(logs.size() - height)) {
         scrollPosition--;
     }
 }
@@ -33,16 +36,12 @@ void Logger::ScrollDown() {
 void Logger::Render() {
     RenderFrame();
     std::string output;
-    long line = 0;
-    long begLine = 0;
-    if (logs.size() > height) {
-        begLine = static_cast<long>(height) - static_cast<long>(logs.size());
-    }
-    for (std::size_t i = 0; i < logs.size(); i++) {
-        line = begLine + i + scrollPosition;
-        if (line >= 0 && line < static_cast<int>(height)) {
+    for (std::size_t j = 0, i = (logs.size() > height
+                                 ? logs.size() - height : 0) + scrollPosition;
+         j < height; j++, i++) {
+        if (i < logs.size()) {
             output = logs.at(i).value;
-            move(position.y + line + 2, position.x + 1);
+            move(position.y + j + 2, position.x + 1);
             output = "> " + output;
             attron(COLOR_PAIR(logs.at(i).color) | A_BOLD);
             addstr(output.c_str());
