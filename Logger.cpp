@@ -6,8 +6,7 @@
 #include "Logger.hpp"
 
 Logger::Logger(Position position, unsigned int height)
-        : position(position), currentLine(0), scrollPosition(0), height
-        (height) {}
+        : position(position), scrollPosition(0), height(height) {}
 
 void Logger::Log(std::string log) {
     Log(log, Logger::WHITE);
@@ -19,14 +18,12 @@ void Logger::Log(std::string log, Color colorPair) {
 }
 
 void Logger::ScrollUp() {
-    // j
     if (logs.size() > height && scrollPosition < 0) {
         scrollPosition++;
     }
 }
 
 void Logger::ScrollDown() {
-    // k
     if (logs.size() > height
         && scrollPosition > -static_cast<long>(logs.size() - height)) {
         scrollPosition--;
@@ -67,15 +64,12 @@ void Logger::RenderFrame() {
     addch('O');
 }
 
-void Logger::Reset() {
-    currentLine = 0;
-}
-
 void Logger::ChangePosition(Position position) {
     this->position = position;
 }
 
 std::string Logger::GetText() {
+    int currentLine = logs.size() > height ? height : logs.size();
     move(position.y + currentLine + 2, position.x + 1);
     echo();
     curs_set(1);
@@ -83,6 +77,6 @@ std::string Logger::GetText() {
     getnstr(buffer, 20);
     noecho();
     curs_set(0);
-    currentLine++;
+    Log(buffer);
     return std::string(buffer);
 }

@@ -101,7 +101,6 @@ World::Command World::NextTurn() {
         Render();
         cmd = GetInput();
     }
-    logger.Reset();
     logger.Log("Turn number: " + std::to_string(numberOfTurn));
     if (wasOrganismAdded) {
         std::sort(organisms.begin(), organisms.end(),
@@ -297,8 +296,10 @@ void World::Deserialize(std::string data) {
 void World::SaveToFile() {
     // TODO what if opening file fails
     Log("Type filename to save:");
+    Render();
     std::string filename = logger.GetText();
     Log("Are you sure to save current state as " + filename + "? [Y/N]");
+    Render();
     int input = getch();
     while (input != 'y' && input != 'Y') {
         if (input == 'n' || input == 'N') {
@@ -320,6 +321,7 @@ void World::SaveToFile() {
 
 void World::LoadFromFile() {
     Log("Type filename to load:");
+    Render();
     std::string filename = logger.GetText();
     std::fstream file;
     // TODO universal

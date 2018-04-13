@@ -18,7 +18,6 @@ private:
     };
     std::vector<Log> logs;
     Position position;
-    long currentLine;
     long scrollPosition;
     unsigned int height;
 public:
