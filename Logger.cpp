@@ -71,6 +71,7 @@ void Logger::ChangePosition(Position position) {
 std::string Logger::GetText() {
     int currentLine = logs.size() > height ? height : logs.size();
     move(position.y + currentLine + 2, position.x + 1);
+    addstr("> ");
     echo();
     curs_set(1);
     char buffer[50];
