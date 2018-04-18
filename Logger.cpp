@@ -17,13 +17,13 @@ void Logger::Log(std::string log, Color colorPair) {
     scrollPosition = 0;
 }
 
-void Logger::ScrollUp() {
+void Logger::ScrollDown() {
     if (logs.size() > height && scrollPosition < 0) {
         scrollPosition++;
     }
 }
 
-void Logger::ScrollDown() {
+void Logger::ScrollUp() {
     if (logs.size() > height
         && scrollPosition > -static_cast<long>(logs.size() - height)) {
         scrollPosition--;
