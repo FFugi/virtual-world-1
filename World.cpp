@@ -36,7 +36,7 @@ void World::Render() {
 // TODO remove n^2
 Organism *World::GetAtField(Position pos) {
     for (auto org : organisms) {
-        if (org->GetPosition() == pos && !org->IsAlive()) {
+        if (org->IsAlive() && org->GetPosition() == pos) {
             return org;
         }
     }

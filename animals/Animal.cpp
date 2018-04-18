@@ -35,7 +35,6 @@ void Animal::Collision(Organism *other, bool isAttacked) {
 }
 
 void Animal::Action() {
-    // TODO random move
     Position newPosition;
     try {
         newPosition = world.GetRandomNeighbourField(position);
