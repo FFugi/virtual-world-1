@@ -21,7 +21,6 @@ protected:
     int strength;
     char symbol;
     int age;
-protected:
     bool isAlive;
     const std::string name;
 

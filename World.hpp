@@ -13,18 +13,19 @@
 #include "Logger.hpp"
 #include "Organism.hpp"
 #include "serialization/Serializator.hpp"
+#include "OrganismManager.hpp"
 
-class Organism;
 
 class World : public Serializable {
 private:
     Position position;
-    std::vector<Organism *> organisms;
+    std::vector<Organism*> organisms;
     int width;
     int height;
     int numberOfTurn;
     Logger logger;
     bool wasOrganismAdded;
+    OrganismManager manager;
 public:
     enum Command {
         NEXT_TURN,
@@ -46,9 +47,11 @@ public:
         ~NoPossibleFieldException() throw() {}
     };
 
-    World(int width, int height) : position({3, 3}), width(width), height
-            (height), numberOfTurn(0), logger({2, position.y + height + 2}, 21),
-                                   wasOrganismAdded(false) {};
+    World(int width, int height) : position({3, 3}),
+                                   width(width), height(height),
+                                   numberOfTurn(0),
+                                   logger({2, position.y + height + 2}, 21),
+                                   wasOrganismAdded(false), manager(*this){};
 
     ~World();
 
@@ -94,8 +97,6 @@ private:
     Command GetInput();
 
 };
-
-#include "Organism.hpp"
 
 
 #endif //VIRTUAL_WORLD_1_WORLD_HPP

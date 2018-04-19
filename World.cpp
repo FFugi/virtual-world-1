@@ -18,6 +18,7 @@
 void World::AddOrganism(Organism *toAdd) {
     organisms.push_back(toAdd);
     wasOrganismAdded = true;
+    manager.AddOrganism(toAdd);
     // TODO sorting vector
 }
 

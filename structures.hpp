@@ -7,8 +7,14 @@
 struct Position{
     int x;
     int y;
-    inline bool operator == (Position other){
+    inline bool operator == (Position & other){
         return x == other.x && y == other.y;
+    }
+    bool operator <(const Position & other) const {
+        if(x == other.x){
+            return y < other.y;
+        }
+        return x < other.x;
     }
 };
 

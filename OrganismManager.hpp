@@ -5,22 +5,30 @@
 #ifndef VIRTUAL_WORLD_1_ORGANISMMANAGER_HPP
 #define VIRTUAL_WORLD_1_ORGANISMMANAGER_HPP
 
+#include <vector>
+#include <map>
+#include "structures.hpp"
 
-#include "Organism.hpp"
-#include <unordered_map>
+class Organism;
+class World;
 
 class OrganismManager {
+    World& world;
     std::vector<Organism*> organisms;
-    std::unordered_map<Position, Organism*> map;
-
-    OrganismManager() {}
+    std::map<Position, Organism*> map;
+    bool wasOrganismAdded;
+public:
+    OrganismManager(World & world): world(world), wasOrganismAdded(false) {}
+    void AddOrganism(Organism * toAdd);
     void RemoveAllOrganisms();
-    void AddOrganism();
-    Organism * GetAtField();
-    void MoveOrganism();
+    Organism * GetAtField(Position pos);
+    void MoveOrganism(Organism &org, Position newPosition);
     void CleadDeadOrganisms();
+    void SortOrganisms();
 
 };
 
+#include "Organism.hpp"
+#include "World.hpp"
 
 #endif //VIRTUAL_WORLD_1_ORGANISMMANAGER_HPP
