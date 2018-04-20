@@ -35,11 +35,10 @@ Position Organism::GetPosition() const {
 }
 
 void Organism::Kill(Organism *attacker) {
-    world.Log(
-            attacker->FullName() + " kills " + FullName(), Logger::RED);
+    world.Log(attacker->FullName() + " kills " + FullName(), Logger::RED);
     isAlive = false;
 }
-// TODO is it used?
+
 void Organism::Kill(Organism *attacker, std::string comment) {
     world.Log(
             attacker->FullName() + " kills " + FullName() + " " + comment,

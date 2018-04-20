@@ -33,7 +33,7 @@ void Antelope::Collision(Organism *other, bool isAttacked) {
         newPosition = world.GetRandomNeighbourFreeField(position);
         world.Log(FullName() + " runs away from " + other->FullName(),
                   Logger::YELLOW);
-        position = newPosition;
+        world.MoveOrganism(this, newPosition);
     }
     catch (World::NoPossibleFieldException &e){
         world.Log(FullName() + " couldn't away from " + other->FullName(),

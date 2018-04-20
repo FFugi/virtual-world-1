@@ -16,19 +16,23 @@
 
 
 void World::AddOrganism(Organism *toAdd) {
-    organisms.push_back(toAdd);
-    wasOrganismAdded = true;
     manager.AddOrganism(toAdd);
+    // TODO refactor
+//    organisms.push_back(toAdd);
+//    wasOrganismAdded = true;
+//    manager.AddOrganism(toAdd);
     // TODO sorting vector
+}
+
+void World::MoveOrganism(Organism *org, Position newPosition) {
+    manager.MoveOrganism(*org, newPosition);
 }
 
 void World::Render() {
     clear();
     RenderFrame();
     logger.Render();
-    for (auto org: organisms) {
-        org->Display({position.x + 1, position.y + 1});
-    }
+    manager.RenderOrganisms(position);
     RenderLegend();
     RenderSignature();
     refresh();
@@ -36,24 +40,12 @@ void World::Render() {
 
 // TODO remove n^2
 Organism *World::GetAtField(Position pos) {
-    for (auto org : organisms) {
-        if (org->IsAlive() && org->GetPosition() == pos) {
-            return org;
-        }
-    }
-    return nullptr;
+    return manager.GetAtField(pos);
 }
 
 World::~World() {
-    RemoveAllOrganisms();
+    manager.RemoveAllOrganisms();
     endwin();
-}
-
-void World::RemoveAllOrganisms() {
-    for (auto org:organisms) {
-        delete org;
-    }
-    organisms.clear();
 }
 
 void World::Log(std::string log) {
@@ -103,39 +95,9 @@ World::Command World::NextTurn() {
         cmd = GetInput();
     }
     logger.Log("Turn number: " + std::to_string(numberOfTurn));
-    if (wasOrganismAdded) {
-        std::sort(organisms.begin(), organisms.end(),
-                  Organism::CompareInitiative);
-        wasOrganismAdded = false;
-    }
-    std::size_t iterations = organisms.size();
-    for (std::size_t i = 0; i < iterations; i++) {
-        if (organisms.at(i)->IsAlive()) {
-            organisms.at(i)->Action();
-        }
-    }
-    for (auto org : organisms) {
-        org->IncrementAge();
-    }
-    CleanDeadOrganisms();
+    manager.NextTurn();
     numberOfTurn++;
     return cmd;
-}
-
-void World::CleanDeadOrganisms() {
-    std::vector<Organism *> toDelete;
-    for (std::size_t i = 0; i < organisms.size(); i++) {
-        if (!organisms.at(i)->IsAlive()) {
-            toDelete.push_back(organisms.at(i));
-        }
-    }
-    organisms.erase(std::remove_if(organisms.begin(), organisms.end(),
-                                   [](const Organism *org) {
-                                       return !org->IsAlive();
-                                   }), organisms.end());
-    for (auto org : toDelete) {
-        delete org;
-    }
 }
 
 void World::RenderFrame() {
@@ -313,9 +275,7 @@ void World::SaveToFile() {
     Serializator ser;
     ser.OpenToSave(filename);
     ser.WriteToFile(*this);
-    for (auto org : organisms) {
-        ser.WriteToFile(*org);
-    }
+    manager.WriteToFile(ser);
     ser.Close();
     Log("Saved!", Logger::GREEN);
 }
@@ -384,7 +344,6 @@ void World::LoadFromFile() {
 
 // TODO is it needed?
 void World::ResetWorld() {
-    RemoveAllOrganisms();
+    manager.RemoveAllOrganisms();
     numberOfTurn = 0;
-    wasOrganismAdded = false;
 }

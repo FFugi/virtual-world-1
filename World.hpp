@@ -19,12 +19,11 @@
 class World : public Serializable {
 private:
     Position position;
-    std::vector<Organism*> organisms;
+    //std::vector<Organism*> organisms;
     int width;
     int height;
     int numberOfTurn;
     Logger logger;
-    bool wasOrganismAdded;
     OrganismManager manager;
 public:
     enum Command {
@@ -51,7 +50,7 @@ public:
                                    width(width), height(height),
                                    numberOfTurn(0),
                                    logger({2, position.y + height + 2}, 21),
-                                   wasOrganismAdded(false), manager(*this){};
+                                    manager(*this){};
 
     ~World();
 
@@ -77,16 +76,14 @@ public:
 
     void Deserialize(std::string data) override;
 
+    void MoveOrganism(Organism* org, Position newPosition);
+
 private:
     void RenderSignature();
 
     void RenderFrame();
 
     void RenderLegend();
-
-    void CleanDeadOrganisms();
-
-    void RemoveAllOrganisms();
 
     void SaveToFile();
 

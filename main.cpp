@@ -35,7 +35,7 @@ int main() {
     simulation.AddOrganism(new Fox({40,13},simulation));
 
     simulation.AddOrganism(new Sheep({10,10},simulation));
-    simulation.AddOrganism(new Sheep({12,10},simulation));
+    simulation.AddOrganism(new Sheep({11,10},simulation));
 
     simulation.AddOrganism(new Turtle({0,14},simulation));
     simulation.AddOrganism(new Antelope({50,10},simulation));
@@ -46,8 +46,8 @@ int main() {
     simulation.AddOrganism(new Grass({0,15},simulation));
     simulation.AddOrganism(new Sonchus({59,0},simulation));
     simulation.AddOrganism(new Guarana({30,7},simulation));
-    simulation.AddOrganism(new WolfBerry({29,7},simulation));
-    simulation.AddOrganism(new Hogweed({5,7},simulation));
+//    simulation.AddOrganism(new WolfBerry({29,7},simulation));
+//    simulation.AddOrganism(new Hogweed({25,7},simulation));
     simulation.Render();
 
     World::Command command;

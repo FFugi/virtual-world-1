@@ -24,7 +24,7 @@ void Fox::Action() {
         neighbour->Collision(this, true);
         return;
     }
-    position = newPosition;
+    world.MoveOrganism(this, newPosition);
 }
 
 Organism *Fox::Procreate() {

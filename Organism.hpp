@@ -28,8 +28,8 @@ public:
     Organism(Position position, World &world, int initiative, int strength, char
     symbol, std::string name) :
             position(position), world(world), initiative(initiative),
-            strength(strength), symbol(symbol), age(0), isAlive(true), name
-                    (name) {}
+            strength(strength), symbol(symbol), age(0), isAlive(true),
+            name(name) {}
 
     // TODO check = default
     virtual ~Organism() = default;

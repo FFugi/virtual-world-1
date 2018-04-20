@@ -20,7 +20,7 @@ void Plant::Collision(Organism *other, bool isAttacked) {
     }
     if (other->GetStrength() > strength) {
         Kill(other);
-        other->SetPosition(position);
+        world.MoveOrganism(other, position);
     } else {
         other->Kill(this);
     }

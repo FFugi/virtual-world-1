@@ -50,14 +50,14 @@ void Animal::Action() {
         neighbour->Collision(this, true);
         return;
     }
-    position = newPosition;
+    world.MoveOrganism(this, newPosition);
 }
 
 void Animal::Fight(Organism *attacker) {
     // fight
     if (attacker->GetStrength() >= strength) {
         Kill(attacker);
-        attacker->SetPosition(position);
+        world.MoveOrganism(attacker, position);
     } else {
         attacker->Kill(this);
     }

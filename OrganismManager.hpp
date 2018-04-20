@@ -8,24 +8,37 @@
 #include <vector>
 #include <map>
 #include "structures.hpp"
+#include "serialization/Serializator.hpp"
 
 class Organism;
+
 class World;
 
 class OrganismManager {
-    World& world;
-    std::vector<Organism*> organisms;
-    std::map<Position, Organism*> map;
+    World &world;
+    std::vector<Organism *> organisms;
+    std::map<Position, Organism *> map;
     bool wasOrganismAdded;
 public:
-    OrganismManager(World & world): world(world), wasOrganismAdded(false) {}
-    void AddOrganism(Organism * toAdd);
+    OrganismManager(World &world) : world(world), wasOrganismAdded(false) {}
+
+    void AddOrganism(Organism *toAdd);
+
     void RemoveAllOrganisms();
-    Organism * GetAtField(Position pos);
+
+    Organism *GetAtField(Position pos);
+
     void MoveOrganism(Organism &org, Position newPosition);
-    void CleadDeadOrganisms();
+
+    void CleanDeadOrganisms();
+
     void SortOrganisms();
 
+    void RenderOrganisms(Position startPosition);
+
+    void NextTurn();
+
+    void WriteToFile(Serializator &serializator);
 };
 
 #include "Organism.hpp"
