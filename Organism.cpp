@@ -3,7 +3,7 @@
 //
 
 #include "Organism.hpp"
-#include "serialization/Deserializer.hpp"
+#include "serialization/Parser.hpp"
 
 
 void Organism::Display(Position beg) const {
@@ -73,12 +73,12 @@ void Organism::Deserialize(std::string data) {
      * age,initiative, strength, x, y
      */
     // TODO not found in string
-    Deserializer deserializer(data);
-    age = std::atoi(deserializer.GetPartOfString(1).c_str());
-    initiative = std::atoi(deserializer.GetPartOfString(2).c_str());
-    strength = std::atoi(deserializer.GetPartOfString(3).c_str());
-    position.x = std::atoi(deserializer.GetPartOfString(4).c_str());
-    position.y = std::atoi(deserializer.GetPartOfString(5).c_str());
+    Parser parser(data);
+    age = std::atoi(parser.GetPartOfString(1).c_str());
+    initiative = std::atoi(parser.GetPartOfString(2).c_str());
+    strength = std::atoi(parser.GetPartOfString(3).c_str());
+    position.x = std::atoi(parser.GetPartOfString(4).c_str());
+    position.y = std::atoi(parser.GetPartOfString(5).c_str());
 
     world.Log("Loaded "+FullName());
 }

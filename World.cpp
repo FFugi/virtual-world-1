@@ -14,6 +14,7 @@
 #include "plants/WolfBerry.hpp"
 #include "plants/Sonchus.hpp"
 #include "Color.hpp"
+#include "serialization/Parser.hpp"
 
 void World::AddOrganism(Organism *toAdd) {
     manager.AddOrganism(toAdd);
@@ -283,44 +284,15 @@ void World::LoadFromFile() {
         std::string output;
         Organism *loaded;
         while (getline(file, output)) {
-            std::size_t commaPosition = output.find(',');
-            std::string type = output.substr(0, commaPosition);
+
+            Parser parser(output);
+            std::string type = parser.GetPartOfString(0);
             if (type.compare("World") == 0) {
                 Log("Loading World state", Color::WHITE);
             } else {
-                bool isRecognized = false;
-                if (type.compare("Fox") == 0) {
-                    loaded = new Fox(*this);
-                    isRecognized = true;
-                } else if (type.compare("Wolf") == 0) {
-                    loaded = new Wolf(*this);
-                    isRecognized = true;
-                } else if (type.compare("Sheep") == 0) {
-                    loaded = new Sheep(*this);
-                    isRecognized = true;
-                } else if (type.compare("Antelope") == 0) {
-                    loaded = new Antelope(*this);
-                    isRecognized = true;
-                } else if (type.compare("Tortoise") == 0) {
-                    loaded = new Turtle(*this);
-                    isRecognized = true;
-                } else if (type.compare("Grass") == 0) {
-                    loaded = new Grass(*this);
-                    isRecognized = true;
-                } else if (type.compare("Sonchus") == 0) {
-                    loaded = new Sonchus(*this);
-                    isRecognized = true;
-                } else if (type.compare("Wolf Berry") == 0) {
-                    loaded = new WolfBerry(*this);
-                    isRecognized = true;
-                } else if (type.compare("Guarana") == 0) {
-                    loaded = new Guarana(*this);
-                    isRecognized = true;
-                } else if (type.compare("Hogweed") == 0) {
-                    loaded = new Hogweed(*this);
-                    isRecognized = true;
-                }
-                if (isRecognized) {
+                loaded = GetOrganismOfName(type);
+
+                if (loaded != nullptr) {
                     loaded->Deserialize(output);
                     AddOrganism(loaded);
                 }
@@ -337,4 +309,29 @@ void World::LoadFromFile() {
 void World::ResetWorld() {
     manager.RemoveAllOrganisms();
     numberOfTurn = 0;
+}
+
+Organism *World::GetOrganismOfName(std::string name) {
+    if (name == "Fox") {
+        return new Fox(*this);
+    } else if (name == "Wolf") {
+        return new Wolf(*this);
+    } else if (name == "Sheep") {
+        return new Sheep(*this);
+    } else if (name == "Antelope") {
+        return new Antelope(*this);
+    } else if (name == "Tortoise") {
+        return new Turtle(*this);
+    } else if (name == "Grass") {
+        return new Grass(*this);
+    } else if (name == "Sonchus") {
+        return new Sonchus(*this);
+    } else if (name == "Wolf Berry") {
+        return new WolfBerry(*this);
+    } else if (name == "Guarana") {
+        return new Guarana(*this);
+    } else if (name == "Hogweed") {
+        return new Hogweed(*this);
+    }
+    return nullptr;
 }

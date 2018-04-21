@@ -8,10 +8,10 @@
 
 #include <string>
 
-class Deserializer {
+class Parser {
     std::string toParse;
 public:
-    Deserializer(std::string toParse) : toParse(toParse) {}
+    Parser(std::string toParse) : toParse(toParse) {}
 
     std::string GetPartOfString(std::size_t position);
 };

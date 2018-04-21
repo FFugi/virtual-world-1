@@ -94,6 +94,8 @@ private:
 
     Command GetInput();
 
+    Organism * GetOrganismOfName(std::string name);
+
 };
 
 

@@ -2,9 +2,10 @@
 // Created by ffugi on 21.04.18.
 //
 
-#include "Deserializer.hpp"
+#include "Parser.hpp"
 
-std::string Deserializer::GetPartOfString(std::size_t position) {
+std::string Parser::GetPartOfString(std::size_t position) {
+    // TODO what if null
     if (position == 0) {
         auto end = toParse.find(',');
         return toParse.substr(0, end);
