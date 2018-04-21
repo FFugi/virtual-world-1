@@ -226,22 +226,6 @@ std::vector<Position> World::GetNeighbourFields(Position pos) {
     if (pos.y != height - 1) {
         possibleMoves.push_back({pos.x, pos.y + 1});
     }
-    // up-left
-    if (pos.y != 0 && pos.x != 0) {
-        possibleMoves.push_back({pos.x - 1, pos.y - 1});
-    }
-    // up-right
-    if (pos.y != 0 && pos.x != width - 1) {
-        possibleMoves.push_back({pos.x + 1, pos.y - 1});
-    }
-    // down-right
-    if (pos.y != height - 1 && pos.x != width - 1) {
-        possibleMoves.push_back({pos.x + 1, pos.y + 1});
-    }
-    // down-left
-    if (pos.y != height - 1 && pos.x != 0) {
-        possibleMoves.push_back({pos.x - 1, pos.y + 1});
-    }
     return possibleMoves;
 }
 
