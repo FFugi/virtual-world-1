@@ -14,15 +14,16 @@ private:
     bool IsMovePossible(Position newPosition);
 public:
     Human(Position position, World &world) : Animal(position, world, 4,
-                                                    5, 'H', "Human",
-                                                    Color::YELLOW) {}
+                                                     5, 'H', "Human",
+                                                    Color::YELLOW),
+                                             ageWhenPowerWasUsed(-10) {}
 
     Human(World &world) : Animal({0, 0}, world, 4, 5, 'H', "Human",
                                  Color::YELLOW) {}
 
     void Action() override;
 
-   // void Collision(Organism *other, bool isAttacked) override;
+    void Collision(Organism *other, bool isAttacked) override;
 
     Organism * Procreate() override;
 };

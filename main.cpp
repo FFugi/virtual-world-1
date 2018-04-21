@@ -37,11 +37,12 @@ int main() {
     simulation.AddOrganism(new Fox({40,13},simulation));
 
     simulation.AddOrganism(new Sheep({10,10},simulation));
-    simulation.AddOrganism(new Sheep({11,10},simulation));
+    simulation.AddOrganism(new Sheep({41,10},simulation));
 
     simulation.AddOrganism(new Turtle({0,14},simulation));
     simulation.AddOrganism(new Antelope({50,10},simulation));
     simulation.AddOrganism(new Wolf({51,10},simulation));
+    simulation.AddOrganism(new Wolf({51,11},simulation));
 
     simulation.AddOrganism(new Grass({0,0},simulation));
     simulation.AddOrganism(new Grass({59,14},simulation));
