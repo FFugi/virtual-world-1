@@ -11,17 +11,16 @@
 class Turtle : public Animal {
 public:
     Turtle(Position position, World &world)
-            : Animal(position, world, 2, 1, 'T', "Turtle") {}
+            : Animal(position, world, 2, 1, 'T', "Turtle", Color::WHITE) {}
 
-    Turtle(World &world) : Animal({0,0}, world, 2, 1, 'T', "Turtle") {}
+    Turtle(World &world) : Animal({0,0}, world, 2, 1, 'T', "Turtle",
+                                  Color::WHITE) {}
 
     void Collision(Organism *other, bool isAttacked) override;
 
     void Action() override;
 
     Organism *Procreate() override;
-
-    void Display(Position beg) const override;
 };
 
 

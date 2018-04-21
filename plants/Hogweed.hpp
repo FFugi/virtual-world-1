@@ -12,18 +12,16 @@
 class Hogweed : public Plant {
 public:
     Hogweed(Position position, World &world) :
-            Plant(position, world, 0, 'h', "Hogweed") {};
+            Plant(position, world, 0, 'h', "Hogweed", Color::GREEN) {};
 
     Hogweed(World &world) :
-            Plant({0,0}, world, 0, 'h', "Hogweed") {};
+            Plant({0,0}, world, 0, 'h', "Hogweed", Color::GREEN) {};
 
     void Action() override;
 
     void Collision(Organism *other, bool isAttacked) override ;
 
     Organism *Procreate() override;
-
-    void Display(Position beg) const override;
 };
 
 

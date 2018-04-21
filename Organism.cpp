@@ -7,7 +7,9 @@
 
 void Organism::Display(Position beg) const {
     move(beg.y + position.y, beg.x + position.x);
+    attron(COLOR_PAIR(static_cast<int>(displayedColor)));
     addch(symbol | A_BOLD);
+    attroff(COLOR_PAIR(static_cast<int>(displayedColor)));
 }
 
 bool Organism::CompareInitiative(Organism *first, Organism *second) {
@@ -35,14 +37,14 @@ Position Organism::GetPosition() const {
 }
 
 void Organism::Kill(Organism *attacker) {
-    world.Log(attacker->FullName() + " kills " + FullName(), Logger::RED);
+    world.Log(attacker->FullName() + " kills " + FullName(), Color::RED);
     isAlive = false;
 }
 
 void Organism::Kill(Organism *attacker, std::string comment) {
     world.Log(
             attacker->FullName() + " kills " + FullName() + " " + comment,
-            Logger::RED );
+            Color::RED );
     isAlive = false;
 }
 

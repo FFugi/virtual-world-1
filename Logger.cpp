@@ -9,11 +9,11 @@ Logger::Logger(Position position, unsigned int height)
         : position(position), scrollPosition(0), height(height) {}
 
 void Logger::Log(std::string log) {
-    Log(log, Logger::WHITE);
+    Log(log, Color::WHITE);
 }
 
 void Logger::Log(std::string log, Color colorPair) {
-    logs.push_back({log, colorPair});
+    logs.push_back({log, static_cast<int>(colorPair)});
     scrollPosition = 0;
 }
 

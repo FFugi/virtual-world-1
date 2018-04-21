@@ -27,9 +27,5 @@ void Turtle::Collision(Organism *other, bool isAttacked) {
         Animal::Collision(other, isAttacked);
     }
     world.Log(FullName() + " resisted attack of " + other->FullName(),
-              Logger::YELLOW);
-}
-
-void Turtle::Display(Position beg) const {
-    Organism::Display(beg);
+              Color::YELLOW);
 }

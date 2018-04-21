@@ -12,6 +12,7 @@
 #include "animals/Sheep.hpp"
 #include "animals/Antelope.hpp"
 #include "serialization/Serializator.hpp"
+#include "Color.hpp"
 #include <ctime>
 
 int main() {
@@ -22,11 +23,11 @@ int main() {
     start_color();
     refresh();
     // TODO colors with organisms
-    init_pair(Logger::GREEN, COLOR_GREEN, COLOR_BLACK);
-    init_pair(Logger::RED, COLOR_RED, COLOR_BLACK);
-    init_pair(Logger::YELLOW, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(Logger::MAGENTA, COLOR_MAGENTA, COLOR_BLACK);
-    init_pair(Logger::CYAN, COLOR_CYAN, COLOR_BLACK);
+    init_pair(static_cast<int>(Color::GREEN), COLOR_GREEN, COLOR_BLACK);
+    init_pair(static_cast<int>(Color::RED), COLOR_RED, COLOR_BLACK);
+    init_pair(static_cast<int>(Color::YELLOW), COLOR_YELLOW, COLOR_BLACK);
+    init_pair(static_cast<int>(Color::MAGENTA), COLOR_MAGENTA, COLOR_BLACK);
+    init_pair(static_cast<int>(Color::CYAN), COLOR_CYAN, COLOR_BLACK);
     srand(time(nullptr));
 
     World simulation(60, 20);

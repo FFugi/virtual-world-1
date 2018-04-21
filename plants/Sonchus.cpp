@@ -20,9 +20,3 @@ Organism *Sonchus::Procreate() {
     }
     return new Sonchus(newPosition, world);
 }
-
-void Sonchus::Display(Position beg) const {
-    attron(COLOR_PAIR(3));
-    Organism::Display(beg);
-    attroff(COLOR_PAIR(3));
-}

@@ -13,14 +13,15 @@ public:
 public:
 
     Sheep(Position position, World &world) : Animal(position, world, 4,
-                                                    4, 'S', "Sheep") {}
+                                                    4, 'S', "Sheep",
+                                                    Color::WHITE) {}
 
-    Sheep(World &world) : Animal({0, 0}, world, 4, 4, 'S', "Sheep") {}
+    Sheep(World &world) : Animal({0, 0}, world, 4, 4, 'S', "Sheep",
+                                 Color::WHITE) {}
 
     void Action() override;
 
     Organism *Procreate() override;
-
 };
 
 

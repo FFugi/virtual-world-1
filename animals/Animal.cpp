@@ -5,11 +5,6 @@
 #include "Animal.hpp"
 #include "../plants/Plant.hpp"
 
-Animal::Animal(Position position, World &world, int initiative, int strength,
-               char symbol, std::string name) : Organism(position, world,
-                                                         initiative,
-                                                         strength,
-                                                         symbol, name) {}
 
 
 void Animal::Collision(Organism *other, bool isAttacked) {
@@ -25,8 +20,8 @@ void Animal::Collision(Organism *other, bool isAttacked) {
             return;
         }
         world.Log(FullName() + " and " + other->FullName() + " make:",
-                  Logger::GREEN);
-        world.Log("New " + newOrganism->FullName(), Logger::GREEN);
+                  Color::GREEN);
+        world.Log("New " + newOrganism->FullName(), Color::GREEN);
         world.AddOrganism(newOrganism);
         return;
     }

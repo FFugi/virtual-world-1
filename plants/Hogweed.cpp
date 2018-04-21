@@ -31,9 +31,3 @@ Organism *Hogweed::Procreate() {
     }
     return new Hogweed(newPosition, world);
 }
-
-void Hogweed::Display(Position beg) const {
-    attron(COLOR_PAIR(1));
-    Organism::Display(beg);
-    attroff(COLOR_PAIR(1));
-}

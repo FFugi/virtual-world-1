@@ -64,7 +64,7 @@ public:
 
     void Log(std::string log);
 
-    void Log(std::string log, Logger::Color color);
+    void Log(std::string log, Color color);
 
     Position GetRandomNeighbourField(Position pos);
 

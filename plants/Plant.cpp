@@ -5,10 +5,7 @@
 #include "Plant.hpp"
 #include "Grass.hpp"
 
-Plant::Plant(Position position, World &world, int strength, char symbol,
-             std::string name)
-        : Organism(position, world, 0, strength,
-                   symbol, name), propabilityOfProcrastination(3) {}
+
 
 void Plant::Collision(Organism *other, bool isAttacked) {
     // TODO change comparison of strength
@@ -42,6 +39,6 @@ void Plant::Action() {
     Position newPosition = newOrganism->GetPosition();
     world.Log(FullName() +" generates new " + name + " (" +
               std::to_string(newPosition.x) + "," +
-              std::to_string(newPosition.y) + ")", Logger::GREEN);
+              std::to_string(newPosition.y) + ")", Color::GREEN);
     world.AddOrganism(newOrganism);
 }

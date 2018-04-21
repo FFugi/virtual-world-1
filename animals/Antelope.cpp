@@ -32,18 +32,12 @@ void Antelope::Collision(Organism *other, bool isAttacked) {
     try{
         newPosition = world.GetRandomNeighbourFreeField(position);
         world.Log(FullName() + " runs away from " + other->FullName(),
-                  Logger::YELLOW);
+                  Color::YELLOW);
         world.MoveOrganism(this, newPosition);
     }
     catch (World::NoPossibleFieldException &e){
         world.Log(FullName() + " couldn't away from " + other->FullName(),
-                  Logger::YELLOW);
+                  Color::YELLOW);
         Animal::Collision(other, isAttacked);
     }
-}
-
-void Antelope::Display(Position beg) const{
-    attron(COLOR_PAIR(3));
-    Organism::Display(beg);
-    attroff(COLOR_PAIR(3));
 }

@@ -23,12 +23,6 @@ Organism *Guarana::Procreate() {
 void Guarana::Collision(Organism *other, bool isAttacked) {
     Plant::Collision(other, isAttacked);
     world.Log(FullName() + " increments strength of " + other->FullName() +
-              " to "+ std::to_string(other->GetStrength() + 3), Logger::YELLOW);
+              " to "+ std::to_string(other->GetStrength() + 3), Color::YELLOW);
     other->ModifyStrength(3);
-}
-
-void Guarana::Display(Position beg) const {
-    attron(COLOR_PAIR(4));
-    Organism::Display(beg);
-    attroff(COLOR_PAIR(4));
 }

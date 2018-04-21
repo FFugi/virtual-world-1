@@ -21,9 +21,3 @@ Organism *WolfBerry::Procreate() {
     }
     return new WolfBerry(newPosition, world);
 }
-
-void WolfBerry::Display(Position beg) const {
-    attron(COLOR_PAIR(5));
-    Organism::Display(beg);
-    attroff(COLOR_PAIR(5));
-}

@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include "structures.hpp"
+#include "Color.hpp"
 
 class Logger {
 private:
@@ -21,14 +22,6 @@ private:
     long scrollPosition;
     unsigned int height;
 public:
-    enum Color {
-        WHITE,
-        GREEN,
-        RED,
-        YELLOW,
-        MAGENTA,
-        CYAN
-    };
     Logger(Position position, unsigned int height);
     void Log(std::string log);
     void Log(std::string log, Color colorPair);

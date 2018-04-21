@@ -15,7 +15,7 @@ void Fox::Action() {
         return org->GetStrength() > strength;
     }), positions.end());
     if (positions.size() == 0) {
-        world.Log(FullName()+ " has no possible moves ", Logger::YELLOW);
+        world.Log(FullName()+ " has no possible moves ", Color::YELLOW);
         return;
     }
     Position newPosition = positions.at(rand() % positions.size());
@@ -36,10 +36,4 @@ Organism *Fox::Procreate() {
         return nullptr;
     }
     return new Fox(newPosition, world);
-}
-
-void Fox::Display(Position beg) const {
-    attron(COLOR_PAIR(2));
-    Organism::Display(beg);
-    attroff(COLOR_PAIR(2));
 }

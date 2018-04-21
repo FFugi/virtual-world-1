@@ -5,22 +5,18 @@
 #ifndef VIRTUAL_WORLD_1_FOX_HPP
 #define VIRTUAL_WORLD_1_FOX_HPP
 
-
 #include "Animal.hpp"
 
 class Fox : public Animal {
 public:
     Fox(Position position, World &world)
-            : Animal(position, world, 7, 3, 'F', "Fox") {}
+            : Animal(position, world, 7, 3, 'F', "Fox", Color::RED) {}
 
-    Fox(World &world): Animal({0,0}, world, 7, 3, 'F', "Fox") {}
+    Fox(World &world): Animal({0,0}, world, 7, 3, 'F', "Fox", Color::RED) {}
 
     void Action() override;
 
     Organism *Procreate() override;
-
-    void Display(Position beg) const override;
 };
-
 
 #endif //VIRTUAL_WORLD_1_FOX_HPP

@@ -11,15 +11,13 @@
 class Grass : public Plant {
 public:
     Grass(Position position, World &world) :
-            Plant(position, world, 0, 'g', "Grass") {};
+            Plant(position, world, 0, 'g', "Grass", Color::GREEN) {};
 
-    Grass(World &world) : Plant({0,0}, world, 0, 'g', "Grass") {};
+    Grass(World &world) : Plant({0,0}, world, 0, 'g', "Grass", Color::GREEN) {};
 
     void Action() override;
 
     Organism *Procreate() override;
-
-    void Display(Position beg) const override;
 };
 
 

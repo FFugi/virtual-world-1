@@ -12,8 +12,11 @@
 
 class Animal : public Organism {
 public:
-    Animal(Position position, World &world, int initiative, int strength,
-           char symbol, std::string name);
+    Animal(Position position, World &world, int initiative,
+                   int strength,
+                   char symbol, std::string name, Color color) :
+            Organism(position, world, initiative, strength, symbol, name,
+                     color) {}
 
     void Collision(Organism *other, bool isAttacked) override;
 

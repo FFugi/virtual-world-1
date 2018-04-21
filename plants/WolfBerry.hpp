@@ -12,15 +12,14 @@ class WolfBerry : public Plant {
 
 public:
     WolfBerry(Position position, World &world) :
-            Plant(position, world, 99, 'b', "Wolf Berry") {};
+            Plant(position, world, 99, 'b', "Wolf Berry", Color::CYAN) {};
 
-    WolfBerry(World &world) : Plant({0,0}, world, 99, 'b', "Wolf Berry") {};
+    WolfBerry(World &world) : Plant({0,0}, world, 99, 'b', "Wolf Berry",
+                                    Color::CYAN) {};
 
     void Collision(Organism *other, bool isAttacked) override ;
 
     Organism *Procreate() override;
-
-    void Display(Position beg) const override;
 };
 
 

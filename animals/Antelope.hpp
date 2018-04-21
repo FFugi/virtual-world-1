@@ -11,18 +11,17 @@
 class Antelope : public Animal {
 public:
     Antelope(Position position, World &world) : Animal(position, world, 4,
-                                                       4, 'A', "Antelope") {}
+                                                       4, 'A', "Antelope",
+                                                       Color::YELLOW) {}
 
-    Antelope(World &world) : Animal({0,0}, world, 4, 4, 'A', "Antelope") {}
+    Antelope(World &world) : Animal({0,0}, world, 4, 4, 'A', "Antelope",
+                                    Color::YELLOW) {}
 
     void Collision(Organism *other, bool isAttacked) override;
 
     void Action() override;
 
     Organism *Procreate() override;
-
-    void Display(Position beg) const override;
-
 };
 
 

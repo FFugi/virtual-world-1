@@ -23,13 +23,14 @@ protected:
     int age;
     bool isAlive;
     const std::string name;
+    Color displayedColor;
 
 public:
     Organism(Position position, World &world, int initiative, int strength, char
-    symbol, std::string name) :
+    symbol, std::string name, Color color) :
             position(position), world(world), initiative(initiative),
             strength(strength), symbol(symbol), age(0), isAlive(true),
-            name(name) {}
+            name(name), displayedColor(color) {}
 
     // TODO check = default
     virtual ~Organism() = default;

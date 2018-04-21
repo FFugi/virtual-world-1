@@ -11,16 +11,14 @@
 class Sonchus : public Plant {
 public:
     Sonchus(Position position, World &world) :
-            Plant(position, world, 0, 's', "Sonchus") {};
+            Plant(position, world, 0, 's', "Sonchus", Color::YELLOW) {};
 
-    Sonchus(World &world) : Plant({0,0}, world, 0, 's', "Sonchus") {};
+    Sonchus(World &world) : Plant({0,0}, world, 0, 's', "Sonchus",
+                                  Color::YELLOW) {};
 
     void Action() override;
 
     Organism *Procreate() override;
-
-    void Display(Position beg) const override;
-
 };
 
 

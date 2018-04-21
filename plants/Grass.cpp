@@ -20,9 +20,3 @@ Organism *Grass::Procreate() {
     }
     return new Grass(newPosition, world);
 }
-
-void Grass::Display(Position beg) const {
-    attron(COLOR_PAIR(1));
-    Organism::Display(beg);
-    attroff(COLOR_PAIR(1));
-}
