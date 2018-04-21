@@ -13,6 +13,7 @@
 #include "animals/Antelope.hpp"
 #include "serialization/Serializator.hpp"
 #include "Color.hpp"
+#include "animals/Human.hpp"
 #include <ctime>
 
 int main() {
@@ -21,6 +22,7 @@ int main() {
     cbreak();
     curs_set(0);
     start_color();
+    keypad(stdscr, true);
     refresh();
     init_pair(static_cast<int>(Color::GREEN), COLOR_GREEN, COLOR_BLACK);
     init_pair(static_cast<int>(Color::RED), COLOR_RED, COLOR_BLACK);
@@ -46,8 +48,10 @@ int main() {
     simulation.AddOrganism(new Grass({0,15},simulation));
     simulation.AddOrganism(new Sonchus({59,0},simulation));
     simulation.AddOrganism(new Guarana({30,7},simulation));
-//    simulation.AddOrganism(new WolfBerry({29,7},simulation));
-//    simulation.AddOrganism(new Hogweed({25,7},simulation));
+    simulation.AddOrganism(new WolfBerry({29,7},simulation));
+    simulation.AddOrganism(new Hogweed({25,7},simulation));
+
+    simulation.AddOrganism(new Human({28,7},simulation));
     simulation.Render();
 
     World::Command command;

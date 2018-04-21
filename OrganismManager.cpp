@@ -79,7 +79,8 @@ void OrganismManager::NextTurn() {
         org->IncrementAge();
     }
     CleanDeadOrganisms();
-
+    world.Log(std::to_string(map.size())+ " "+ std::to_string(organisms.size
+            ()));
 }
 
 void OrganismManager::WriteToFile(Serializator &serializator) {

@@ -62,8 +62,10 @@ World::Command World::GetInput() {
 }
 
 World::Command World::NextTurn() {
+    logger.Log("Enter command!");
+    Render();
     Command cmd = GetInput();
-    while (cmd != NEXT_TURN && cmd != EXIT) {
+    while (cmd != NEXT_TURN) {
         switch (cmd) {
             case SAVE:
                 SaveToFile();
@@ -80,6 +82,9 @@ World::Command World::NextTurn() {
             case SCROLL_DOWN:
                 logger.ScrollDown();
                 break;
+
+            case EXIT:
+                return cmd;
 
             default:
                 Log("Unknown command, please try again!", Color::YELLOW);
@@ -251,26 +256,25 @@ void World::Deserialize(std::string data) {
 }
 
 void World::SaveToFile() {
-    // TODO what if opening file fails
     Log("Type filename to save:");
     Render();
     std::string filename = logger.GetText();
     int willSave = logger.GetConfirmation(
             "Are you sure to save current state as " + filename + "?");
     Render();
-    if(!willSave){
+    if (!willSave) {
         Log("Save aborted!", Color::RED);
         return;
     }
     Log("Saving...", Color::CYAN);
     Serializator ser;
     ser.OpenToSave(filename);
-    if(ser.IsOpenScuccesful()){
+    if (ser.IsOpenScuccesful()) {
         ser.WriteToFile(*this);
         manager.WriteToFile(ser);
         ser.Close();
         Log("Saved!", Color::GREEN);
-    } else{
+    } else {
         Log("File not saved, something went wrong!", Color::RED);
     }
 }
@@ -288,7 +292,7 @@ void World::LoadFromFile() {
         int willLoad = logger.GetConfirmation("Are you sure to open "
                                               + filename + "?");
         Render();
-        if(!willLoad){
+        if (!willLoad) {
             Log("Load aborted!", Color::RED);
             return;
         }
