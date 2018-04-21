@@ -233,7 +233,14 @@ std::string World::Serialize() {
 }
 
 void World::Deserialize(std::string data) {
-
+    /*
+     * Format
+     * width,height,turn
+     */
+    Parser parser(data);
+    width = std::atoi(parser.GetPartOfString(1).c_str());
+    height = std::atoi(parser.GetPartOfString(2).c_str());
+    numberOfTurn = std::atoi(parser.GetPartOfString(3).c_str());
 }
 
 void World::SaveToFile() {
@@ -288,7 +295,7 @@ void World::LoadFromFile() {
 
             Parser parser(output);
             std::string type = parser.GetPartOfString(0);
-            if (type.compare("World") == 0) {
+            if (type == "World") {
                 Log("Loading World state", Color::WHITE);
             } else {
                 loaded = GetOrganismOfName(type);

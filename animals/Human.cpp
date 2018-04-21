@@ -6,10 +6,10 @@
 #include "../serialization/Parser.hpp"
 
 void Human::Action() {
-    world.Log("Choose action for your human!");
-    if(IsPowerActive()){
+    world.Log("Choose action for your human!", Color::YELLOW);
+    if (IsPowerActive()) {
         world.Log("Immortality is active!", Color::CYAN);
-    } else if(IsPowerActivable()){
+    } else if (IsPowerActivable()) {
         world.Log("Immortality can be activated.", Color::GREEN);
     } else {
         world.Log("Immortality can't be activated.", Color::MAGENTA);
@@ -43,7 +43,7 @@ void Human::Action() {
                 }
                 break;
             default:
-                world.Log("Unknown command");
+                world.Log("Unknown action!", Color::YELLOW);
                 break;
         }
         bool isMovePossible = IsMovePossible(newPosition);
@@ -110,7 +110,7 @@ bool Human::IsPowerActivable() {
 }
 
 void Human::Kill(Organism *attacker) {
-    if(!IsPowerActive()) {
+    if (!IsPowerActive()) {
         Organism::Kill(attacker);
     }
     world.Log(FullName() + " resists attack from " + attacker->FullName(),
@@ -118,7 +118,7 @@ void Human::Kill(Organism *attacker) {
 }
 
 void Human::Kill(Organism *attacker, std::string comment) {
-    if(!IsPowerActive()) {
+    if (!IsPowerActive()) {
         Organism::Kill(attacker, comment);
     }
     world.Log(FullName() + " resists attack from " + attacker->FullName(),
@@ -126,7 +126,7 @@ void Human::Kill(Organism *attacker, std::string comment) {
 }
 
 std::string Human::Serialize() {
-    return Organism::Serialize() + std::to_string(ageWhenPowerWasUsed);
+    return Organism::Serialize() + ',' + std::to_string(ageWhenPowerWasUsed);
 }
 
 void Human::Deserialize(std::string data) {
