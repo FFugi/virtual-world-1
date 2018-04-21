@@ -5,7 +5,6 @@
 #include "Antelope.hpp"
 
 void Antelope::Action() {
-    // TODO double move
     Animal::Action();
     Animal::Action();
 }
@@ -22,8 +21,7 @@ Organism *Antelope::Procreate() {
 }
 
 void Antelope::Collision(Organism *other, bool isAttacked) {
-    // TODO running away 50% chance
-    bool willRunAway = rand() % 100 > 50;
+    bool willRunAway = rand() % 100 >= 50;
     if(!willRunAway){
         Animal::Collision(other, isAttacked);
         return;

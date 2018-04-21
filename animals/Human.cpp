@@ -15,7 +15,6 @@ void Human::Action() {
     bool confirm = false;
     int command = 0;
 
-    auto possibleMoves = world.GetNeighbourFields(position);
     while (!confirm) {
         command = getch();
         switch (command) {
@@ -39,7 +38,6 @@ void Human::Action() {
                 world.Log("Unknown command");
                 break;
         }
-
         if(vertical < 0){
             vertical = -1;
         } else if(vertical > 0){
@@ -52,12 +50,7 @@ void Human::Action() {
         }
         if(confirm){
             Position newPosition = {position.x + horizontal, position.y + vertical};
-            bool isMovePossible = false;
-            for(auto pos : possibleMoves){
-                if(pos == newPosition){
-                    isMovePossible = true;
-                }
-            }
+            bool isMovePossible = IsMovePossible(newPosition);
             if (isMovePossible) {
                 Organism * neighbour =world.GetAtField(newPosition);
                 if(neighbour != nullptr){
@@ -66,6 +59,7 @@ void Human::Action() {
                 world.MoveOrganism(this, newPosition);
             } else{
                 world.Log("this move is impossiblu!!!!");
+                confirm = false;
             }
         } else {
             verticalStr = vertical < 0 ? "up" :
@@ -80,6 +74,16 @@ void Human::Action() {
         world.Render();
     }
 
+}
+
+bool Human::IsMovePossible(Position newPosition) {
+    auto possibleMoves = world.GetNeighbourFields(position);
+    for(auto pos : possibleMoves){
+        if(pos == newPosition){
+            return true;
+        }
+    }
+    return false;
 }
 
 // TODO Collision!!

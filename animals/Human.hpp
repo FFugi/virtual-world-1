@@ -11,6 +11,7 @@
 class Human : public Animal {
 private:
     int ageWhenPowerWasUsed;
+    bool IsMovePossible(Position newPosition);
 public:
     Human(Position position, World &world) : Animal(position, world, 4,
                                                     5, 'H', "Human",
