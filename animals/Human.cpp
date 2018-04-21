@@ -3,6 +3,7 @@
 //
 
 #include "Human.hpp"
+#include "../serialization/Parser.hpp"
 
 void Human::Action() {
     world.Log("Choose action for your human!");
@@ -122,4 +123,14 @@ void Human::Kill(Organism *attacker, std::string comment) {
     }
     world.Log(FullName() + " resists attack from " + attacker->FullName(),
               Color::YELLOW);
+}
+
+std::string Human::Serialize() {
+    return Organism::Serialize() + std::to_string(ageWhenPowerWasUsed);
+}
+
+void Human::Deserialize(std::string data) {
+    Organism::Deserialize(data);
+    Parser parser(data);
+    ageWhenPowerWasUsed = std::atoi(parser.GetPartOfString(6).c_str());
 }
