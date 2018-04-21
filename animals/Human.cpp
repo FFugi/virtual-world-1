@@ -5,7 +5,14 @@
 #include "Human.hpp"
 
 void Human::Action() {
-    world.Log("Choose direction to move!");
+    world.Log("Choose action for your human!");
+    if(IsPowerActive()){
+        world.Log("Immortality is active!", Color::CYAN);
+    } else if(IsPowerActivable()){
+        world.Log("Immortality can be activated.", Color::GREEN);
+    } else {
+        world.Log("Immortality can't be activated.", Color::MAGENTA);
+    }
     world.Render();
 
     int command = 0;
@@ -28,9 +35,9 @@ void Human::Action() {
                 newPosition = {position.x, position.y + 1};
                 break;
             case 'i':
-                if (age - ageWhenPowerWasUsed > 10) {
+                if (IsPowerActivable()) {
                     ageWhenPowerWasUsed = age;
-                    world.Log("Immortality activated!");
+                    world.Log("Immortality activated!", Color::CYAN);
                     finish = false;
                 }
                 break;
@@ -43,7 +50,7 @@ void Human::Action() {
             Organism *neighbour = world.GetAtField(newPosition);
             if (neighbour != nullptr) {
                 if (neighbour->GetStrength() > strength
-                    && age - ageWhenPowerWasUsed < 5) {
+                    && IsPowerActive()) {
                     world.Log("Human tried to attack " + neighbour->FullName()
                               + " but survived due to Immortality!",
                               Color::YELLOW);
@@ -85,12 +92,18 @@ void Human::Collision(Organism *other, bool isAttacked) {
             world.Log(FullName() + " resists attack from " + other->FullName(),
                       Color::YELLOW);
         }
-
     }
-
 }
 
 Organism *Human::Procreate() {
     world.Log("Human cannot procreate!");
     return nullptr;
+}
+
+bool Human::IsPowerActive() {
+    return age - ageWhenPowerWasUsed < 5;
+}
+
+bool Human::IsPowerActivable() {
+    return age - ageWhenPowerWasUsed >= 10;
 }

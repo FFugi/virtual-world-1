@@ -306,7 +306,7 @@ void World::LoadFromFile() {
                 } else if (type.compare("Antelope") == 0) {
                     loaded = new Antelope(*this);
                     isRecognized = true;
-                } else if (type.compare("Turtle") == 0) {
+                } else if (type.compare("Tortoise") == 0) {
                     loaded = new Turtle(*this);
                     isRecognized = true;
                 } else if (type.compare("Grass") == 0) {
