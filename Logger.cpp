@@ -5,8 +5,8 @@
 #include <ncurses.h>
 #include "Logger.hpp"
 
-Logger::Logger(Position position, unsigned int height)
-        : position(position), scrollPosition(0), height(height) {}
+Logger::Logger(Position position, unsigned int height, World& world)
+        : position(position), scrollPosition(0), height(height), world(world) {}
 
 void Logger::Log(std::string log) {
     Log(log, Color::WHITE);
@@ -80,4 +80,17 @@ std::string Logger::GetText() {
     curs_set(0);
     Log(buffer);
     return std::string(buffer);
+}
+
+bool Logger::GetConfirmation(std::string message) {
+    Log(message + " [Y/N]", Color::CYAN);
+    world.Render();
+    int input = getch();
+    while (input != 'y' && input != 'Y') {
+        if (input == 'n' || input == 'N') {
+            return false;
+        }
+        input = getch();
+    }
+    return true;
 }

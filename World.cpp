@@ -255,17 +255,14 @@ void World::SaveToFile() {
     Log("Type filename to save:");
     Render();
     std::string filename = logger.GetText();
-    Log("Are you sure to save current state as " + filename + "? [Y/N]");
+    int willSave = logger.GetConfirmation(
+            "Are you sure to save current state as " + filename + "?");
     Render();
-    int input = getch();
-    while (input != 'y' && input != 'Y') {
-        if (input == 'n' || input == 'N') {
-            Log("Save aborted!", Color::RED);
-            return;
-        }
-        input = getch();
+    if(!willSave){
+        Log("Save aborted!", Color::RED);
+        return;
     }
-    Log("Saving...", Color::YELLOW);
+    Log("Saving...", Color::CYAN);
     Serializator ser;
     ser.OpenToSave(filename);
     ser.WriteToFile(*this);
@@ -283,8 +280,18 @@ void World::LoadFromFile() {
 
     file.open(filename);
 
-    if(file.good()) {
-        
+    if (file.good()) {
+
+        int willLoad = logger.GetConfirmation("Are you sure to open "
+                                              + filename + "?");
+        Render();
+        if(!willLoad){
+            Log("Load aborted!", Color::RED);
+            return;
+        }
+
+        Log("Starting loading...", Color::CYAN);
+
         ResetWorld();
 
         std::string output;
@@ -293,7 +300,7 @@ void World::LoadFromFile() {
             std::size_t commaPosition = output.find(',');
             std::string type = output.substr(0, commaPosition);
             if (type.compare("World") == 0) {
-                Log("Loading World state", Color::YELLOW);
+                Log("Loading World state", Color::WHITE);
             } else {
                 bool isRecognized = false;
                 if (type.compare("Fox") == 0) {
@@ -335,9 +342,8 @@ void World::LoadFromFile() {
             }
         }
         Log("Loading finished!", Color::GREEN);
-    }
-    else{
-        Log("Couldn't load file \"" + filename + "\"!", Color::RED);
+    } else {
+        Log("Couldn't open file \"" + filename + "\"!", Color::RED);
     }
     file.close();
     // TODO refreshing view
