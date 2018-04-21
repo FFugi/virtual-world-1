@@ -22,7 +22,6 @@ int main() {
     curs_set(0);
     start_color();
     refresh();
-    // TODO colors with organisms
     init_pair(static_cast<int>(Color::GREEN), COLOR_GREEN, COLOR_BLACK);
     init_pair(static_cast<int>(Color::RED), COLOR_RED, COLOR_BLACK);
     init_pair(static_cast<int>(Color::YELLOW), COLOR_YELLOW, COLOR_BLACK);

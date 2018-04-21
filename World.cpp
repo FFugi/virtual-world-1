@@ -278,59 +278,66 @@ void World::LoadFromFile() {
     Log("Type filename to load:");
     Render();
     std::string filename = logger.GetText();
-    std::fstream file;
+    std::ifstream file;
     // TODO universal
 
-    ResetWorld();
+    file.open(filename);
 
-    file.open(filename, std::fstream::in);
+    if(file.good()) {
+        
+        ResetWorld();
 
-    std::string output;
-    Organism *loaded;
-    while (getline(file, output)) {
-        std::size_t commaPosition = output.find(',');
-        std::string type = output.substr(0, commaPosition);
-        if (type.compare("World") == 0) {
-            Log("Loading World state", Color::YELLOW);
-        } else {
-            bool isRecognized = false;
-            if (type.compare("Fox") == 0) {
-                loaded = new Fox(*this);
-                isRecognized = true;
-            } else if (type.compare("Wolf") == 0) {
-                loaded = new Wolf(*this);
-                isRecognized = true;
-            } else if (type.compare("Sheep") == 0) {
-                loaded = new Sheep(*this);
-                isRecognized = true;
-            } else if (type.compare("Antelope") == 0) {
-                loaded = new Antelope(*this);
-                isRecognized = true;
-            } else if (type.compare("Turtle") == 0) {
-                loaded = new Turtle(*this);
-                isRecognized = true;
-            } else if (type.compare("Grass") == 0) {
-                loaded = new Grass(*this);
-                isRecognized = true;
-            } else if (type.compare("Sonchus") == 0) {
-                loaded = new Sonchus(*this);
-                isRecognized = true;
-            } else if (type.compare("Wolf Berry") == 0) {
-                loaded = new WolfBerry(*this);
-                isRecognized = true;
-            } else if (type.compare("Guarana") == 0) {
-                loaded = new Guarana(*this);
-                isRecognized = true;
-            } else if (type.compare("Hogweed") == 0) {
+        std::string output;
+        Organism *loaded;
+        while (getline(file, output)) {
+            std::size_t commaPosition = output.find(',');
+            std::string type = output.substr(0, commaPosition);
+            if (type.compare("World") == 0) {
+                Log("Loading World state", Color::YELLOW);
+            } else {
+                bool isRecognized = false;
+                if (type.compare("Fox") == 0) {
+                    loaded = new Fox(*this);
+                    isRecognized = true;
+                } else if (type.compare("Wolf") == 0) {
+                    loaded = new Wolf(*this);
+                    isRecognized = true;
+                } else if (type.compare("Sheep") == 0) {
+                    loaded = new Sheep(*this);
+                    isRecognized = true;
+                } else if (type.compare("Antelope") == 0) {
+                    loaded = new Antelope(*this);
+                    isRecognized = true;
+                } else if (type.compare("Turtle") == 0) {
+                    loaded = new Turtle(*this);
+                    isRecognized = true;
+                } else if (type.compare("Grass") == 0) {
+                    loaded = new Grass(*this);
+                    isRecognized = true;
+                } else if (type.compare("Sonchus") == 0) {
+                    loaded = new Sonchus(*this);
+                    isRecognized = true;
+                } else if (type.compare("Wolf Berry") == 0) {
+                    loaded = new WolfBerry(*this);
+                    isRecognized = true;
+                } else if (type.compare("Guarana") == 0) {
+                    loaded = new Guarana(*this);
+                    isRecognized = true;
+                } else if (type.compare("Hogweed") == 0) {
 
-                loaded = new Hogweed(*this);
-                isRecognized = true;
-            }
-            if (isRecognized) {
-                loaded->Deserialize(output);
-                AddOrganism(loaded);
+                    loaded = new Hogweed(*this);
+                    isRecognized = true;
+                }
+                if (isRecognized) {
+                    loaded->Deserialize(output);
+                    AddOrganism(loaded);
+                }
             }
         }
+        Log("Loading finished!", Color::GREEN);
+    }
+    else{
+        Log("Couldn't load file \"" + filename + "\"!", Color::RED);
     }
     file.close();
     // TODO refreshing view
