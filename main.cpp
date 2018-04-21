@@ -11,7 +11,7 @@
 #include "plants/Hogweed.hpp"
 #include "animals/Sheep.hpp"
 #include "animals/Antelope.hpp"
-#include "serialization/Serializator.hpp"
+#include "serialization/Serializer.hpp"
 #include "Color.hpp"
 #include "animals/Human.hpp"
 #include <ctime>

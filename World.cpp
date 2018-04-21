@@ -70,22 +70,17 @@ World::Command World::NextTurn() {
             case SAVE:
                 SaveToFile();
                 break;
-
             case LOAD:
                 LoadFromFile();
                 break;
-
             case SCROLL_UP:
                 logger.ScrollUp();
                 break;
-
             case SCROLL_DOWN:
                 logger.ScrollDown();
                 break;
-
             case EXIT:
                 return cmd;
-
             default:
                 Log("Unknown command, please try again!", Color::YELLOW);
                 break;
@@ -109,9 +104,9 @@ void World::RenderFrame() {
             addch(std::to_string(real % 100).at(0));
         }
         move(y, position.x);
-        addch('|');
+        addch(ACS_VLINE);
         move(y, position.x + width + 1);
-        addch('|');
+        addch(ACS_VLINE);
     }
     for (int x = position.x + 1, real = 0;
          x <= position.x + width; real++, x++) {
@@ -124,18 +119,18 @@ void World::RenderFrame() {
             addch(std::to_string(real % 100).at(0));
         }
         move(position.y, x);
-        addch('-');
+        addch(ACS_HLINE);
         move(position.y + height + 1, x);
-        addch('-');
+        addch(ACS_HLINE);
     }
     move(position.y, position.x);
-    addch('o');
+    addch(ACS_ULCORNER);
     move(position.y, position.x + width + 1);
-    addch('o');
+    addch(ACS_URCORNER);
     move(position.y + height + 1, position.x + width + 1);
-    addch('o');
+    addch(ACS_LRCORNER);
     move(position.y + height + 1, position.x);
-    addch('o');
+    addch(ACS_LLCORNER);
 }
 
 void World::RenderSignature() {
@@ -251,9 +246,9 @@ void World::SaveToFile() {
         return;
     }
     Log("Saving...", Color::CYAN);
-    Serializator ser;
+    Serializer ser;
     ser.OpenToSave(filename);
-    if (ser.IsOpenScuccesful()) {
+    if (ser.IsOpenSuccessful()) {
         ser.WriteToFile(*this);
         manager.WriteToFile(ser);
         ser.Close();

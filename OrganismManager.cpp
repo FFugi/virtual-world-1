@@ -83,7 +83,7 @@ void OrganismManager::NextTurn() {
             ()));
 }
 
-void OrganismManager::WriteToFile(Serializator &serializator) {
+void OrganismManager::WriteToFile(Serializer &serializator) {
     for (auto org : organisms) {
         serializator.WriteToFile(*org);
     }

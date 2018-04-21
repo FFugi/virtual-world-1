@@ -3,6 +3,7 @@
 //
 
 #include "Organism.hpp"
+#include "serialization/Deserializer.hpp"
 
 
 void Organism::Display(Position beg) const {
@@ -72,23 +73,12 @@ void Organism::Deserialize(std::string data) {
      * age,initiative, strength, x, y
      */
     // TODO not found in string
-    //world.Log(data);
-    std::size_t comma = data.find(',');
-    std::string rest = data.substr(comma+1);
-    comma = rest.find(',');
-    age = std::stoi(rest.substr(0, comma));
-    rest = rest.substr((comma+1));
-    comma = rest.find(',');
-    initiative = std::stoi(rest.substr(0, comma));
-    rest = rest.substr((comma+1));
-    comma = rest.find(',');
-    strength = std::stoi(rest.substr(0, comma));
-    rest = rest.substr((comma+1));
-    comma = rest.find(',');
-    position.x = std::stoi(rest.substr(0, comma));
-    rest = rest.substr((comma+1));
-    comma = rest.find(',');
-    position.y = std::stoi(rest.substr(0, comma));
+    Deserializer deserializer(data);
+    age = std::atoi(deserializer.GetPartOfString(1).c_str());
+    initiative = std::atoi(deserializer.GetPartOfString(2).c_str());
+    strength = std::atoi(deserializer.GetPartOfString(3).c_str());
+    position.x = std::atoi(deserializer.GetPartOfString(4).c_str());
+    position.y = std::atoi(deserializer.GetPartOfString(5).c_str());
 
     world.Log("Loaded "+FullName());
 }

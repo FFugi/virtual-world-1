@@ -51,17 +51,17 @@ void Logger::RenderFrame() {
     move(position.y, position.x + 5);
     addstr("<=-Logger-=>");
     move(position.y + 1, position.x);
-    addch('O');
+    addch(ACS_ULCORNER);
     for (std::size_t i = 1; i < 50; i++) {
-        addch('-');
+        addch(ACS_HLINE);
     }
-    addch('>');
+    addch(ACS_PLUS);
     for (std::size_t i = 1; i < height + 2; i++) {
         move(position.y + 1 + i, position.x);
-        addch('|');
+        addch(ACS_VLINE);
     }
     move(position.y + height + 2, position.x);
-    addch('O');
+    addch(ACS_PLUS);
 }
 
 void Logger::ChangePosition(Position position) {

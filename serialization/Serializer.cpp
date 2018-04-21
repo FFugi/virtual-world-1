@@ -1,13 +1,13 @@
 //
 // Created by ffugi on 07.04.18.
 //
-#include "Serializator.hpp"
+#include "Serializer.hpp"
 
-void Serializator::WriteToFile(Serializable &item) {
+void Serializer::WriteToFile(Serializable &item) {
     file << item.Serialize() << std::endl;
 }
 
-bool Serializator::OpenToSave(std::string fileName) {
+bool Serializer::OpenToSave(std::string fileName) {
     if(isOpen){
         Close();
     }
@@ -16,13 +16,13 @@ bool Serializator::OpenToSave(std::string fileName) {
     return file.good();
 }
 
-void Serializator::Close() {
+void Serializer::Close() {
     if(isOpen){
         file.close();
         isOpen = false;
     }
 }
 
-bool Serializator::IsOpenScuccesful() {
+bool Serializer::IsOpenSuccessful() {
     return isOpen;
 }

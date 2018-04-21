@@ -10,17 +10,17 @@
 #include <fstream>
 #include "Serializable.hpp"
 
-class Serializator {
+class Serializer {
 private:
     std::fstream file;
     bool isOpen;
 public:
-    Serializator() :isOpen(false){}
-    ~Serializator(){
+    Serializer() :isOpen(false){}
+    ~Serializer(){
         file.close();
     }
     void WriteToFile(Serializable &item);
-    bool IsOpenScuccesful();
+    bool IsOpenSuccessful();
     bool OpenToSave(std::string fileName);
     void Close();
 };

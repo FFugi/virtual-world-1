@@ -8,7 +8,7 @@
 #include <vector>
 #include <map>
 #include "structures.hpp"
-#include "serialization/Serializator.hpp"
+#include "serialization/Serializer.hpp"
 
 class Organism;
 
@@ -38,7 +38,7 @@ public:
 
     void NextTurn();
 
-    void WriteToFile(Serializator &serializator);
+    void WriteToFile(Serializer &serializator);
 };
 
 #include "Organism.hpp"

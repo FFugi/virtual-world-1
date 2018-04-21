@@ -12,7 +12,7 @@
 #include "structures.hpp"
 #include "Logger.hpp"
 #include "Organism.hpp"
-#include "serialization/Serializator.hpp"
+#include "serialization/Serializer.hpp"
 #include "OrganismManager.hpp"
 
 
