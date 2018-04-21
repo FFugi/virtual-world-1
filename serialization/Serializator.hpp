@@ -20,7 +20,8 @@ public:
         file.close();
     }
     void WriteToFile(Serializable &item);
-    void OpenToSave(std::string fileName);
+    bool IsOpenScuccesful();
+    bool OpenToSave(std::string fileName);
     void Close();
 };
 

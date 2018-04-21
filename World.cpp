@@ -265,10 +265,14 @@ void World::SaveToFile() {
     Log("Saving...", Color::CYAN);
     Serializator ser;
     ser.OpenToSave(filename);
-    ser.WriteToFile(*this);
-    manager.WriteToFile(ser);
-    ser.Close();
-    Log("Saved!", Color::GREEN);
+    if(ser.IsOpenScuccesful()){
+        ser.WriteToFile(*this);
+        manager.WriteToFile(ser);
+        ser.Close();
+        Log("Saved!", Color::GREEN);
+    } else{
+        Log("File not saved, something went wrong!", Color::RED);
+    }
 }
 
 void World::LoadFromFile() {
@@ -276,7 +280,6 @@ void World::LoadFromFile() {
     Render();
     std::string filename = logger.GetText();
     std::ifstream file;
-    // TODO universal
 
     file.open(filename);
 
@@ -331,7 +334,6 @@ void World::LoadFromFile() {
                     loaded = new Guarana(*this);
                     isRecognized = true;
                 } else if (type.compare("Hogweed") == 0) {
-
                     loaded = new Hogweed(*this);
                     isRecognized = true;
                 }

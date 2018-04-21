@@ -7,11 +7,13 @@ void Serializator::WriteToFile(Serializable &item) {
     file << item.Serialize() << std::endl;
 }
 
-void Serializator::OpenToSave(std::string fileName) {
+bool Serializator::OpenToSave(std::string fileName) {
     if(isOpen){
         Close();
     }
     file.open(fileName, std::fstream::out);
+    isOpen = file.good();
+    return file.good();
 }
 
 void Serializator::Close() {
@@ -19,4 +21,8 @@ void Serializator::Close() {
         file.close();
         isOpen = false;
     }
+}
+
+bool Serializator::IsOpenScuccesful() {
+    return isOpen;
 }
