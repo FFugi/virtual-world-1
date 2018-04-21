@@ -15,6 +15,7 @@
 #include "plants/Sonchus.hpp"
 #include "Color.hpp"
 #include "serialization/Parser.hpp"
+#include "animals/Human.hpp"
 
 void World::AddOrganism(Organism *toAdd) {
     manager.AddOrganism(toAdd);
@@ -332,6 +333,8 @@ Organism *World::GetOrganismOfName(std::string name) {
         return new Guarana(*this);
     } else if (name == "Hogweed") {
         return new Hogweed(*this);
+    } else if (name == "Human") {
+        return new Human(*this);
     }
     return nullptr;
 }

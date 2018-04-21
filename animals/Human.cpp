@@ -107,3 +107,19 @@ bool Human::IsPowerActive() {
 bool Human::IsPowerActivable() {
     return age - ageWhenPowerWasUsed >= 10;
 }
+
+void Human::Kill(Organism *attacker) {
+    if(!IsPowerActive()) {
+        Organism::Kill(attacker);
+    }
+    world.Log(FullName() + " resists attack from " + attacker->FullName(),
+              Color::YELLOW);
+}
+
+void Human::Kill(Organism *attacker, std::string comment) {
+    if(!IsPowerActive()) {
+        Organism::Kill(attacker, comment);
+    }
+    world.Log(FullName() + " resists attack from " + attacker->FullName(),
+              Color::YELLOW);
+}

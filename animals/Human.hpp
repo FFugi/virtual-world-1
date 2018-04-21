@@ -11,12 +11,16 @@
 class Human : public Animal {
 private:
     int ageWhenPowerWasUsed;
+
     bool IsMovePossible(Position newPosition);
+
     bool IsPowerActive();
+
     bool IsPowerActivable();
+
 public:
     Human(Position position, World &world) : Animal(position, world, 4,
-                                                     5, 'H', "Human",
+                                                    5, 'H', "Human",
                                                     Color::YELLOW),
                                              ageWhenPowerWasUsed(-10) {}
 
@@ -27,7 +31,15 @@ public:
 
     void Collision(Organism *other, bool isAttacked) override;
 
-    Organism * Procreate() override;
+    Organism *Procreate() override;
+
+    void Kill(Organism *attacker) override;
+
+    void Kill(Organism *attacker, std::string comment) override;
+
+//    std::string Serialize() override;
+//
+//    void Deserialize(std::string data);
 };
 
 

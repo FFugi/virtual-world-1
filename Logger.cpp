@@ -32,6 +32,10 @@ void Logger::ScrollUp() {
 
 void Logger::Render() {
     RenderFrame();
+    RenderLogs();
+}
+
+void Logger::RenderLogs() {
     std::string output;
     for (std::size_t j = 0, i = (logs.size() > height
                                  ? logs.size() - height : 0) + scrollPosition;
