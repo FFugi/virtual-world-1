@@ -2,15 +2,15 @@
 // Created by ffugi on 04.04.18.
 //
 
-#include "Turtle.hpp"
+#include "Tortoise.hpp"
 
-void Turtle::Action() {
+void Tortoise::Action() {
     if (rand() % 100 < 25) {
         Animal::Action();
     }
 }
 
-Organism *Turtle::Procreate() {
+Organism *Tortoise::Procreate() {
     Position newPosition;
     try {
         newPosition = world.GetRandomNeighbourFreeField(position);
@@ -18,14 +18,16 @@ Organism *Turtle::Procreate() {
     catch (World::NoPossibleFieldException &e) {
         return nullptr;
     }
-    return new Turtle(newPosition, world);
+    return new Tortoise(newPosition, world);
 }
 
-void Turtle::Collision(Organism *other, bool isAttacked) {
+void Tortoise::Collision(Organism *other, bool isAttacked) {
     if (typeid(*this).name() == typeid(*other).name() ||
         other->GetStrength() >= 5) {
         Animal::Collision(other, isAttacked);
+
+    } else {
+        world.Log(FullName() + " resisted attack of " + other->FullName(),
+                  Color::YELLOW);
     }
-    world.Log(FullName() + " resisted attack of " + other->FullName(),
-              Color::YELLOW);
 }

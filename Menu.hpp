@@ -31,12 +31,13 @@ public:
         parameters.push_back({"Sheep", 2});
         parameters.push_back({"Wolf", 2});
         parameters.push_back({"Antelope", 2});
-        parameters.push_back({"Turtle", 2});
+        parameters.push_back({"Tortoise", 2});
         parameters.push_back({"Grass", 2});
         parameters.push_back({"Guarana", 2});
         parameters.push_back({"Hogweed", 2});
         parameters.push_back({"Sonchus", 2});
         parameters.push_back({"Wolf Berry", 2});
+        parameters.push_back({"Human", 1});
     }
 
     ~Menu();

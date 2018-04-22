@@ -5,7 +5,7 @@
 #include "animals/Wolf.hpp"
 #include "plants/Sonchus.hpp"
 #include "animals/Fox.hpp"
-#include "animals/Turtle.hpp"
+#include "animals/Tortoise.hpp"
 #include "plants/Guarana.hpp"
 #include "plants/WolfBerry.hpp"
 #include "plants/Hogweed.hpp"
@@ -34,35 +34,6 @@ int main() {
     Menu menu;
     while(menu.Execute());
 
-    World simulation(60, 20);
-
-    simulation.AddOrganism(new Fox({1,10},simulation));
-    simulation.AddOrganism(new Fox({40,13},simulation));
-
-    simulation.AddOrganism(new Sheep({10,10},simulation));
-    simulation.AddOrganism(new Sheep({41,10},simulation));
-
-    simulation.AddOrganism(new Turtle({0,14},simulation));
-    simulation.AddOrganism(new Antelope({50,10},simulation));
-    simulation.AddOrganism(new Wolf({51,10},simulation));
-    simulation.AddOrganism(new Wolf({51,11},simulation));
-
-    simulation.AddOrganism(new Grass({0,0},simulation));
-    simulation.AddOrganism(new Grass({59,14},simulation));
-    simulation.AddOrganism(new Grass({0,15},simulation));
-    simulation.AddOrganism(new Sonchus({59,0},simulation));
-    simulation.AddOrganism(new Guarana({30,7},simulation));
-    simulation.AddOrganism(new WolfBerry({29,7},simulation));
-    simulation.AddOrganism(new Hogweed({25,7},simulation));
-
-    simulation.AddOrganism(new Human({28,7},simulation));
-    simulation.Render();
-
-    World::Command command;
-    do{
-        command = simulation.NextTurn();
-        simulation.Render();
-    }while(command != World::Command::EXIT);
     return 0;
 }
 

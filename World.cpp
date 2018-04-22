@@ -5,7 +5,7 @@
 #include "World.hpp"
 #include "animals/Fox.hpp"
 #include "animals/Wolf.hpp"
-#include "animals/Turtle.hpp"
+#include "animals/Tortoise.hpp"
 #include "animals/Antelope.hpp"
 #include "animals/Sheep.hpp"
 #include "plants/Grass.hpp"
@@ -157,7 +157,7 @@ void World::RenderLegend() {
     move(yLegend++, xLegend);
     addstr("F - Fox\t (Lis)");
     move(yLegend++, xLegend);
-    addstr("T - Turtle\t (Zolw)");
+    addstr("T - Tortoise\t (Zolw)");
     move(yLegend++, xLegend);
     addstr("S - Sheep\t (Owca)");
     move(yLegend++, xLegend);

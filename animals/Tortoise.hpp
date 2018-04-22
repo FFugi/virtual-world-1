@@ -8,12 +8,12 @@
 
 #include "Animal.hpp"
 
-class Turtle : public Animal {
+class Tortoise: public Animal {
 public:
-    Turtle(Position position, World &world)
-            : Animal(position, world, 2, 1, 'T', "Turtle", Color::WHITE) {}
+    Tortoise(Position position, World &world)
+            : Animal(position, world, 2, 1, 'T', "Tortoise", Color::WHITE) {}
 
-    Turtle(World &world) : Animal({0,0}, world, 2, 1, 'T', "Turtle",
+    Tortoise(World &world) : Animal({0,0}, world, 2, 1, 'T', "Tortoise",
                                   Color::WHITE) {}
 
     void Collision(Organism *other, bool isAttacked) override;

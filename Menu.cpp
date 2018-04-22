@@ -66,7 +66,12 @@ void Menu::ExecuteCommand(Command cmd) {
             if (parameters.at(menuPosition).first != "width" &&
                 parameters.at(menuPosition).first != "height") {
                 if (OrganismsCount() < OrganismsLimit()) {
-                    val++;
+                    if (parameters.at(menuPosition).first == "Human" &&
+                        val == 1) {
+                        val = 1;
+                    } else {
+                        val++;
+                    }
                 }
             } else {
                 val++;
@@ -136,7 +141,7 @@ void Menu::CreateWorld() {
     OrganismFactory factory;
     for (auto &org : parameters) {
         if (org.first != "width" && org.first != "height") {
-            for(std::size_t i = 0; i < org.second; i++) {
+            for (std::size_t i = 0; i < org.second; i++) {
                 do {
                     randomPos = {
                             static_cast<int>(rand() % parameters.at(0).second),

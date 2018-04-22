@@ -7,7 +7,7 @@
 #include "animals/Wolf.hpp"
 #include "animals/Sheep.hpp"
 #include "animals/Antelope.hpp"
-#include "animals/Turtle.hpp"
+#include "animals/Tortoise.hpp"
 #include "plants/Grass.hpp"
 #include "plants/Sonchus.hpp"
 #include "plants/WolfBerry.hpp"
@@ -25,7 +25,7 @@ Organism *OrganismFactory::GetOrganism(std::string name, World &world) {
     } else if (name == "Antelope") {
         return new Antelope(world);
     } else if (name == "Tortoise") {
-        return new Turtle(world);
+        return new Tortoise(world);
     } else if (name == "Grass") {
         return new Grass(world);
     } else if (name == "Sonchus") {
@@ -53,7 +53,7 @@ Organism *OrganismFactory::GetOrganism(std::string name, Position position,
     } else if (name == "Antelope") {
         return new Antelope(position, world);
     } else if (name == "Tortoise") {
-        return new Turtle(position, world);
+        return new Tortoise(position, world);
     } else if (name == "Grass") {
         return new Grass(position, world);
     } else if (name == "Sonchus") {
