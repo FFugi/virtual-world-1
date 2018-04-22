@@ -34,7 +34,7 @@ void OrganismManager::MoveOrganism(Organism &org, Position newPosition) {
 }
 
 void OrganismManager::CleanDeadOrganisms() {
-    std::vector<Organism*> toDelete;
+    std::vector<Organism *> toDelete;
     for (std::size_t i = 0; i < organisms.size(); i++) {
         if (!organisms.at(i)->IsAlive()) {
             toDelete.push_back(organisms.at(i));
@@ -46,8 +46,8 @@ void OrganismManager::CleanDeadOrganisms() {
                                    }), organisms.end());
     for (auto org : toDelete) {
         // Check if overwritten
-        if(map[org->GetPosition()] != nullptr
-           && !map[org->GetPosition()]->IsAlive()){
+        if (map[org->GetPosition()] != nullptr
+            && !map[org->GetPosition()]->IsAlive()) {
             map.erase(org->GetPosition());
         }
         delete org;
@@ -60,12 +60,14 @@ void OrganismManager::SortOrganisms() {
 
 void OrganismManager::RenderOrganisms(Position startPosition) {
     for (auto org: organisms) {
-        org->Display({startPosition.x + 1, startPosition.y + 1});
+        if (org->IsAlive()) {
+            org->Display({startPosition.x + 1, startPosition.y + 1});
+        }
     }
 }
 
 void OrganismManager::NextTurn() {
-    if(wasOrganismAdded){
+    if (wasOrganismAdded) {
         SortOrganisms();
         wasOrganismAdded = false;
     }
@@ -79,7 +81,7 @@ void OrganismManager::NextTurn() {
         org->IncrementAge();
     }
     CleanDeadOrganisms();
-    world.Log(std::to_string(map.size())+ " "+ std::to_string(organisms.size
+    world.Log(std::to_string(map.size()) + " " + std::to_string(organisms.size
             ()));
 }
 

@@ -26,7 +26,7 @@ private:
     Logger logger;
     OrganismManager manager;
 public:
-    enum Command {
+    enum class Command {
         NEXT_TURN,
         EXIT,
         SAVE,
@@ -53,7 +53,7 @@ public:
                                           *this),
                                     manager(*this){};
 
-    ~World();
+    virtual ~World();
 
     Organism *GetAtField(Position pos);
 

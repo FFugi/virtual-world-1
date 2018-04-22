@@ -39,7 +39,7 @@ public:
 
     std::string Serialize() override;
 
-    void Deserialize(std::string data);
+    void Deserialize(std::string data) override;
 };
 
 

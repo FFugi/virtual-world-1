@@ -54,34 +54,34 @@ void World::Log(std::string log, Color color) {
 
 World::Command World::GetInput() {
     int input = getch();
-    return input == ' ' ? NEXT_TURN :
-           input == 'q' ? EXIT :
-           input == 's' ? SAVE :
-           input == 'l' ? LOAD :
-           input == 'k' ? SCROLL_UP :
-           input == 'j' ? SCROLL_DOWN :
-           ERROR;
+    return input == ' ' ? Command::NEXT_TURN :
+           input == 'q' ? Command::EXIT :
+           input == 's' ? Command::SAVE :
+           input == 'l' ? Command::LOAD :
+           input == 'k' ? Command::SCROLL_UP :
+           input == 'j' ? Command::SCROLL_DOWN :
+           Command::ERROR;
 }
 
 World::Command World::NextTurn() {
     logger.Log("Enter command!");
     Render();
     Command cmd = GetInput();
-    while (cmd != NEXT_TURN) {
+    while (cmd != Command::NEXT_TURN) {
         switch (cmd) {
-            case SAVE:
+            case Command::SAVE:
                 SaveToFile();
                 break;
-            case LOAD:
+            case Command::LOAD:
                 LoadFromFile();
                 break;
-            case SCROLL_UP:
+            case Command::SCROLL_UP:
                 logger.ScrollUp();
                 break;
-            case SCROLL_DOWN:
+            case Command::SCROLL_DOWN:
                 logger.ScrollDown();
                 break;
-            case EXIT:
+            case Command::EXIT:
                 return cmd;
             default:
                 Log("Unknown command, please try again!", Color::YELLOW);

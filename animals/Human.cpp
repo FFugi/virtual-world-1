@@ -85,7 +85,7 @@ bool Human::IsMovePossible(Position newPosition) {
 
 // Immortality
 void Human::Collision(Organism *other, bool isAttacked) {
-    if (other->GetStrength() >= strength) {
+    if (IsPowerActive() && other->GetStrength() >= strength) {
         try {
             Position newPosition = world.GetRandomNeighbourFreeField(position);
             world.MoveOrganism(this, newPosition);
@@ -112,6 +112,7 @@ bool Human::IsPowerActivable() {
 void Human::Kill(Organism *attacker) {
     if (!IsPowerActive()) {
         Organism::Kill(attacker);
+        return;
     }
     world.Log(FullName() + " resists attack from " + attacker->FullName(),
               Color::YELLOW);
@@ -120,6 +121,7 @@ void Human::Kill(Organism *attacker) {
 void Human::Kill(Organism *attacker, std::string comment) {
     if (!IsPowerActive()) {
         Organism::Kill(attacker, comment);
+        return;
     }
     world.Log(FullName() + " resists attack from " + attacker->FullName(),
               Color::YELLOW);

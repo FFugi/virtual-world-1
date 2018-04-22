@@ -14,6 +14,7 @@
 #include "serialization/Serializer.hpp"
 #include "Color.hpp"
 #include "animals/Human.hpp"
+#include "Menu.hpp"
 #include <ctime>
 
 int main() {
@@ -30,6 +31,8 @@ int main() {
     init_pair(static_cast<int>(Color::MAGENTA), COLOR_MAGENTA, COLOR_BLACK);
     init_pair(static_cast<int>(Color::CYAN), COLOR_CYAN, COLOR_BLACK);
     srand(time(nullptr));
+    Menu menu;
+    while(menu.Execute());
 
     World simulation(60, 20);
 
@@ -59,7 +62,7 @@ int main() {
     do{
         command = simulation.NextTurn();
         simulation.Render();
-    }while(command != World::EXIT);
+    }while(command != World::Command::EXIT);
     return 0;
 }
 
