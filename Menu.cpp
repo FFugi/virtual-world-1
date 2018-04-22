@@ -5,21 +5,20 @@
 #include "Menu.hpp"
 
 bool Menu::Execute() {
-    bool willContinue = true;
-    while (willContinue) {
-        if (world == nullptr) {
-            Render();
-            Command cmd = GetCommand();
-            if (cmd == Command::EXIT) {
-                return false;
-            }
-            ExecuteCommand(cmd);
-        } else {
-            World::Command cmd = world->NextTurn();
-            world->Render();
-            if (cmd == World::Command::EXIT) {
-                willContinue = false;
-            }
+    if (world == nullptr) {
+        Render();
+        Command cmd = GetCommand();
+        if (cmd == Command::EXIT) {
+            return false;
+        }
+        ExecuteCommand(cmd);
+    } else {
+        World::Command cmd = world->NextTurn();
+        world->Render();
+        if (cmd == World::Command::EXIT) {
+            delete world;
+            world = nullptr;
+            return true;
         }
     }
 
@@ -40,6 +39,8 @@ Menu::Command Menu::GetCommand() {
             return Command::DECREMENT;
         case KEY_RIGHT:
             return Command::INCREMENT;
+        case 10:
+            return Command::START_SIMULATION;
         default:
             return Command::UNKNOWN;
     }
@@ -60,14 +61,41 @@ void Menu::ExecuteCommand(Command cmd) {
             menuPosition %= parameters.size();
             break;
         case Command::INCREMENT:
-            if(OrganismsCount() < OrganismsLimit()) {
+            // when menuPos isn't pointing at width or height
+            if (parameters.at(menuPosition).first != "width" &&
+                parameters.at(menuPosition).first != "height") {
+                if (OrganismsCount() < OrganismsLimit()) {
+                    val++;
+                }
+            } else {
                 val++;
             }
             break;
         case Command::DECREMENT:
-            if(val!=0) {
-                val--;
+            if (val != 0) {
+                // when menuPos isn't pointing at width or height
+                if (parameters.at(menuPosition).first != "width" &&
+                    parameters.at(menuPosition).first != "height") {
+                    val--;
+                } else {
+                    if (parameters.at(menuPosition).first == "width") {
+                        if (OrganismsLimit(parameters.at(0).second - 1,
+                                           parameters.at(1).second) >
+                            OrganismsCount()) {
+                            val--;
+                        }
+                    } else if (parameters.at(menuPosition).first == "height") {
+                        if (OrganismsLimit(parameters.at(0).second,
+                                           parameters.at(1).second - 1) >
+                            OrganismsCount()) {
+                            val--;
+                        }
+                    }
+                }
             }
+            break;
+        case Command::START_SIMULATION:
+            CreateWorld();
             break;
         default:
             break;
@@ -96,16 +124,28 @@ void Menu::Render() {
            std::to_string(OrganismsLimit()).c_str());
     move(2 + 3 + startY, 2);
     printw("%-5s free fields to fill",
-           std::to_string(OrganismsLimit()-OrganismsCount()).c_str());
+           std::to_string(OrganismsLimit() - OrganismsCount()).c_str());
     refresh();
 }
 
 void Menu::CreateWorld() {
-    world = new World(width, height);
+    world = new World(parameters.at(0).second,
+                      parameters.at(1).second);
+    Position randomPos;
+    for (auto &org : parameters) {
+        if (org.first != "width" && org.first != "height") {
+            do {
+                randomPos = {static_cast<int>(rand() % parameters.at(0).second),
+                             static_cast<int>(rand() % parameters.at(1).second)};
+            }while(world->GetAtField(randomPos) != nullptr);
+
+        }
+    }
 }
 
 unsigned Menu::Capacity() {
-    return Capacity(width, height);
+    return Capacity(parameters.at(0).second,
+                    parameters.at(1).second);
 }
 
 unsigned Menu::Capacity(unsigned width, unsigned height) {
@@ -121,11 +161,17 @@ Menu::~Menu() {
 unsigned Menu::OrganismsCount() {
     unsigned sum = 0;
     for (auto &num : parameters) {
-        sum += num.second;
+        if (num.first != "height" && num.first != "width") {
+            sum += num.second;
+        }
     }
     return sum;
 }
 
 unsigned Menu::OrganismsLimit() {
-    return Capacity()/10;
+    return Capacity() / 10;
+}
+
+unsigned Menu::OrganismsLimit(unsigned width, unsigned height) {
+    return Capacity(width, height) / 10;
 }

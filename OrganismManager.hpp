@@ -22,6 +22,10 @@ class OrganismManager {
 public:
     OrganismManager(World &world) : world(world), wasOrganismAdded(false) {}
 
+    virtual ~OrganismManager() {
+        RemoveAllOrganisms();
+    }
+
     void AddOrganism(Organism *toAdd);
 
     void RemoveAllOrganisms();

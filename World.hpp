@@ -19,7 +19,6 @@
 class World : public Serializable {
 private:
     Position position;
-    //std::vector<Organism*> organisms;
     int width;
     int height;
     int numberOfTurn;
@@ -51,7 +50,7 @@ public:
                                    numberOfTurn(0),
                                    logger({2, position.y + height + 2}, 21,
                                           *this),
-                                    manager(*this){};
+                                   manager(*this) {};
 
     virtual ~World();
 
@@ -77,7 +76,7 @@ public:
 
     void Deserialize(std::string data) override;
 
-    void MoveOrganism(Organism* org, Position newPosition);
+    void MoveOrganism(Organism *org, Position newPosition);
 
 private:
     void RenderSignature();
@@ -93,9 +92,6 @@ private:
     void ResetWorld();
 
     Command GetInput();
-
-    Organism * GetOrganismOfName(std::string name);
-
 };
 
 

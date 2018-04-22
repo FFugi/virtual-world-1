@@ -16,6 +16,7 @@
 #include "Color.hpp"
 #include "serialization/Parser.hpp"
 #include "animals/Human.hpp"
+#include "OrganismFactory.hpp"
 
 void World::AddOrganism(Organism *toAdd) {
     manager.AddOrganism(toAdd);
@@ -291,14 +292,16 @@ void World::LoadFromFile() {
 
         std::string output;
         Organism *loaded;
+        OrganismFactory factory;
         while (getline(file, output)) {
 
             Parser parser(output);
             std::string type = parser.GetPartOfString(0);
             if (type == "World") {
                 Log("Loading World state", Color::WHITE);
+                Deserialize(output);
             } else {
-                loaded = GetOrganismOfName(type);
+                loaded = factory.GetOrganism(type, *this);
 
                 if (loaded != nullptr) {
                     loaded->Deserialize(output);
@@ -319,29 +322,3 @@ void World::ResetWorld() {
     numberOfTurn = 0;
 }
 
-Organism *World::GetOrganismOfName(std::string name) {
-    if (name == "Fox") {
-        return new Fox(*this);
-    } else if (name == "Wolf") {
-        return new Wolf(*this);
-    } else if (name == "Sheep") {
-        return new Sheep(*this);
-    } else if (name == "Antelope") {
-        return new Antelope(*this);
-    } else if (name == "Tortoise") {
-        return new Turtle(*this);
-    } else if (name == "Grass") {
-        return new Grass(*this);
-    } else if (name == "Sonchus") {
-        return new Sonchus(*this);
-    } else if (name == "Wolf Berry") {
-        return new WolfBerry(*this);
-    } else if (name == "Guarana") {
-        return new Guarana(*this);
-    } else if (name == "Hogweed") {
-        return new Hogweed(*this);
-    } else if (name == "Human") {
-        return new Human(*this);
-    }
-    return nullptr;
-}

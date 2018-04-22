@@ -2,4 +2,47 @@
 // Created by ffugi on 22.04.18.
 //
 
-#include "AnimalFactory.hpp"
+#include "OrganismFactory.hpp"
+#include "animals/Fox.hpp"
+#include "animals/Wolf.hpp"
+#include "animals/Sheep.hpp"
+#include "animals/Antelope.hpp"
+#include "animals/Turtle.hpp"
+#include "plants/Grass.hpp"
+#include "plants/Sonchus.hpp"
+#include "plants/WolfBerry.hpp"
+#include "plants/Guarana.hpp"
+#include "plants/Hogweed.hpp"
+#include "animals/Human.hpp"
+
+Organism *OrganismFactory::GetOrganism(std::string name, World &world) {
+    if (name == "Fox") {
+        return new Fox(world);
+    } else if (name == "Wolf") {
+        return new Wolf(world);
+    } else if (name == "Sheep") {
+        return new Sheep(world);
+    } else if (name == "Antelope") {
+        return new Antelope(world);
+    } else if (name == "Tortoise") {
+        return new Turtle(world);
+    } else if (name == "Grass") {
+        return new Grass(world);
+    } else if (name == "Sonchus") {
+        return new Sonchus(world);
+    } else if (name == "Wolf Berry") {
+        return new WolfBerry(world);
+    } else if (name == "Guarana") {
+        return new Guarana(world);
+    } else if (name == "Hogweed") {
+        return new Hogweed(world);
+    } else if (name == "Human") {
+        return new Human(world);
+    }
+    return nullptr;
+}
+
+Organism *OrganismFactory::GetOrganism(std::string name, Position position,
+                                       World &world) {
+    return nullptr;
+}

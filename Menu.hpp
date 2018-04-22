@@ -13,7 +13,6 @@ class Menu {
     World *world;
 
     std::vector<std::pair<std::string, unsigned >> parameters;
-    unsigned width, height;
     unsigned long menuPosition;
 //    enum class Command
     enum class Command {
@@ -26,7 +25,9 @@ class Menu {
         UNKNOWN
     };
 public:
-    Menu() : world(nullptr), width(20), height(20), menuPosition(0){
+    Menu() : world(nullptr), menuPosition(0) {
+        parameters.push_back({"width", 20});
+        parameters.push_back({"height", 20});
         parameters.push_back({"fox", 2});
         parameters.push_back({"sheep", 2});
         parameters.push_back({"wolf", 2});
@@ -59,6 +60,8 @@ private:
     unsigned OrganismsCount();
 
     unsigned OrganismsLimit();
+
+    unsigned OrganismsLimit(unsigned width, unsigned height);
 };
 
 
