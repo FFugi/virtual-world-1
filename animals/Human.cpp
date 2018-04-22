@@ -43,7 +43,8 @@ void Human::Action() {
                 }
                 break;
             default:
-                world.Log("Unknown action!", Color::YELLOW);
+                world.Log("Your human doesn't recognize this command!",
+                          Color::YELLOW);
                 break;
         }
         bool isMovePossible = IsMovePossible(newPosition);
@@ -90,12 +91,16 @@ void Human::Collision(Organism *other, bool isAttacked) {
             Position newPosition = world.GetRandomNeighbourFreeField(position);
             world.MoveOrganism(this, newPosition);
         } catch (World::NoPossibleFieldException &e) {
-            world.Log(FullName() + " resists attack from " + other->FullName(),
-                      Color::YELLOW);
+            LogResistedAttack(other);
         }
     }else{
         Animal::Collision(other, isAttacked);
     }
+}
+
+void Human::LogResistedAttack(const Organism *other) const {
+    world.Log(FullName() + " resists attack from " + other->FullName()
+              + " due to immortality", Color::YELLOW);
 }
 
 Organism *Human::GetNewOrganism() {
@@ -116,8 +121,7 @@ void Human::Kill(Organism *attacker) {
         Organism::Kill(attacker);
         return;
     }
-    world.Log(FullName() + " resists attack from " + attacker->FullName(),
-              Color::YELLOW);
+    LogResistedAttack(attacker);
 }
 
 void Human::Kill(Organism *attacker, std::string comment) {
@@ -125,8 +129,7 @@ void Human::Kill(Organism *attacker, std::string comment) {
         Organism::Kill(attacker, comment);
         return;
     }
-    world.Log(FullName() + " resists attack from " + attacker->FullName(),
-              Color::YELLOW);
+    LogResistedAttack(attacker);
 }
 
 std::string Human::Serialize() {

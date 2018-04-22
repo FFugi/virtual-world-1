@@ -6,8 +6,22 @@
 
 void Antelope::Action() {
     //TODO fix
-    Animal::Action();
-    Animal::Action();
+    for(std::size_t i = 0; i < 2; i++) {
+        Position newPosition;
+        try {
+            newPosition = world.GetRandomNeighbourField(position);
+        }
+        catch (World::NoPossibleFieldException &e) {
+            // TODO log?
+            return;
+        }
+        Organism *neighbour = world.GetAtField(newPosition);
+        if (neighbour != nullptr) {
+            neighbour->Collision(this, true);
+            return;
+        }
+        world.MoveOrganism(this, newPosition);
+    }
 }
 
 Organism *Antelope::GetNewOrganism() {

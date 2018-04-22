@@ -40,6 +40,8 @@ public:
     std::string Serialize() override;
 
     void Deserialize(std::string data) override;
+
+    void LogResistedAttack(const Organism *other) const;
 };
 
 
