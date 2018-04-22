@@ -17,6 +17,7 @@
 #include "serialization/Parser.hpp"
 #include "animals/Human.hpp"
 #include "OrganismFactory.hpp"
+#include "serialization/IncorrectDataDeserializationException.hpp"
 
 void World::AddOrganism(Organism *toAdd) {
     manager.AddOrganism(toAdd);
@@ -240,17 +241,20 @@ void World::Deserialize(std::string data) {
      */
     Parser parser(data);
     std::string buffer = parser.GetPartOfString(1);
-    if (!buffer.empty()) {
-        width = std::atoi(buffer.c_str());
+    if (buffer.empty()) {
+        throw IncorrectDataDeserializationException();
     }
+    width = std::atoi(buffer.c_str());
     buffer = parser.GetPartOfString(2);
-    if (!buffer.empty()) {
-        height = std::atoi(buffer.c_str());
+    if (buffer.empty()) {
+        throw IncorrectDataDeserializationException();
     }
+    height = std::atoi(buffer.c_str());
     buffer = parser.GetPartOfString(3);
-    if (!buffer.empty()) {
-        numberOfTurn = std::atoi(buffer.c_str());
+    if (buffer.empty()) {
+        throw IncorrectDataDeserializationException();
     }
+    numberOfTurn = std::atoi(buffer.c_str());
 }
 
 void World::SaveToFile() {
@@ -306,19 +310,26 @@ World::LoadingStatus World::LoadFromFile() {
         OrganismFactory factory;
         while (getline(file, output)) {
 
-            Parser parser(output);
-            std::string type = parser.GetPartOfString(0);
-            if (type == "World") {
-                Log("Loading World state", Color::WHITE);
-                Deserialize(output);
-                wasWorldDataLoaded = true;
-            } else {
-                loaded = factory.GetOrganism(type, *this);
-
-                if (loaded != nullptr) {
-                    loaded->Deserialize(output);
-                    AddOrganism(loaded);
+            try {
+                Parser parser(output);
+                std::string type = parser.GetPartOfString(0);
+                if (type == "World") {
+                    Log("Loading World state", Color::WHITE);
+                    Deserialize(output);
+                    wasWorldDataLoaded = true;
+                } else {
+                    loaded = factory.GetOrganism(type, *this);
+                    if (loaded != nullptr) {
+                        loaded->Deserialize(output);
+                        AddOrganism(loaded);
+                    }
                 }
+            } catch (IncorrectDataDeserializationException &e) {
+                file.close();
+                Log("Incorrect data! Failed to load simulation!", Color::RED);
+                Render();
+                getch();
+                return LoadingStatus::FAIL;
             }
         }
         SetLoggerPosition();

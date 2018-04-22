@@ -4,6 +4,7 @@
 
 #include "Organism.hpp"
 #include "serialization/Parser.hpp"
+#include "serialization/IncorrectDataDeserializationException.hpp"
 
 
 void Organism::Display(Position beg) const {
@@ -75,25 +76,30 @@ void Organism::Deserialize(std::string data) {
     // TODO not found in string
     Parser parser(data);
     std::string buffer = parser.GetPartOfString(1);
-    if (!buffer.empty()) {
-        age = std::atoi(buffer.c_str());
+    if (buffer.empty()) {
+        throw IncorrectDataDeserializationException();
     }
+    age = std::atoi(buffer.c_str());
     buffer = parser.GetPartOfString(2);
-    if (!buffer.empty()) {
-        initiative = std::atoi(parser.GetPartOfString(2).c_str());
+    if (buffer.empty()) {
+        throw IncorrectDataDeserializationException();
     }
+    initiative = std::atoi(parser.GetPartOfString(2).c_str());
     buffer = parser.GetPartOfString(3);
-    if (!buffer.empty()) {
-        strength = std::atoi(parser.GetPartOfString(3).c_str());
+    if (buffer.empty()) {
+        throw IncorrectDataDeserializationException();
     }
+    strength = std::atoi(parser.GetPartOfString(3).c_str());
     buffer = parser.GetPartOfString(4);
-    if (!buffer.empty()) {
-        position.x = std::atoi(parser.GetPartOfString(4).c_str());
+    if (buffer.empty()) {
+        throw IncorrectDataDeserializationException();
     }
+    position.x = std::atoi(parser.GetPartOfString(4).c_str());
     buffer = parser.GetPartOfString(5);
-    if (!buffer.empty()) {
-        position.y = std::atoi(parser.GetPartOfString(5).c_str());
+    if (buffer.empty()) {
+        throw IncorrectDataDeserializationException();
     }
+    position.y = std::atoi(parser.GetPartOfString(5).c_str());
 
     world.Log("Loaded " + FullName());
 }

@@ -4,6 +4,7 @@
 
 #include "Human.hpp"
 #include "../serialization/Parser.hpp"
+#include "../serialization/IncorrectDataDeserializationException.hpp"
 
 void Human::Action() {
     world.Log("Choose action for your human!", Color::YELLOW);
@@ -140,8 +141,9 @@ void Human::Deserialize(std::string data) {
     Organism::Deserialize(data);
     Parser parser(data);
     std::string buffer = parser.GetPartOfString(6).c_str();
-    if (!buffer.empty()) {
-        ageWhenPowerWasUsed = std::atoi(buffer.c_str());
+    if (buffer.empty()) {
+        throw IncorrectDataDeserializationException();
     }
+    ageWhenPowerWasUsed = std::atoi(buffer.c_str());
 }
 
