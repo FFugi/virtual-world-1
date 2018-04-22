@@ -44,5 +44,28 @@ Organism *OrganismFactory::GetOrganism(std::string name, World &world) {
 
 Organism *OrganismFactory::GetOrganism(std::string name, Position position,
                                        World &world) {
+    if (name == "Fox") {
+        return new Fox(position, world);
+    } else if (name == "Wolf") {
+        return new Wolf(position, world);
+    } else if (name == "Sheep") {
+        return new Sheep(position, world);
+    } else if (name == "Antelope") {
+        return new Antelope(position, world);
+    } else if (name == "Tortoise") {
+        return new Turtle(position, world);
+    } else if (name == "Grass") {
+        return new Grass(position, world);
+    } else if (name == "Sonchus") {
+        return new Sonchus(position, world);
+    } else if (name == "Wolf Berry") {
+        return new WolfBerry(position, world);
+    } else if (name == "Guarana") {
+        return new Guarana(position, world);
+    } else if (name == "Hogweed") {
+        return new Hogweed(position, world);
+    } else if (name == "Human") {
+        return new Human(position, world);
+    }
     return nullptr;
 }

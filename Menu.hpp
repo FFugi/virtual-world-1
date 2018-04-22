@@ -14,7 +14,6 @@ class Menu {
 
     std::vector<std::pair<std::string, unsigned >> parameters;
     unsigned long menuPosition;
-//    enum class Command
     enum class Command {
         GO_UP,
         GO_DOWN,
@@ -28,16 +27,16 @@ public:
     Menu() : world(nullptr), menuPosition(0) {
         parameters.push_back({"width", 20});
         parameters.push_back({"height", 20});
-        parameters.push_back({"fox", 2});
-        parameters.push_back({"sheep", 2});
-        parameters.push_back({"wolf", 2});
-        parameters.push_back({"antelope", 2});
-        parameters.push_back({"turtle", 2});
-        parameters.push_back({"grass", 2});
-        parameters.push_back({"guarana", 2});
-        parameters.push_back({"hogweed", 2});
-        parameters.push_back({"sonchus", 2});
-        parameters.push_back({"wolfBerry", 2});
+        parameters.push_back({"Fox", 2});
+        parameters.push_back({"Sheep", 2});
+        parameters.push_back({"Wolf", 2});
+        parameters.push_back({"Antelope", 2});
+        parameters.push_back({"Turtle", 2});
+        parameters.push_back({"Grass", 2});
+        parameters.push_back({"Guarana", 2});
+        parameters.push_back({"Hogweed", 2});
+        parameters.push_back({"Sonchus", 2});
+        parameters.push_back({"Wolf Berry", 2});
     }
 
     ~Menu();

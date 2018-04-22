@@ -3,6 +3,7 @@
 //
 
 #include "Menu.hpp"
+#include "OrganismFactory.hpp"
 
 bool Menu::Execute() {
     if (world == nullptr) {
@@ -132,13 +133,22 @@ void Menu::CreateWorld() {
     world = new World(parameters.at(0).second,
                       parameters.at(1).second);
     Position randomPos;
+    OrganismFactory factory;
     for (auto &org : parameters) {
         if (org.first != "width" && org.first != "height") {
-            do {
-                randomPos = {static_cast<int>(rand() % parameters.at(0).second),
-                             static_cast<int>(rand() % parameters.at(1).second)};
-            }while(world->GetAtField(randomPos) != nullptr);
-
+            for(std::size_t i = 0; i < org.second; i++) {
+                do {
+                    randomPos = {
+                            static_cast<int>(rand() % parameters.at(0).second),
+                            static_cast<int>(rand() %
+                                             parameters.at(1).second)};
+                } while (world->GetAtField(randomPos) != nullptr);
+                Organism *toAdd = factory.GetOrganism(org.first, randomPos,
+                                                      *world);
+                if (toAdd != nullptr) {
+                    world->AddOrganism(toAdd);
+                }
+            }
         }
     }
 }
