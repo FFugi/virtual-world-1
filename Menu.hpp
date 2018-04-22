@@ -13,7 +13,9 @@ class Menu {
     World *world;
     unsigned long cursorPosition;
     Position position;
-    const unsigned marginLeft;
+    const unsigned topMargin;
+    const unsigned positionOfParameters;
+    const unsigned positionOfLegend;
     const unsigned width;
 
     std::vector<std::pair<std::string, unsigned >> parameters;
@@ -28,7 +30,9 @@ class Menu {
     };
 public:
     Menu(Position position) : world(nullptr), cursorPosition(0),
-                              position(position), marginLeft(3), width(50) {
+                              position(position), topMargin(2),
+                              positionOfParameters(3),
+                              positionOfLegend(35), width(80) {
         parameters.push_back({"width", 20});
         parameters.push_back({"height", 20});
         parameters.push_back({"Fox", 2});

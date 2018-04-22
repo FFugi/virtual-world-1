@@ -111,7 +111,17 @@ void Menu::ExecuteCommand(Command cmd) {
 
 void Menu::Render() {
     clear();
-
+    unsigned startY = 0;
+    move(position.y + topMargin + startY, positionOfLegend);
+    addstr("<=-Steering-=>");
+    move(position.y + topMargin + ++startY, positionOfLegend);
+    addstr("Up & Down    - Navigation");
+    move(position.y + topMargin + ++startY, positionOfLegend);
+    addstr("Left & Right - Change parameter");
+    move(position.y + topMargin + ++startY, positionOfLegend);
+    addstr("q            - Quit");
+    move(position.y + topMargin + ++startY, positionOfLegend);
+    addstr("Ener         - Start Simulation");
     RenderFrame();
     RenderParameters();
     refresh();
@@ -135,7 +145,8 @@ void Menu::RenderFrame() const {
 void Menu::RenderParameters() {
     unsigned startY = 0;
     for (auto count : parameters) {
-        move(position.y + 2 + startY, position.x + marginLeft);
+        move(position.y + topMargin + startY, position.x +
+                                              positionOfParameters);
         if (cursorPosition == startY) {
             attron(A_REVERSE);
         }
@@ -146,12 +157,12 @@ void Menu::RenderParameters() {
         }
         startY++;
     }
-    move(position.y + 2 + ++startY, position.x + marginLeft);
+    move(position.y + topMargin + ++startY, position.x + positionOfParameters);
     printw("%-5s Total", std::__cxx11::to_string(OrganismsCount()).c_str());
-    move(position.y + 2 + ++startY, position.x + marginLeft);
+    move(position.y + topMargin + ++startY, position.x + positionOfParameters);
     printw("%-5s Organisms limit",
            std::__cxx11::to_string(OrganismsLimit()).c_str());
-    move(position.y + 2 + ++startY, position.x + marginLeft);
+    move(position.y + topMargin + ++startY, position.x + positionOfParameters);
     printw("%-5s Free fields to fill", std::__cxx11::to_string(
                    OrganismsLimit() - OrganismsCount()).c_str());
 }

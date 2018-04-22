@@ -5,6 +5,7 @@
 #include "Antelope.hpp"
 
 void Antelope::Action() {
+    //TODO fix
     Animal::Action();
     Animal::Action();
 }
@@ -35,13 +36,14 @@ void Antelope::Collision(Organism *other, bool isAttacked) {
         try {
             newPosition = world.GetRandomNeighbourFreeField(position);
             world.Log(FullName() + " runs away from " + other->FullName()
-                    + " to (" + std::to_string(newPosition.x) +"," +
-                    std::to_string(newPosition.y)+")", Color::YELLOW);
+                      + " to (" + std::to_string(newPosition.x) + "," +
+                      std::to_string(newPosition.y) + ")", Color::YELLOW);
             world.MoveOrganism(other, position);
             world.MoveOrganism(this, newPosition);
         }
         catch (World::NoPossibleFieldException &e) {
-            world.Log(FullName() + " couldn't away from " + other->FullName(),
+            world.Log(FullName() + " couldn't away from " + other->FullName()
+                      + " there was no place!",
                       Color::YELLOW);
             Animal::Collision(other, isAttacked);
         }
