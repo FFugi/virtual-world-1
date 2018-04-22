@@ -42,7 +42,6 @@ Organism *World::GetAtField(Position pos) {
 
 World::~World() {
     manager.RemoveAllOrganisms();
-    endwin();
 }
 
 void World::Log(std::string log) {

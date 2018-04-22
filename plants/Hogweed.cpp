@@ -17,8 +17,8 @@ void Hogweed::Action() {
 }
 
 void Hogweed::Collision(Organism *other, bool isAttacked) {
-    // TODO
-    Plant::Collision(other, isAttacked);
+    Kill(other);
+    other->Kill(this, "from inside");
 }
 
 Organism *Hogweed::GetNewOrganism() {

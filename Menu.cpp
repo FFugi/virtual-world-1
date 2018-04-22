@@ -111,20 +111,25 @@ void Menu::ExecuteCommand(Command cmd) {
 
 void Menu::Render() {
     clear();
+
+    RenderFrame();
+    RenderParameters();
+    refresh();
+}
+
+void Menu::RenderFrame() const {
     move(position.y, position.x);
     addch(ACS_ULCORNER);
     for (std::size_t i = 1; i < width; i++) {
         addch(ACS_HLINE);
     }
     addch(ACS_PLUS);
-    for (std::size_t i = 1; i < parameters.size() + 10; i++) {
+    for (std::size_t i = 1; i < parameters.size() + 7; i++) {
         move(position.y + i, position.x);
         addch(ACS_VLINE);
     }
-    move(position.y + parameters.size() + 10, position.x);
+    move(position.y + parameters.size() + 7, position.x);
     addch(ACS_PLUS);
-    RenderParameters();
-    refresh();
 }
 
 void Menu::RenderParameters() {

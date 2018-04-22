@@ -22,15 +22,7 @@ Organism *Antelope::GetNewOrganism() {
 
 void Antelope::Collision(Organism *other, bool isAttacked) {
     if (dynamic_cast<Antelope *>(other)) {
-        Organism *newOrganism = GetNewOrganism();
-        if (newOrganism == nullptr) {
-            //  world.Log(name + " cannot procreate - no space!");
-            return;
-        }
-        world.Log(FullName() + " and " + other->FullName() + " make:",
-                  Color::GREEN);
-        world.Log("New " + newOrganism->FullName(), Color::GREEN);
-        world.AddOrganism(newOrganism);
+        Procreate(other);
         return;
 
     } else {
@@ -42,8 +34,10 @@ void Antelope::Collision(Organism *other, bool isAttacked) {
         Position newPosition;
         try {
             newPosition = world.GetRandomNeighbourFreeField(position);
-            world.Log(FullName() + " runs away from " + other->FullName(),
-                      Color::YELLOW);
+            world.Log(FullName() + " runs away from " + other->FullName()
+                    + " to (" + std::to_string(newPosition.x) +"," +
+                    std::to_string(newPosition.y)+")", Color::YELLOW);
+            world.MoveOrganism(other, position);
             world.MoveOrganism(this, newPosition);
         }
         catch (World::NoPossibleFieldException &e) {

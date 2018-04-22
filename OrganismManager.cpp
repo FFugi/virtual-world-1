@@ -28,7 +28,9 @@ Organism *OrganismManager::GetAtField(Position pos) {
 }
 
 void OrganismManager::MoveOrganism(Organism &org, Position newPosition) {
-    map.erase(org.GetPosition());
+    if(map[org.GetPosition()] == &org) {
+        map.erase(org.GetPosition());
+    }
     org.SetPosition(newPosition);
     map[org.GetPosition()] = &org;
 }

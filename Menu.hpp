@@ -28,7 +28,7 @@ class Menu {
     };
 public:
     Menu(Position position) : world(nullptr), cursorPosition(0),
-                              position(position), marginLeft(3), width(30) {
+                              position(position), marginLeft(3), width(50) {
         parameters.push_back({"width", 20});
         parameters.push_back({"height", 20});
         parameters.push_back({"Fox", 2});
@@ -68,6 +68,8 @@ private:
     unsigned OrganismsLimit(unsigned width, unsigned height);
 
     void RenderParameters();
+
+    void RenderFrame() const;
 };
 
 
