@@ -14,15 +14,7 @@ void Animal::Collision(Organism *other, bool isAttacked) {
         return;
     } else if (typeid(*this).name() == typeid(*other).name()) {
         // same animals, procreation!
-        Organism *newOrganism = Procreate();
-        if (newOrganism == nullptr) {
-            //  world.Log(name + " cannot procreate - no space!");
-            return;
-        }
-        world.Log(FullName() + " and " + other->FullName() + " make:",
-                  Color::GREEN);
-        world.Log("New " + newOrganism->FullName(), Color::GREEN);
-        world.AddOrganism(newOrganism);
+        Procreate(other);
         return;
     }
     world.Log(other->FullName() + " attacks " + FullName());
@@ -58,3 +50,16 @@ void Animal::Fight(Organism *attacker) {
     }
 
 }
+
+void Animal::Procreate(Organism *other) {
+    Organism *newOrganism = GetNewOrganism();
+    if (newOrganism == nullptr) {
+        //  world.Log(name + " cannot procreate - no space!");
+        return;
+    }
+    world.Log(FullName() + " and " + other->FullName() + " make:",
+              Color::GREEN);
+    world.Log("New " + newOrganism->FullName(), Color::GREEN);
+    world.AddOrganism(newOrganism);
+}
+

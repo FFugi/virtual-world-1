@@ -17,7 +17,7 @@ public:
 
     void Action() override;
 
-    Organism *Procreate() override;
+    Organism *GetNewOrganism() override;
 };
 
 

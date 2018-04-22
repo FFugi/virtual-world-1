@@ -27,7 +27,7 @@ void Fox::Action() {
     world.MoveOrganism(this, newPosition);
 }
 
-Organism *Fox::Procreate() {
+Organism *Fox::GetNewOrganism() {
     Position newPosition;
     try {
         newPosition = world.GetRandomNeighbourFreeField(position);

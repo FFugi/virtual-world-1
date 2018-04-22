@@ -45,7 +45,7 @@ public:
 
     virtual Position GetPosition() const;
 
-    virtual Organism *Procreate() = 0;
+    virtual Organism *GetNewOrganism() = 0;
 
     virtual void Kill(Organism *attacker);
 

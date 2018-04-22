@@ -10,7 +10,7 @@ void Tortoise::Action() {
     }
 }
 
-Organism *Tortoise::Procreate() {
+Organism *Tortoise::GetNewOrganism() {
     Position newPosition;
     try {
         newPosition = world.GetRandomNeighbourFreeField(position);

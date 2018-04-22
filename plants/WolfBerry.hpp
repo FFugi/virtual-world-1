@@ -19,7 +19,7 @@ public:
 
     void Collision(Organism *other, bool isAttacked) override ;
 
-    Organism *Procreate() override;
+    Organism *GetNewOrganism() override;
 };
 
 

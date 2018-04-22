@@ -42,7 +42,7 @@ public:
 
     void NextTurn();
 
-    void WriteToFile(Serializer &serializator);
+    void WriteToFile(Serializer &serializer);
 };
 
 #include "Organism.hpp"

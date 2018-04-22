@@ -15,7 +15,7 @@ public:
     Wolf(World &world) : Animal({0, 0}, world, 5, 9, 'W', "Wolf",
                                 Color::WHITE) {}
 
-    Organism *Procreate() override;
+    Organism *GetNewOrganism() override;
 };
 
 #endif //VIRTUAL_WORLD_1_WOLF_HPP

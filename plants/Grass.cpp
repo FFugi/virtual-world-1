@@ -10,7 +10,7 @@ void Grass::Action() {
 }
 
 
-Organism *Grass::Procreate() {
+Organism *Grass::GetNewOrganism() {
     Position newPosition;
     try{
         newPosition = world.GetRandomNeighbourFreeField(position);

@@ -81,12 +81,10 @@ void OrganismManager::NextTurn() {
         org->IncrementAge();
     }
     CleanDeadOrganisms();
-    world.Log(std::to_string(map.size()) + " " + std::to_string(organisms.size
-            ()));
 }
 
-void OrganismManager::WriteToFile(Serializer &serializator) {
+void OrganismManager::WriteToFile(Serializer &serializer) {
     for (auto org : organisms) {
-        serializator.WriteToFile(*org);
+        serializer.WriteToFile(*org);
     }
 }

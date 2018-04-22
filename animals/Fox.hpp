@@ -16,7 +16,7 @@ public:
 
     void Action() override;
 
-    Organism *Procreate() override;
+    Organism *GetNewOrganism() override;
 };
 
 #endif //VIRTUAL_WORLD_1_FOX_HPP

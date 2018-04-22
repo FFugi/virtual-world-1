@@ -9,7 +9,7 @@ void Sheep::Action() {
 }
 
 
-Organism *Sheep::Procreate() {
+Organism *Sheep::GetNewOrganism() {
     Position newPosition;
     try{
         newPosition = world.GetRandomNeighbourFreeField(position);

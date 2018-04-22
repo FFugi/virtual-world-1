@@ -96,7 +96,7 @@ void Human::Collision(Organism *other, bool isAttacked) {
     }
 }
 
-Organism *Human::Procreate() {
+Organism *Human::GetNewOrganism() {
     world.Log("Human cannot procreate!");
     return nullptr;
 }

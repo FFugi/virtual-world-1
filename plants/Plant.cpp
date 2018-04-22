@@ -30,7 +30,7 @@ void Plant::Action() {
         return;
     }
 
-    Organism *newOrganism = Procreate();
+    Organism *newOrganism = GetNewOrganism();
     if (newOrganism == nullptr) {
         // TODO log
         //world.Log("No place for new" + name);

@@ -10,7 +10,7 @@ void Sonchus::Action() {
     }
 }
 
-Organism *Sonchus::Procreate() {
+Organism *Sonchus::GetNewOrganism() {
     Position newPosition;
     try{
         newPosition = world.GetRandomNeighbourFreeField(position);

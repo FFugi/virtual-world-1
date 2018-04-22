@@ -24,6 +24,8 @@ public:
 
 protected:
     virtual void Fight(Organism *attacker);
+
+    void Procreate(Organism *other);
 };
 
 #include "../World.hpp"

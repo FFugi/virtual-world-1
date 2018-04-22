@@ -11,7 +11,7 @@ void WolfBerry::Collision(Organism *other, bool isAttacked) {
     // TODO is it ok?
 }
 
-Organism *WolfBerry::Procreate() {
+Organism *WolfBerry::GetNewOrganism() {
     Position newPosition;
     try {
         newPosition = world.GetRandomNeighbourFreeField(position);

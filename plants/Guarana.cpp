@@ -8,7 +8,7 @@ void Guarana::Action() {
         Plant::Action();
 }
 
-Organism *Guarana::Procreate() {
+Organism *Guarana::GetNewOrganism() {
     // TODO move try-catch up to organism
     Position newPosition;
     try{

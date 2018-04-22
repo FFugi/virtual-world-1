@@ -21,7 +21,7 @@ void Hogweed::Collision(Organism *other, bool isAttacked) {
     Plant::Collision(other, isAttacked);
 }
 
-Organism *Hogweed::Procreate() {
+Organism *Hogweed::GetNewOrganism() {
     Position newPosition;
     try {
         newPosition = world.GetRandomNeighbourFreeField(position);
