@@ -13,6 +13,9 @@ std::string Parser::GetPartOfString(std::size_t position) {
     std::size_t startPosition = 0;
     for (std::size_t i = 0; i < position; i++) {
         startPosition = toParse.find(',', startPosition + 1);
+        if(startPosition == std::string::npos){
+            return "";
+        }
     }
     auto end = toParse.find(',', startPosition + 1);
     return toParse.substr(startPosition + 1, end - startPosition - 1);

@@ -93,7 +93,7 @@ void Human::Collision(Organism *other, bool isAttacked) {
         } catch (World::NoPossibleFieldException &e) {
             LogResistedAttack(other);
         }
-    }else{
+    } else {
         Animal::Collision(other, isAttacked);
     }
 }
@@ -139,5 +139,9 @@ std::string Human::Serialize() {
 void Human::Deserialize(std::string data) {
     Organism::Deserialize(data);
     Parser parser(data);
-    ageWhenPowerWasUsed = std::atoi(parser.GetPartOfString(6).c_str());
+    std::string buffer = parser.GetPartOfString(6).c_str();
+    if (!buffer.empty()) {
+        ageWhenPowerWasUsed = std::atoi(buffer.c_str());
+    }
 }
+

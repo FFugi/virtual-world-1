@@ -45,7 +45,7 @@ void Organism::Kill(Organism *attacker) {
 void Organism::Kill(Organism *attacker, std::string comment) {
     world.Log(
             attacker->FullName() + " kills " + FullName() + " " + comment,
-            Color::RED );
+            Color::RED);
     isAlive = false;
 }
 
@@ -74,11 +74,26 @@ void Organism::Deserialize(std::string data) {
      */
     // TODO not found in string
     Parser parser(data);
-    age = std::atoi(parser.GetPartOfString(1).c_str());
-    initiative = std::atoi(parser.GetPartOfString(2).c_str());
-    strength = std::atoi(parser.GetPartOfString(3).c_str());
-    position.x = std::atoi(parser.GetPartOfString(4).c_str());
-    position.y = std::atoi(parser.GetPartOfString(5).c_str());
+    std::string buffer = parser.GetPartOfString(1);
+    if (!buffer.empty()) {
+        age = std::atoi(buffer.c_str());
+    }
+    buffer = parser.GetPartOfString(2);
+    if (!buffer.empty()) {
+        initiative = std::atoi(parser.GetPartOfString(2).c_str());
+    }
+    buffer = parser.GetPartOfString(3);
+    if (!buffer.empty()) {
+        strength = std::atoi(parser.GetPartOfString(3).c_str());
+    }
+    buffer = parser.GetPartOfString(4);
+    if (!buffer.empty()) {
+        position.x = std::atoi(parser.GetPartOfString(4).c_str());
+    }
+    buffer = parser.GetPartOfString(5);
+    if (!buffer.empty()) {
+        position.y = std::atoi(parser.GetPartOfString(5).c_str());
+    }
 
-    world.Log("Loaded "+FullName());
+    world.Log("Loaded " + FullName());
 }

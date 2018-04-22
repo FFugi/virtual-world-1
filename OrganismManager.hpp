@@ -43,6 +43,8 @@ public:
     void NextTurn();
 
     void WriteToFile(Serializer &serializer);
+
+    bool CheckOrganismsCorrectness();
 };
 
 #include "Organism.hpp"

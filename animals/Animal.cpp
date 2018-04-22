@@ -26,7 +26,6 @@ void Animal::Action() {
         newPosition = world.GetRandomNeighbourField(position);
     }
     catch (World::NoPossibleFieldException &e) {
-        // TODO log?
         return;
     }
 //    world.Log(FullName() + " moves to (" + std::to_string(newPosition.x) + ","

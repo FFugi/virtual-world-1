@@ -24,6 +24,11 @@ private:
     int numberOfTurn;
     Logger logger;
     OrganismManager manager;
+    enum class LoadingStatus{
+        SUCCESS,
+        FAIL,
+        ABORT
+    };
 public:
     enum class Command {
         NEXT_TURN,
@@ -80,6 +85,10 @@ public:
 
     void MoveOrganism(Organism *org, Position newPosition);
 
+    int GetWidth() const;
+
+    int GetHeight() const;
+
 private:
     void RenderSignature();
 
@@ -89,7 +98,7 @@ private:
 
     void SaveToFile();
 
-    void LoadFromFile();
+    LoadingStatus LoadFromFile();
 
     void ResetWorld();
 

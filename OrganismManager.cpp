@@ -28,7 +28,7 @@ Organism *OrganismManager::GetAtField(Position pos) {
 }
 
 void OrganismManager::MoveOrganism(Organism &org, Position newPosition) {
-    if(map[org.GetPosition()] == &org) {
+    if (map[org.GetPosition()] == &org) {
         map.erase(org.GetPosition());
     }
     org.SetPosition(newPosition);
@@ -89,4 +89,16 @@ void OrganismManager::WriteToFile(Serializer &serializer) {
     for (auto org : organisms) {
         serializer.WriteToFile(*org);
     }
+}
+
+bool OrganismManager::CheckOrganismsCorrectness() {
+    for (auto &org : organisms) {
+        if (org->GetPosition().x < 0
+            || org->GetPosition().x >= world.GetWidth()
+            || org->GetPosition().y < 0
+            || org->GetPosition().y >= world.GetHeight()) {
+            return false;
+        }
+    }
+    return true;
 }

@@ -29,10 +29,10 @@ void World::MoveOrganism(Organism *org, Position newPosition) {
 void World::Render() {
     clear();
     RenderFrame();
-    logger.Render();
     manager.RenderOrganisms(position);
     RenderLegend();
     RenderSignature();
+    logger.Render();
     refresh();
 }
 
@@ -73,7 +73,11 @@ World::Command World::NextTurn() {
                 SaveToFile();
                 break;
             case Command::LOAD:
-                LoadFromFile();
+                if (LoadFromFile() == LoadingStatus::FAIL) {
+                    return Command::EXIT;
+                }
+                logger.Log("Enter command!");
+                Render();
                 break;
             case Command::SCROLL_UP:
                 logger.ScrollUp();
@@ -264,11 +268,12 @@ void World::SaveToFile() {
     }
 }
 
-void World::LoadFromFile() {
+World::LoadingStatus World::LoadFromFile() {
     Log("Type filename to load:");
     Render();
     std::string filename = logger.GetText();
     std::ifstream file;
+    bool wasWorldDataLoaded = false;
 
     file.open(filename);
 
@@ -279,7 +284,8 @@ void World::LoadFromFile() {
         Render();
         if (!willLoad) {
             Log("Load aborted!", Color::RED);
-            return;
+            file.close();
+            return LoadingStatus::ABORT;
         }
 
         Log("Starting loading...", Color::CYAN);
@@ -296,6 +302,7 @@ void World::LoadFromFile() {
             if (type == "World") {
                 Log("Loading World state", Color::WHITE);
                 Deserialize(output);
+                wasWorldDataLoaded = true;
             } else {
                 loaded = factory.GetOrganism(type, *this);
 
@@ -306,12 +313,26 @@ void World::LoadFromFile() {
             }
         }
         SetLoggerPosition();
+        if (!wasWorldDataLoaded) {
+            file.close();
+            Log("Couldn't load world data! Loading failed!", Color::RED);
+            Render();
+            getch();
+            return LoadingStatus::FAIL;
+        }
+        if(!manager.CheckOrganismsCorrectness()){
+            file.close();
+            Log("Some organisms are out of field! Loading failed!", Color::RED);
+            Render();
+            getch();
+            return LoadingStatus::FAIL;
+        }
         Log("Loading finished!", Color::GREEN);
     } else {
         Log("Couldn't open file \"" + filename + "\"!", Color::RED);
     }
     file.close();
-    // TODO refreshing view
+    return LoadingStatus::SUCCESS;
 }
 
 void World::SetLoggerPosition() {
@@ -322,5 +343,13 @@ void World::SetLoggerPosition() {
 void World::ResetWorld() {
     manager.RemoveAllOrganisms();
     numberOfTurn = 0;
+}
+
+int World::GetWidth() const {
+    return width;
+}
+
+int World::GetHeight() const {
+    return height;
 }
 
