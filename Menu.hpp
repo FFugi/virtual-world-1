@@ -13,6 +13,7 @@ class Menu {
     World *world;
     unsigned long cursorPosition;
     Position position;
+    const Position logoPos;
     const unsigned topMargin;
     const unsigned positionOfParameters;
     const unsigned positionOfLegend;
@@ -30,8 +31,8 @@ class Menu {
     };
 public:
     Menu(Position position) : world(nullptr), cursorPosition(0),
-                              position(position), topMargin(2),
-                              positionOfParameters(3),
+                              position(position), logoPos({15,2}),
+                              topMargin(4), positionOfParameters(3),
                               positionOfLegend(35), width(80) {
         parameters.push_back({"width", 20});
         parameters.push_back({"height", 20});
@@ -74,6 +75,10 @@ private:
     void RenderParameters();
 
     void RenderFrame() const;
+
+    void RenderLegend() const;
+
+    void RenderLogo() const;
 };
 
 

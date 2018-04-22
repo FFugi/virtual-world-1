@@ -17,7 +17,6 @@ void Animal::Collision(Organism *other, bool isAttacked) {
         Procreate(other);
         return;
     }
-    world.Log(other->FullName() + " attacks " + FullName());
     Fight(other);
 }
 

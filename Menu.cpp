@@ -111,6 +111,19 @@ void Menu::ExecuteCommand(Command cmd) {
 
 void Menu::Render() {
     clear();
+    RenderLogo();
+    RenderLegend();
+    RenderFrame();
+    RenderParameters();
+    refresh();
+}
+
+void Menu::RenderLogo() const {
+    move(position.y + logoPos.y, position.x + logoPos.x);
+    addstr("World Creator");
+}
+
+void Menu::RenderLegend() const {
     unsigned startY = 0;
     move(position.y + topMargin + startY, positionOfLegend);
     addstr("<=-Steering-=>");
@@ -122,9 +135,6 @@ void Menu::Render() {
     addstr("q            - Quit");
     move(position.y + topMargin + ++startY, positionOfLegend);
     addstr("Ener         - Start Simulation");
-    RenderFrame();
-    RenderParameters();
-    refresh();
 }
 
 void Menu::RenderFrame() const {
@@ -150,7 +160,7 @@ void Menu::RenderParameters() {
         if (cursorPosition == startY) {
             attron(A_REVERSE);
         }
-        printw("%-5s %-10s", std::__cxx11::to_string(count.second).c_str(),
+        printw(" %-5s %-10s ", std::__cxx11::to_string(count.second).c_str(),
                count.first.c_str());
         if (cursorPosition == startY) {
             attroff(A_REVERSE);

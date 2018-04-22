@@ -64,7 +64,7 @@ void Human::Action() {
             }
         } else {
             if (!(newPosition == position)) {
-                world.Log("this move is impossible!", Color::RED);
+                world.Log("This move is impossible!", Color::RED);
             }
             finish = false;
         }
@@ -93,6 +93,8 @@ void Human::Collision(Organism *other, bool isAttacked) {
             world.Log(FullName() + " resists attack from " + other->FullName(),
                       Color::YELLOW);
         }
+    }else{
+        Animal::Collision(other, isAttacked);
     }
 }
 

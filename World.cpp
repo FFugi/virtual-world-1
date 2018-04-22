@@ -171,17 +171,17 @@ void World::RenderLegend() {
     addstr("b - Wolf Berries (Wilcze Jagody)");
     move(yLegend++, xLegend);
     move(yLegend++, xLegend);
-    addstr("\t<=-Command mode-=>        <=-Human mode-=>");
+    addstr("    <=-Command mode-=>        <=-Human mode-=>");
     move(yLegend++, xLegend);
-    addstr("SPACE - Next turn           Arrows - steering");
+    addstr("SPACE - Next turn             Arrows - steering");
     move(yLegend++, xLegend);
-    addstr("s - Save current state      i - immortality");
+    addstr("s     - Save current state    i - immortality");
     move(yLegend++, xLegend);
-    addstr("j - Scroll down");
+    addstr("l     - Load from file");
     move(yLegend++, xLegend);
-    addstr("k - Scroll up");
+    addstr("j, k  - Scroll");
     move(yLegend, xLegend);
-    addstr("q - Quit");
+    addstr("q     - Quit");
 }
 
 Position World::GetRandomNeighbourFreeField(Position pos) {

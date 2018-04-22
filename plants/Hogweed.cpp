@@ -18,6 +18,7 @@ void Hogweed::Action() {
 
 void Hogweed::Collision(Organism *other, bool isAttacked) {
     Kill(other);
+    world.MoveOrganism(other, position);
     other->Kill(this, "from inside");
 }
 
