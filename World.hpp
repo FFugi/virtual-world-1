@@ -48,9 +48,11 @@ public:
     World(int width, int height) : position({3, 3}),
                                    width(width), height(height),
                                    numberOfTurn(0),
-                                   logger({2, position.y + height + 2}, 21,
+                                   logger(21,
                                           *this),
-                                   manager(*this) {};
+                                   manager(*this) {
+        SetLoggerPosition();
+    };
 
     virtual ~World();
 
@@ -92,6 +94,8 @@ private:
     void ResetWorld();
 
     Command GetInput();
+
+    void SetLoggerPosition();
 };
 
 

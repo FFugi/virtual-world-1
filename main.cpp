@@ -31,9 +31,10 @@ int main() {
     init_pair(static_cast<int>(Color::MAGENTA), COLOR_MAGENTA, COLOR_BLACK);
     init_pair(static_cast<int>(Color::CYAN), COLOR_CYAN, COLOR_BLACK);
     srand(time(nullptr));
-    Menu menu;
+    Menu menu({3, 3});
     while(menu.Execute());
 
+    endwin();
     return 0;
 }
 

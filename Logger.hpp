@@ -15,7 +15,7 @@ class World;
 
 class Logger {
 private:
-    struct Log{
+    struct Log {
         std::string value;
         int color;
     };
@@ -23,22 +23,38 @@ private:
     Position position;
     long scrollPosition;
     unsigned int height;
-    World& world;
+    World &world;
 public:
-    Logger(Position position, unsigned int height, World& world);
+    Logger(unsigned int height, World &world)
+            : position({0, 0}), scrollPosition(0), height(height),
+              world(world) {}
+
     void Log(std::string log);
+
     void Log(std::string log, Color colorPair);
+
     void Reset();
+
     void ChangePosition(Position position);
+
     std::string GetText();
+
     bool GetConfirmation(std::string message);
+
     void Render();
+
     void ScrollUp();
+
     void ScrollDown();
+
+    void SetPosition(Position pos);
+
 private:
     void RenderFrame();
+
     void RenderLogs();
 };
 
 #include "World.hpp"
+
 #endif //VIRTUAL_WORLD_1_LOGGER_HPP

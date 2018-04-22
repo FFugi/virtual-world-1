@@ -11,9 +11,12 @@
 
 class Menu {
     World *world;
+    unsigned long cursorPosition;
+    Position position;
+    const unsigned marginLeft;
+    const unsigned width;
 
     std::vector<std::pair<std::string, unsigned >> parameters;
-    unsigned long menuPosition;
     enum class Command {
         GO_UP,
         GO_DOWN,
@@ -24,7 +27,8 @@ class Menu {
         UNKNOWN
     };
 public:
-    Menu() : world(nullptr), menuPosition(0) {
+    Menu(Position position) : world(nullptr), cursorPosition(0),
+                              position(position), marginLeft(3), width(30) {
         parameters.push_back({"width", 20});
         parameters.push_back({"height", 20});
         parameters.push_back({"Fox", 2});
@@ -62,6 +66,8 @@ private:
     unsigned OrganismsLimit();
 
     unsigned OrganismsLimit(unsigned width, unsigned height);
+
+    void RenderParameters();
 };
 
 

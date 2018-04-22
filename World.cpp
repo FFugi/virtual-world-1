@@ -147,39 +147,36 @@ void World::RenderLegend() {
     int xLegend = position.x + width + 4;
     int yLegend = position.y;
     move(yLegend++, xLegend);
-    addstr("\t<=-Animals-=>");
+    addstr("\t<=-Organisms-=>");
     move(yLegend++, xLegend);
-    addstr("S - Sheep\t (Owca)");
+    addstr("S - Sheep        (Owca)");
     move(yLegend++, xLegend);
-    addstr("W - Wolf\t (Wilk)");
+    addstr("W - Wolf         (Wilk)");
     move(yLegend++, xLegend);
-    addstr("A - Antelope\t (Antylopa)");
+    addstr("A - Antelope     (Antylopa)");
     move(yLegend++, xLegend);
-    addstr("F - Fox\t (Lis)");
+    addstr("F - Fox          (Lis)");
     move(yLegend++, xLegend);
-    addstr("T - Tortoise\t (Zolw)");
+    addstr("T - Tortoise     (Zolw)");
     move(yLegend++, xLegend);
-    addstr("S - Sheep\t (Owca)");
+    addstr("S - Sheep        (Owca)");
     move(yLegend++, xLegend);
+    addstr("h - Hogweed      (Barszcz Sosnowskiego)");
     move(yLegend++, xLegend);
-    addstr("\t<=-Plants-=>");
+    addstr("g - Grass        (Trawa)");
     move(yLegend++, xLegend);
-    addstr("h - Hogweed\t (Barszcz Sosnowskiego)");
+    addstr("s - Sonchus      (Mlecz)");
     move(yLegend++, xLegend);
-    addstr("g - Grass\t (Trawa)");
+    addstr("G - Guarana      (Guarana)");
     move(yLegend++, xLegend);
-    addstr("s - Sonchus\t (Mlecz)");
-    move(yLegend++, xLegend);
-    addstr("G - Guarana\t (Guarana)");
-    move(yLegend++, xLegend);
-    addstr("b - Wolf Berries\t (Wilcze Jagody)");
+    addstr("b - Wolf Berries (Wilcze Jagody)");
     move(yLegend++, xLegend);
     move(yLegend++, xLegend);
-    addstr("\t<=-Steering-=>");
+    addstr("\t<=-Command mode-=>        <=-Human mode-=>");
     move(yLegend++, xLegend);
-    addstr("SPACE - Next turn");
+    addstr("SPACE - Next turn           Arrows - steering");
     move(yLegend++, xLegend);
-    addstr("s - Save current state");
+    addstr("s - Save current state      i - immortality");
     move(yLegend++, xLegend);
     addstr("j - Scroll down");
     move(yLegend++, xLegend);
@@ -309,12 +306,18 @@ void World::LoadFromFile() {
                 }
             }
         }
+        SetLoggerPosition();
         Log("Loading finished!", Color::GREEN);
     } else {
         Log("Couldn't open file \"" + filename + "\"!", Color::RED);
     }
     file.close();
     // TODO refreshing view
+}
+
+void World::SetLoggerPosition() {
+    int yPos = height > 25 ? position.y + height + 2 : 25;
+    logger.SetPosition({2, yPos});
 }
 
 void World::ResetWorld() {

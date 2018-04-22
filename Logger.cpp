@@ -5,8 +5,6 @@
 #include <ncurses.h>
 #include "Logger.hpp"
 
-Logger::Logger(Position position, unsigned int height, World& world)
-        : position(position), scrollPosition(0), height(height), world(world) {}
 
 void Logger::Log(std::string log) {
     Log(log, Color::WHITE);
@@ -97,4 +95,8 @@ bool Logger::GetConfirmation(std::string message) {
         input = getch();
     }
     return true;
+}
+
+void Logger::SetPosition(Position pos) {
+    this->position = pos;
 }

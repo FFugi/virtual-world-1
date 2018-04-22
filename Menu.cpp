@@ -48,25 +48,25 @@ Menu::Command Menu::GetCommand() {
 }
 
 void Menu::ExecuteCommand(Command cmd) {
-    auto &val = parameters.at(menuPosition).second;
+    auto &val = parameters.at(cursorPosition).second;
     switch (cmd) {
         case Command::GO_UP:
-            if (menuPosition == 0) {
-                menuPosition = parameters.size() - 1;
+            if (cursorPosition == 0) {
+                cursorPosition = parameters.size() - 1;
             } else {
-                menuPosition--;
+                cursorPosition--;
             }
             break;
         case Command::GO_DOWN:
-            menuPosition++;
-            menuPosition %= parameters.size();
+            cursorPosition++;
+            cursorPosition %= parameters.size();
             break;
         case Command::INCREMENT:
             // when menuPos isn't pointing at width or height
-            if (parameters.at(menuPosition).first != "width" &&
-                parameters.at(menuPosition).first != "height") {
+            if (parameters.at(cursorPosition).first != "width" &&
+                parameters.at(cursorPosition).first != "height") {
                 if (OrganismsCount() < OrganismsLimit()) {
-                    if (parameters.at(menuPosition).first == "Human" &&
+                    if (parameters.at(cursorPosition).first == "Human" &&
                         val == 1) {
                         val = 1;
                     } else {
@@ -80,17 +80,18 @@ void Menu::ExecuteCommand(Command cmd) {
         case Command::DECREMENT:
             if (val != 0) {
                 // when menuPos isn't pointing at width or height
-                if (parameters.at(menuPosition).first != "width" &&
-                    parameters.at(menuPosition).first != "height") {
+                if (parameters.at(cursorPosition).first != "width" &&
+                    parameters.at(cursorPosition).first != "height") {
                     val--;
                 } else {
-                    if (parameters.at(menuPosition).first == "width") {
+                    if (parameters.at(cursorPosition).first == "width") {
                         if (OrganismsLimit(parameters.at(0).second - 1,
                                            parameters.at(1).second) >
                             OrganismsCount()) {
                             val--;
                         }
-                    } else if (parameters.at(menuPosition).first == "height") {
+                    } else if (parameters.at(cursorPosition).first ==
+                               "height") {
                         if (OrganismsLimit(parameters.at(0).second,
                                            parameters.at(1).second - 1) >
                             OrganismsCount()) {
@@ -110,28 +111,44 @@ void Menu::ExecuteCommand(Command cmd) {
 
 void Menu::Render() {
     clear();
+    move(position.y, position.x);
+    addch(ACS_ULCORNER);
+    for (std::size_t i = 1; i < width; i++) {
+        addch(ACS_HLINE);
+    }
+    addch(ACS_PLUS);
+    for (std::size_t i = 1; i < parameters.size() + 10; i++) {
+        move(position.y + i, position.x);
+        addch(ACS_VLINE);
+    }
+    move(position.y + parameters.size() + 10, position.x);
+    addch(ACS_PLUS);
+    RenderParameters();
+    refresh();
+}
+
+void Menu::RenderParameters() {
     unsigned startY = 0;
     for (auto count : parameters) {
-        move(2 + startY, 2);
-        if (menuPosition == startY) {
+        move(position.y + 2 + startY, position.x + marginLeft);
+        if (cursorPosition == startY) {
             attron(A_REVERSE);
         }
-        printw("%-5s %-10s", std::to_string(count.second).c_str(),
+        printw("%-5s %-10s", std::__cxx11::to_string(count.second).c_str(),
                count.first.c_str());
-        if (menuPosition == startY) {
+        if (cursorPosition == startY) {
             attroff(A_REVERSE);
         }
         startY++;
     }
-    move(2 + 1 + startY, 2);
-    printw("%-5s Total", std::to_string(OrganismsCount()).c_str());
-    move(2 + 2 + startY, 2);
-    printw("%-5s Start organisms limit",
-           std::to_string(OrganismsLimit()).c_str());
-    move(2 + 3 + startY, 2);
-    printw("%-5s free fields to fill",
-           std::to_string(OrganismsLimit() - OrganismsCount()).c_str());
-    refresh();
+    move(position.y + 2 + ++startY, position.x + marginLeft);
+    printw("%-5s Total", std::__cxx11::to_string(OrganismsCount()).c_str());
+    move(position.y + 2 + ++startY, position.x + marginLeft);
+    printw("%-5s Organisms limit",
+           std::__cxx11::to_string(OrganismsLimit()).c_str());
+    move(position.y + 2 + ++startY, position.x + marginLeft);
+    printw("%-5s Free fields to fill", std::__cxx11::to_string(
+                   OrganismsLimit() - OrganismsCount()).c_str());
 }
 
 void Menu::CreateWorld() {
