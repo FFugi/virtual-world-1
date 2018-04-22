@@ -8,11 +8,7 @@
 
 
 void Animal::Collision(Organism *other, bool isAttacked) {
-    // TODO check plant?
-    if (dynamic_cast<Plant *>(other)) {
-        other->Collision(this, false);
-        return;
-    } else if (typeid(*this).name() == typeid(*other).name()) {
+    if (typeid(*this).name() == typeid(*other).name()) {
         // same animals, procreation!
         Procreate(other);
         return;

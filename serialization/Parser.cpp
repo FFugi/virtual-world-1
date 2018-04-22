@@ -5,7 +5,6 @@
 #include "Parser.hpp"
 
 std::string Parser::GetPartOfString(std::size_t position) {
-    // TODO what if null
     if (position == 0) {
         auto end = toParse.find(',');
         return toParse.substr(0, end);

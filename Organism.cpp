@@ -73,7 +73,6 @@ void Organism::Deserialize(std::string data) {
      * Format
      * age,initiative, strength, x, y
      */
-    // TODO not found in string
     Parser parser(data);
     std::string buffer = parser.GetPartOfString(1);
     if (buffer.empty()) {
