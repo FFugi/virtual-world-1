@@ -79,7 +79,7 @@ public:
 
     std::vector<Position> GetNeighbourFields(Position pos);
 
-    std::string Serialize() override;
+    std::string Serialize() const override;
 
     void Deserialize(std::string data) override;
 

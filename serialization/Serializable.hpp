@@ -10,7 +10,7 @@
 
 class Serializable {
 public:
-    virtual std::string Serialize() = 0;
+    virtual std::string Serialize() const = 0;
     virtual void Deserialize(std::string data) = 0;
 };
 

@@ -61,7 +61,7 @@ void Organism::ModifyStrength(int value) {
     strength += value;
 }
 
-std::string Organism::Serialize() {
+std::string Organism::Serialize() const {
     return name + ',' + std::to_string(age) + ',' +
            std::to_string(initiative) + ',' + std::to_string(strength) + ',' +
            std::to_string(position.x) + ',' + std::to_string(position.y);

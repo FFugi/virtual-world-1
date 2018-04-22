@@ -227,7 +227,7 @@ std::vector<Position> World::GetNeighbourFields(Position pos) {
     return possibleMoves;
 }
 
-std::string World::Serialize() {
+std::string World::Serialize() const {
     std::string name("World");
     return name + ',' + std::to_string(width) + ',' + std::to_string(height)
            + ',' + std::to_string(numberOfTurn);
@@ -239,9 +239,18 @@ void World::Deserialize(std::string data) {
      * width,height,turn
      */
     Parser parser(data);
-    width = std::atoi(parser.GetPartOfString(1).c_str());
-    height = std::atoi(parser.GetPartOfString(2).c_str());
-    numberOfTurn = std::atoi(parser.GetPartOfString(3).c_str());
+    std::string buffer = parser.GetPartOfString(1);
+    if (!buffer.empty()) {
+        width = std::atoi(buffer.c_str());
+    }
+    buffer = parser.GetPartOfString(2);
+    if (!buffer.empty()) {
+        height = std::atoi(buffer.c_str());
+    }
+    buffer = parser.GetPartOfString(3);
+    if (!buffer.empty()) {
+        numberOfTurn = std::atoi(buffer.c_str());
+    }
 }
 
 void World::SaveToFile() {
@@ -249,7 +258,7 @@ void World::SaveToFile() {
     Render();
     std::string filename = logger.GetText();
     int willSave = logger.GetConfirmation(
-            "Are you sure to save current state as " + filename + "?");
+            "Are you sure to save current state as \"" + filename + "\"?");
     Render();
     if (!willSave) {
         Log("Save aborted!", Color::RED);
@@ -279,8 +288,8 @@ World::LoadingStatus World::LoadFromFile() {
 
     if (file.good()) {
 
-        int willLoad = logger.GetConfirmation("Are you sure to open "
-                                              + filename + "?");
+        int willLoad = logger.GetConfirmation("Are you sure to open \""
+                                              + filename + "\"?");
         Render();
         if (!willLoad) {
             Log("Load aborted!", Color::RED);
@@ -320,7 +329,7 @@ World::LoadingStatus World::LoadFromFile() {
             getch();
             return LoadingStatus::FAIL;
         }
-        if(!manager.CheckOrganismsCorrectness()){
+        if (!manager.CheckOrganismsCorrectness()) {
             file.close();
             Log("Some organisms are out of field! Loading failed!", Color::RED);
             Render();

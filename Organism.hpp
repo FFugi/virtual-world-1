@@ -63,7 +63,7 @@ public:
 
     virtual void ModifyStrength(int value);
 
-    std::string Serialize() override;
+    std::string Serialize() const override;
 
     void Deserialize(std::string data) override;
 };

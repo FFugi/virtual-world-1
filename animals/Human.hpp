@@ -37,7 +37,7 @@ public:
 
     void Kill(Organism *attacker, std::string comment) override;
 
-    std::string Serialize() override;
+    std::string Serialize() const override;
 
     void Deserialize(std::string data) override;
 

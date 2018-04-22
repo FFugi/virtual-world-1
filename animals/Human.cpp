@@ -132,7 +132,7 @@ void Human::Kill(Organism *attacker, std::string comment) {
     LogResistedAttack(attacker);
 }
 
-std::string Human::Serialize() {
+std::string Human::Serialize() const {
     return Organism::Serialize() + ',' + std::to_string(ageWhenPowerWasUsed);
 }
 
