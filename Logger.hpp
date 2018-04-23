@@ -8,7 +8,7 @@
 
 #include <string>
 #include <vector>
-#include "structures.hpp"
+#include "Position.hpp"
 #include "Color.hpp"
 
 class World;

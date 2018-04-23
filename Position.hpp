@@ -4,14 +4,17 @@
 
 #ifndef VIRTUAL_WORLD_1_STRUCTURES_HPP
 #define VIRTUAL_WORLD_1_STRUCTURES_HPP
-struct Position{
+
+struct Position {
     int x;
     int y;
-    bool operator == (Position & other){
+
+    bool operator==(Position &other) {
         return x == other.x && y == other.y;
     }
-    bool operator <(const Position & other) const {
-        if(x == other.x){
+
+    bool operator<(const Position &other) const {
+        if (x == other.x) {
             return y < other.y;
         }
         return x < other.x;

@@ -7,7 +7,7 @@
 #include <ncurses.h>
 #include <cstddef>
 #include <string>
-#include "structures.hpp"
+#include "Position.hpp"
 #include "serialization/Serializable.hpp"
 #include "Logger.hpp"
 

@@ -120,7 +120,7 @@ void Menu::Render() {
 
 void Menu::RenderLogo() const {
     move(position.y + logoPos.y, position.x + logoPos.x);
-    addstr("World Creator");
+    addstr("World Creation Wizard");
 }
 
 void Menu::RenderLegend() const {

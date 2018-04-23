@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <map>
-#include "structures.hpp"
+#include "Position.hpp"
 #include "serialization/Serializer.hpp"
 
 class Organism;

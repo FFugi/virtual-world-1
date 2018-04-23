@@ -9,7 +9,7 @@
 #include <cstddef>
 #include <exception>
 #include <string>
-#include "structures.hpp"
+#include "Position.hpp"
 #include "Logger.hpp"
 #include "Organism.hpp"
 #include "serialization/Serializer.hpp"
