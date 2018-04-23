@@ -9,8 +9,8 @@ Simple simulation of world which has:
 * Grass (*Alopecurus pratensis*)
 * Sonchus (*Sonchus oleraceus*)
 * Guarana (*Paullinia cupana*)
-* Wolf Berries aka belladonna (*Atropa belladonna*)
-* Sosnowsky's hogweed (*Heracleum sosnowskyi*)
+* Wolf Berries aka Belladonna (*Atropa belladonna*)
+* Sosnowsky's Hogweed (*Heracleum sosnowskyi*)
 
 **Animals**
 * Sheep (*Ovis ammon*)
@@ -25,8 +25,8 @@ Simple simulation of world which has:
 Requires ncurses, works on **Linux**: Clone this repository and run
 
 ```bash
-    mkdir build
-    cd build
-    cmake ..
-    make
+mkdir build
+cd build
+cmake ..
+make
 ```
