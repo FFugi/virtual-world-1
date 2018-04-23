@@ -1,4 +1,9 @@
-*
+cmake-build-debug
+.*
+*.sh
+*.swp
+*~
+!CMakeLists.txt
 !*.cpp
 !*.hpp
 !animals
