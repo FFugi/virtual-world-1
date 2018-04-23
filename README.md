@@ -22,7 +22,7 @@ Simple simulation of world which has:
 
 #### Installation
 
-Works only on **Linux**: Clone this repository and run
+Requires ncurses, works on **Linux**: Clone this repository and run
 
 ```bash
     mkdir build
