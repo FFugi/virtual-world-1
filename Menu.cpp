@@ -160,7 +160,7 @@ void Menu::RenderParameters() {
         if (cursorPosition == startY) {
             attron(A_REVERSE);
         }
-        printw(" %-5s %-10s ", std::__cxx11::to_string(count.second).c_str(),
+        printw(" %-5s %-10s ", std::to_string(count.second).c_str(),
                count.first.c_str());
         if (cursorPosition == startY) {
             attroff(A_REVERSE);
@@ -168,12 +168,12 @@ void Menu::RenderParameters() {
         startY++;
     }
     move(position.y + topMargin + ++startY, position.x + positionOfParameters);
-    printw("%-5s Total", std::__cxx11::to_string(OrganismsCount()).c_str());
+    printw("%-5s Total", std::to_string(OrganismsCount()).c_str());
     move(position.y + topMargin + ++startY, position.x + positionOfParameters);
     printw("%-5s Organisms limit",
-           std::__cxx11::to_string(OrganismsLimit()).c_str());
+           std::to_string(OrganismsLimit()).c_str());
     move(position.y + topMargin + ++startY, position.x + positionOfParameters);
-    printw("%-5s Free fields to fill", std::__cxx11::to_string(
+    printw("%-5s Free fields to fill", std::to_string(
                    OrganismsLimit() - OrganismsCount()).c_str());
 }
 

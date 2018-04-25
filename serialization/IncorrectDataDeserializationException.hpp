@@ -6,7 +6,7 @@
 #define VIRTUAL_WORLD_1_INCORRECTDESERIALIZATIONEXCEPTION_HPP
 
 
-#include <bits/exception.h>
+#include <exception>
 
 class IncorrectDataDeserializationException : public std::exception {
 public:
